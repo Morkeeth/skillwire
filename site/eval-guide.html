@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Evaluate your own task · SkillWire</title>
+<link rel="stylesheet" href="finder-base.css">
+<link rel="stylesheet" href="finder.css">
+</head>
+<body><main class="local-eval-guide">
+<h1>Evaluate a skill on your own setup</h1>
+<p><a href="index.html">Back to SkillWire</a></p>
+<p>Download the local kit, choose one installed skill or a reviewed public stack, and compare two runs of your own task through your existing CLI subscription. No files go to SkillWire. A run sends the task, selected instructions and relevant project content to your chosen agent provider and uses subscription allowance.</p>
+<p><a href="local-eval-tools.zip">Download the local evaluation kit</a>. Extract it and read <code>EVAL-TOOLS.txt</code> for the full commands.</p>
+<ol>
+<li><strong>Detect your setup.</strong> Run <code>python3 lime_agent_eval.py doctor --show-paths</code>. It reports installed CLIs, verified subscription status, and local skill names and hashes without a model call. Codex and Claude are supported for inline trials; native installed-skill trials currently require Codex. Cursor is detected only.</li>
+<li><strong>Choose your task and skill.</strong> Use a disposable project with an initial fixture, TASK.md, a known-good result, a deliberately wrong result and an independent grader.py. The included eval-example shows the file format. Select the full local skill folder with <code>--skill-folder</code>, including its resources, or a public SkillWire stack ZIP with <code>--stack</code>. A local folder is classified as local, not presumed public. Inspect its instructions and licence.</li>
+<li><strong>Test and freeze the judge.</strong> Run <code>prepare</code> as shown below. It executes the local grader with your user permissions. The known-good control must pass and the bad control must fail. Check the task and grader, then use <code>lime_eval_setup.py</code> to choose and seal model, reasoning, arm order and budget without hand-editing JSON. The trial uses the same starting fixture and checks in both arms.</li>
+<li><strong>Run the pair explicitly.</strong> Native mode installs the selected full folder only in treatment, allows equal local shell tools, disables unrelated skills and probes that model tools can write their workspace but cannot read the hidden evaluator. If that probe fails, inference stops and the error is retained. Use a fresh run directory for another pair.</li>
+<li><strong>Judge blind, then inspect the run.</strong> Save an A/B choice before opening labelled grades or CLI commands. Keep the raw commands, outputs, errors, usage and artifacts. A tie at the check ceiling shows no observed benefit on that task. An incomplete CLI or grader is an infrastructure result, not a task score. Installed or read instructions do not prove internal use. The Trial tab opens labelled evidence after a saved verdict and matching withheld key are selected locally.</li>
+</ol>
+<h2>Native Codex commands</h2>
+<pre>python3 lime_task_eval.py prepare --fixture my-task/bug --reference my-task/good --negative my-task/bad --task my-task/TASK.md --grader my-task/grader.py --stack skillwire-skill-stack.zip --out runs/pair-01 --trust-grader
+python3 lime_eval_setup.py --run runs/pair-01 --agent codex --mode native_installed --model gpt-5.6-sol --reasoning low
+python3 lime_agent_eval.py run --run runs/pair-01 --agent codex --mode native_installed --workspaces /separate/disposable/workspaces --use-subscription</pre>
+<p>Keep exactly one selected public skill in SkillWire, download its ZIP, and use that exact file with <code>--stack</code>. For a private or already installed local skill, use <code>--skill-folder /path/to/reviewed-skill-folder</code> instead. Do not mix a selected public skill with an unrelated historical run; the Trial tab compares the selected ID, revision and hash with the run plan. The workspace root must be outside the hidden evaluation directory. An explicit run needs a verified existing ChatGPT subscription login; it refuses API-key or unknown authentication. Do not select private material you do not want the provider to receive.</p>
+<h2>Blind human quality review</h2><p>After a completed pair, run <code>python3 lime_human_review.py prepare --run runs/pair-01 --files app.py test_app.py --context input.json --out reviews/pair-01</code>. Choose output files with <code>--files</code> and any starting files a reviewer needs with <code>--context</code>. The starting files must match between arms. Give the reviewer only <code>blind-review.json</code> and keep <code>reveal-key.json</code> aside. The <a href="human-review.html">blind review page</a> shows the task, starting files, A and B without arm names or automated grades, and saves a local verdict with A, B, tie or cannot judge plus a reason. Use the kit instructions to reveal after the choice is final. Manual artifacts can exercise the interface but do not prove model execution. One review is a task preference, not general efficacy.</p><p>The separate inline-reference mode supplies instruction text with tools disabled. Its historical public tasks and one verified native atomic-stock pilot all reached their check ceilings. The native pilot was one 8/8 tie. A later ten-pair TDD batch recorded 8/10 with the skill installed and 7/10 without, but a task/reference grader conflict leaves that first batch disputed; a repaired ten-case contract has no model runs. None establishes a general skill benefit or equivalence. The example kit is a pipeline check, not evidence for your work. Browser, media and live marketplace jobs are not validated by the native adapter.</p>
+</main></body></html>

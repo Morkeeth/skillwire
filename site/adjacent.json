@@ -1,0 +1,51 @@
+{
+  "retrieved_at": "2026-10-26T14:40:13Z",
+  "note": "Repository stars from GitHub's repository API at retrieval. They measure interest in the whole repository, not installs, trust, item popularity, or quality. Items are alphabetical within type and are not ranked.",
+  "items": [
+    {
+      "type": "MCP servers",
+      "name": "Official MCP example servers",
+      "description": "Reference server implementations from the Model Context Protocol project.",
+      "url": "https://github.com/modelcontextprotocol/servers",
+      "repo": "modelcontextprotocol/servers",
+      "stars": 91581,
+      "stars_source": "https://api.github.com/repos/modelcontextprotocol/servers"
+    },
+    {
+      "type": "Plugins",
+      "name": "Claude Code plugins",
+      "description": "Official plugin examples with commands, agents and workflows.",
+      "url": "https://github.com/anthropics/claude-code/tree/main/plugins",
+      "repo": "anthropics/claude-code",
+      "stars": 153436,
+      "stars_source": "https://api.github.com/repos/anthropics/claude-code"
+    },
+    {
+      "type": "Hooks",
+      "name": "Claude Code security guidance hook",
+      "description": "A documented hook example in the official plugins tree.",
+      "url": "https://github.com/anthropics/claude-code/tree/main/plugins/security-guidance",
+      "repo": "anthropics/claude-code",
+      "stars": 153436,
+      "stars_source": "https://api.github.com/repos/anthropics/claude-code"
+    },
+    {
+      "type": "CLI and harnesses",
+      "name": "Codex CLI",
+      "description": "OpenAI's open source coding agent and CLI.",
+      "url": "https://github.com/openai/codex",
+      "repo": "openai/codex",
+      "stars": 131003,
+      "stars_source": "https://api.github.com/repos/openai/codex"
+    },
+    {
+      "type": "CLI and harnesses",
+      "name": "Gemini CLI",
+      "description": "Google's open source terminal agent.",
+      "url": "https://github.com/google-gemini/gemini-cli",
+      "repo": "google-gemini/gemini-cli",
+      "stars": 108404,
+      "stars_source": "https://api.github.com/repos/google-gemini/gemini-cli"
+    }
+  ]
+}

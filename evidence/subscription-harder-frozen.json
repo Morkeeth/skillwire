@@ -1,0 +1,69 @@
+{
+  "schema": 1,
+  "frozen_at": "2026-10-25T21:49:37.900583+00:00",
+  "model": "gpt-5.6-sol",
+  "reasoning": "low",
+  "pairs_per_task": 3,
+  "tasks": [
+    {
+      "id": "atomic-stock-replay",
+      "skill": "67b1408b4733c4e8",
+      "checks": 10,
+      "prompt": "Repair a stock event reducer. Return JSON {\"code\": \"...\"} implementing Python replay(initial, events). Standard library only, no I/O. initial is a dict of str SKU to exact nonnegative int (bool invalid). events is a list of dicts. Validate inputs; invalid raises ValueError and nothing mutates. Return {\"stock\": dict, \"applied\": list, \"rejected\": list}. Each event has nonempty str id and list moves; each move is [SKU, delta], SKU nonempty str, delta exact int. Extra keys are ignored. Invalid types/shapes raise ValueError even on duplicates or rejected events. For each event aggregate all deltas per SKU before checking feasibility. Reject if any resulting stock would be negative; append its id to rejected. Otherwise commit all moves atomically and append its id to applied. Unknown SKU starts at zero; a committed zero delta creates the SKU. Event ids are idempotency keys. Equality of duplicate content means equal aggregate mapping after dropping zero net deltas, independent of move order; duplicate with identical content is ignored entirely even if first occurrence rejected. Conflicting content for an existing id raises ValueError. Remember rejected ids too. Duplicate validation precedes ignoring it. Return lists follow first encounter order. Initial may contain empty SKU (preserve it) but moves may not. Empty moves is a valid committed event. Do not mutate or alias input initial/events; result stock must be separate. Broken code uses per-move balance checks, mutates initial and records ids only on success. Supply complete corrected function and imports."
+    },
+    {
+      "id": "portable-archive-plan",
+      "skill": "0c66d793944e662f",
+      "checks": 10,
+      "prompt": "Implement Python plan(entries) as JSON {\"code\": \"...\"}. No file or network operations. entries is a list of dicts with path (str), size (exact int >=0), kind (\"file\" or \"dir\"). Other fields ignored. Return ordered normalized file paths, excluding directory entries. Invalid input or conflict raises ValueError, never partially returns or mutates input. Validate ALL entries including dirs. Limits: <=100 files and sum of file sizes <=1,000,000 bytes. Dir size must be zero. Normalize Unicode path to NFC, replace backslashes with '/', then split; remove components exactly '.'; repeated '/' collapse. Reject leading slash, any '..' component, NUL or any Unicode control character category Cc, empty result, any colon in any component, trailing period or space in any component, and any Windows device component (case insensitive basename before FIRST period equals CON PRN AUX NUL COM1..COM9 or LPT1..LPT9). A trailing slash is allowed only for dirs, and only after normalization of separators. Reject file paths ending in slash. Case insensitive collision key is NFC normalized component.casefold() joined by '/'. Reject duplicate explicit entries of any kind, including identical dir entries. Also reject file/dir same key, and any file ancestor of another entry, whether explicit dir or file. Implicit parent dirs are allowed to later become an explicit dir ONCE. Preserve normalized component case in returned file strings and input order. A directory ancestor of another entry is valid. Reject malformed entries with ValueError (including booleans as size). Do not percent-decode; percent characters are literal. Empty entries returns []. Use only standard library. Supply complete function and imports."
+    }
+  ],
+  "judge_sha256": "0011a69fe2a0a8703aeeef8cbd46e57f371affa14ae9000e52896fb5960ac378",
+  "skills": [
+    {
+      "id": "0c66d793944e662f",
+      "repo": "openai/skills",
+      "path": "skills/.curated/security-best-practices/SKILL.md",
+      "revision": "49f948faa9258a0c61caceaf225e179651397431",
+      "sha256": "7b3dae1ffc5434d890f3c65c8f552af52d0307fab3b35dec13013c9ca3844c4f",
+      "source": "https://github.com/openai/skills/blob/49f948faa9258a0c61caceaf225e179651397431/skills/.curated/security-best-practices/SKILL.md",
+      "name": "security-best-practices"
+    },
+    {
+      "id": "67b1408b4733c4e8",
+      "repo": "obra/superpowers",
+      "path": "skills/systematic-debugging/SKILL.md",
+      "revision": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+      "sha256": "51c6435d98c83c42c96ba7c35725a0b2c376cd487fb1a4e6bd0ddbe7e33ef202",
+      "source": "https://github.com/obra/superpowers/blob/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/systematic-debugging/SKILL.md",
+      "name": "systematic-debugging"
+    },
+    {
+      "id": "f37b3e44c1645b37",
+      "repo": "anthropics/skills",
+      "path": "skills/xlsx/SKILL.md",
+      "revision": "dbd4588f9e1033efb41dad4bef2f7947c8993d44",
+      "sha256": "6712b39718fe815054abca9c3ee72f989613e6f771c8a5c58f30a65a6c905622",
+      "source": "https://github.com/anthropics/skills/blob/dbd4588f9e1033efb41dad4bef2f7947c8993d44/skills/xlsx/SKILL.md",
+      "name": "xlsx"
+    }
+  ],
+  "outcome": "Six independent executable requirement groups per task, deterministic grading, no skill-text assertions",
+  "limits": [
+    "Exploratory small task set; not a general skill score",
+    "Model-generated code evaluated under restricted AST/builtins and timeout",
+    "Subscription usage is not free of opportunity cost; no API spend",
+    "Treatment offers pinned instructions; actual read recorded separately",
+    "All errors and raw runs retained; no retries without new run ID",
+    "Instruction presence is known; model reading or use is not observed. This is not an invocation study."
+  ],
+  "protocol": "Text-only task with versus without inline pinned skill. Tools disabled. Read is unobservable.",
+  "supersedes_attempt": "Offered-file protocol failed because nested sandbox denied shell reads. Original freeze and raw errors retained.",
+  "runner_sha256": "dccf1e3a068a891ab7512f49f8e672e941abd080ef1617bbc542a283f66c2192",
+  "judge_dependencies": {
+    "scripts/frozen_outcomes_v2.py": "e970cc90b434e1078a20516146c67ce321994794a382daa5189a03dab040b1ac"
+  },
+  "analysis": "Both tasks, three pairs each, all runs including errors retained. No stopping on significance; no pooled broad efficacy. Per-case exact all-groups pass and individual group failures, paired differences only. Original24-run null preserved unchanged.",
+  "read_observability": "Prompt reference supplied in treatment; separate skill read and internal use unobservable. No claim skill read.",
+  "task_basis": "Synthetic transactional replay and portable archive behavior, independent of skill instructions. Positive and deliberate negative controls run before freeze."
+}

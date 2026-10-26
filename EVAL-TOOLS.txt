@@ -1,0 +1,85 @@
+SkillWire local evaluation kit
+
+Unzip this archive into a fresh folder. Python 3 and an installed Codex CLI are
+needed for the native installed-skill trial. The helper does not install a CLI,
+change global skills, request API keys, or send files to SkillWire.
+
+1. Detect the local CLI and installed skill folders without a model call:
+
+   python3 lime_agent_eval.py doctor --show-paths
+
+2. Choose a task from your own disposable project. Write TASK.md, an initial
+   fixture folder, a known-good completed folder, a deliberately wrong completed
+   folder, and an independent grader.py. The included eval-example shows the
+   file format. The grader runs with your local user permissions: inspect it.
+
+3. Copy the full selected skill folder, including resources, into the frozen
+   trial. This folder can be an installed local/private skill. Its source is
+   classified as local, not assumed public. For a reviewed public SkillWire stack
+   ZIP, replace --skill-folder with --stack.
+
+   python3 lime_task_eval.py prepare --fixture my-task/bug \
+     --reference my-task/good --negative my-task/bad \
+     --task my-task/TASK.md --grader my-task/grader.py \
+     --skill-folder /path/to/selected-skill-folder \
+     --out runs/pair-01 --trust-grader
+
+   Stop if ready is false. A good control must pass and a bad control must fail.
+
+4. Before any model run, set and seal the protocol without editing JSON:
+
+   python3 lime_eval_setup.py --run runs/pair-01 --agent codex \
+     --mode native_installed --model gpt-5.6-sol --reasoning low
+
+   Choose a model your installed CLI can run. The setup command records a
+   random arm order, two trials and a 360-second cap by default; you can set
+   --order and --timeout explicitly. It binds the exact local runner bytes.
+   It performs no model call and refuses to replace an existing seal.
+
+5. An explicit native trial uses your existing verified ChatGPT subscription:
+
+   python3 lime_agent_eval.py run --run runs/pair-01 --agent codex \
+     --mode native_installed --workspaces /separate/disposable/workspaces \
+     --use-subscription
+
+   The two workspace folders must be outside the hidden evaluation folder.
+   The runner probes workspace write and hidden-grader read boundaries before
+   inference. A failed probe stops the run. Use a new output folder for another
+   pair; never replace the raw outputs, failures, or grades.
+
+Each arm produces its own files and grade. A tie at the check ceiling has no
+observed skill benefit. Installed or read instructions do not prove internal
+use. The trial sends the task, selected skill and relevant project content to
+the chosen provider through its CLI and consumes subscription allowance. Do
+not select private material you do not want that provider to receive.
+
+This kit's eval-example is only an offline pipeline check, not evidence of
+skill benefit on your work. The product Eval page explains the saved studies.
+
+Blind human review after the pair finishes
+
+Generate a reviewer bundle from a completed native run (text outputs only):
+
+   python3 lime_human_review.py prepare --run runs/pair-01 \
+     --files app.py test_app.py --context input.json \
+     --out reviews/pair-01
+
+List the saved result files with --files. List starting fixture files needed
+to judge those results with --context; each context file must have identical
+bytes in both arms. Do not include hidden grader, reference or arm labels.
+
+Give the reviewer only reviews/pair-01/blind-review.json. Keep
+reveal-key.json separate. Open human-review.html through the SkillWire product,
+load the blind bundle, compare A and B, and save human-review-verdict.json.
+Then reveal locally:
+
+   python3 lime_human_review.py reveal \
+     --bundle reviews/pair-01/blind-review.json \
+     --key reviews/pair-01/reveal-key.json \
+     --review human-review-verdict.json --out reviews/pair-01/revealed.json
+
+A reviewer can choose A, B, tie or cannot judge. Their reason and choice are
+kept separate from automated grades until reveal. This local file is not
+authenticated and one preference does not establish a general skill effect.
+For manually supplied artifacts, use --task, --without and --with instead of
+--run. That mode is an interface check, not verified model execution.

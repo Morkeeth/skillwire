@@ -1,0 +1,50 @@
+"""Reproducible offline static production export for Vercel."""
+import json, shutil, re, sys, gzip, zipfile
+from pathlib import Path
+ROOT=Path(__file__).resolve().parents[1]
+def main():
+    sys.path.insert(0,str(ROOT))
+    import published_catalog
+    catalog=published_catalog.load()
+    assert catalog['skills'], 'empty catalog'
+    from enrich_catalog import EMAIL
+    assert not EMAIL.search(json.dumps(catalog)), 'email in public catalog'
+    assert all('target_models' in s for s in catalog['skills'])
+    ids=set()
+    for s in catalog['skills']:
+        assert s['id'] not in ids;ids.add(s['id'])
+        assert s['category'] in catalog['taxonomy'] and s['problem'] and s['models']
+        assert s['source'].startswith('https://github.com/') and len(s['revision'])==40
+        assert (s['eval']['status']=='Not tested' and s['eval']['n']==0) or (s['eval']['status']=='Measured task outcomes' and s['eval']['skill_sha256']==s['sha256'])
+    runtime_keys=['id','name','repo','path','source','revision','sha256','license','folder_files']
+    runtime={'skills':[{k:s[k] for k in runtime_keys if k in s} for s in catalog['skills']],'sources':[{k:s[k] for k in ['repo','revision','archive_sha256'] if k in s} for s in catalog['sources']]}
+    (ROOT/'evidence/runtime-catalog.json.gz').write_bytes(gzip.compress(json.dumps(runtime,separators=(',',':')).encode(),mtime=0))
+    out=ROOT/'dist';out.mkdir(exist_ok=True)
+    old_style=out/'style.css'
+    if old_style.exists():old_style.unlink()
+    for n in ('index.html','finder-base.css','finder.css','app.js','paired-inspector.js','installed-skills.js','adjacent.json','human-review.html','human-review.js'):shutil.copyfile(ROOT/'site'/n,out/n)
+    shutil.copyfile(ROOT/'web/favicon.svg',out/'favicon.svg')
+    (out/'catalog.json').write_text(json.dumps(catalog,separators=(',',':')))
+    if (ROOT/'evidence/public-evaluation-results.json').exists():
+        shutil.copyfile(ROOT/'evidence/public-evaluation-results.json',out/'evaluations.json')
+        correction=json.loads((ROOT/'evidence/judge-correction.json').read_text());correction.pop('corrected_grades',None)
+        (out/'judge-correction.json').write_text(json.dumps(correction,indent=2))
+    shutil.copyfile(ROOT/'evidence/public-harder-results.json',out/'harder-evaluations.json')
+    shutil.copyfile(ROOT/'site/eval-guide.html',out/'eval-guide.html')
+    original=json.loads((ROOT/'evidence/public-evaluation-results.json').read_text());harder=json.loads((ROOT/'evidence/public-harder-results.json').read_text())
+    tasks=[]
+    for skill in original['evaluations']:
+        for t in skill['tasks']:tasks.append({'task':t['id'],'skill':skill['name'],'n':t['baseline_n'],'groups':t['checks_per_run'],'baseline_passes':sum(x==t['checks_per_run'] for x in t['baseline_checks_passed']),'treatment_passes':sum(x==t['checks_per_run'] for x in t['treatment_checks_passed'])})
+    native_path=ROOT/'evidence/public-native-evaluation.json'
+    (out/'native-studies.json').write_text(native_path.read_text() if native_path.exists() else json.dumps({'studies':[],'status':'No completed native study published. Existing inline results retain their original scope.'}))
+    studies=[{'title':'Original exploratory function tasks','model':original['evaluations'][0]['model'],'completed_outputs':len(original['records']),'protocol':'Pinned reference inline; tool use disabled; post-run grader capability correction.','tasks':tasks,'evidence':'evaluations.json'},{'title':'Separately frozen harder follow-up','model':harder['model'],'completed_outputs':len(harder['runs']),'protocol':'Pinned reference inline; tool use disabled; frozen checks, corrected grader launch path.','tasks':[{'task':t['case'],'skill':next(v['name'] for v in harder['skills'] if v['id']==t['skill']),'n':t['n_per_arm'],'groups':t['outcome_groups'],'baseline_passes':t['all_groups_pass']['baseline'],'treatment_passes':t['all_groups_pass']['treatment']} for t in harder['summary']],'evidence':'harder-evaluations.json'}]
+    (out/'eval-studies.json').write_text(json.dumps({'studies':studies},indent=2))
+    with zipfile.ZipFile(out/'local-eval-tools.zip','w',zipfile.ZIP_DEFLATED) as z:
+        for file in [ROOT/'lime_task_eval.py',ROOT/'lime_agent_eval.py',ROOT/'lime_eval_setup.py',ROOT/'lime_human_review.py',ROOT/'EVAL-TOOLS.txt',ROOT/'LICENSE',*sorted((ROOT/'eval-example').glob('**/*'))]:
+            if file.is_file() and '__pycache__' not in file.parts:
+                info=zipfile.ZipInfo(file.relative_to(ROOT).as_posix(),(2020,1,1,0,0,0))
+                info.compress_type=zipfile.ZIP_DEFLATED
+                info.external_attr=0o100644<<16
+                z.writestr(info,file.read_bytes())
+    print(json.dumps({'build':'static production export','skills':len(ids),'repos':len(catalog['sources']),'output':'dist','network':False}))
+if __name__=='__main__':main()

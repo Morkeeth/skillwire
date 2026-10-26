@@ -1,0 +1,37 @@
+{
+  "buildCommand": "python3 scripts/build_site.py",
+  "outputDirectory": "dist",
+  "framework": null,
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'none'"
+        }
+      ]
+    }
+  ],
+  "functions": {
+    "api/index.py": {
+      "includeFiles": "{public_runtime.py,published_catalog.py,public_skill_finder.py,evidence/runtime-catalog.json.gz,evidence/public-source-licences.json}",
+      "excludeFiles": "{data/**,article-kit/**,tests/**,examples/**,.git/**,.codex/**,dist/**,site/**,scripts/**,web/**,evidence/hosted-catalog.json,evidence/public-evaluation-results.json,evidence/public-harder-results.json,evidence/judge-correction.json}",
+      "maxDuration": 60
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "/api/index.py?route=:path*"
+    }
+  ]
+}

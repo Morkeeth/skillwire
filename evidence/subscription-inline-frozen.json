@@ -1,0 +1,87 @@
+{
+  "schema": 1,
+  "frozen_at": "2026-10-25T20:25:44.370951+00:00",
+  "model": "gpt-5.6-sol",
+  "reasoning": "low",
+  "pairs_per_task": 2,
+  "tasks": [
+    {
+      "id": "money-totals",
+      "skill": "f37b3e44c1645b37",
+      "prompt": "Write Python function totals(rows). Each row is a dict with account and amount strings. Ignore rows whose amount is not a finite decimal. Strip account whitespace. Sum exact decimal amounts by account, rounding each final account total to 2 decimals with ROUND_HALF_UP. Return a dict of account to two-decimal strings, including negative values and empty account keys. Do not modify input rows. Use standard library only. Return JSON with a single code string containing function and necessary imports.",
+      "checks": 6
+    },
+    {
+      "id": "table-dedup",
+      "skill": "f37b3e44c1645b37",
+      "prompt": "Write Python function latest(rows). Each row has id and integer version. Return one original row per id: the greatest version wins; for equal versions the last row wins. Output order follows the first appearance of each id. Empty input returns []. Do not mutate rows or input. Return JSON with a single code string containing function and necessary standard-library imports.",
+      "checks": 6
+    },
+    {
+      "id": "escaped-record",
+      "skill": "67b1408b4733c4e8",
+      "prompt": "Fix this parser by returning complete Python function split_record(text): return text.split(\"|\"). Required grammar: unescaped | separates fields, backslash escapes the next character (including | or backslash), a terminal unpaired backslash raises ValueError. Empty text is one empty field. Empty trailing fields must be kept. Return JSON with a single code string containing function and necessary standard-library imports.",
+      "checks": 6
+    },
+    {
+      "id": "time-window",
+      "skill": "67b1408b4733c4e8",
+      "prompt": "Fix Python function in_window(t,start,end) whose broken implementation is start <= t <= end. Inputs are minute-of-day integers 0..1439. Window start is inclusive and end exclusive. A window may cross midnight. start == end means empty, never a full day. Invalid input (including booleans or non-integers) raises ValueError. Return JSON with a single code string containing function and necessary standard-library imports.",
+      "checks": 6
+    },
+    {
+      "id": "redirect-policy",
+      "skill": "0c66d793944e662f",
+      "prompt": "Implement Python function allowed_redirect(url). Accept an absolute URL only when scheme is https, hostname is exactly example.com or www.example.com (case-insensitive), there is no username or password, and explicit port is absent or 443. Reject whitespace anywhere, backslashes anywhere, control characters, malformed port, relative and protocol-relative URLs, subdomains and lookalike suffixes. Return bool; never throw on a non-string input. You may import urllib.parse. No network or file access. Return JSON with a single code string containing function and necessary standard-library imports.",
+      "checks": 6
+    },
+    {
+      "id": "safe-filename",
+      "skill": "0c66d793944e662f",
+      "prompt": "Implement Python function valid_filename(name). Return True only for a nonempty ASCII string of at most 80 characters, composed solely of letters, digits, period, underscore and hyphen, that is neither . nor .., does not start with a period, and contains no run of two consecutive periods. Return False for nonstrings. No file operations or imports required. Return JSON with a single code string containing the function.",
+      "checks": 6
+    }
+  ],
+  "judge_sha256": "f419457ade10a076f60bd97b478bf3ff92dc1494f277cd72042b192aa89a6192",
+  "skills": [
+    {
+      "id": "0c66d793944e662f",
+      "repo": "openai/skills",
+      "path": "skills/.curated/security-best-practices/SKILL.md",
+      "revision": "49f948faa9258a0c61caceaf225e179651397431",
+      "sha256": "7b3dae1ffc5434d890f3c65c8f552af52d0307fab3b35dec13013c9ca3844c4f",
+      "source": "https://github.com/openai/skills/blob/49f948faa9258a0c61caceaf225e179651397431/skills/.curated/security-best-practices/SKILL.md",
+      "name": "security-best-practices"
+    },
+    {
+      "id": "67b1408b4733c4e8",
+      "repo": "obra/superpowers",
+      "path": "skills/systematic-debugging/SKILL.md",
+      "revision": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+      "sha256": "51c6435d98c83c42c96ba7c35725a0b2c376cd487fb1a4e6bd0ddbe7e33ef202",
+      "source": "https://github.com/obra/superpowers/blob/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/systematic-debugging/SKILL.md",
+      "name": "systematic-debugging"
+    },
+    {
+      "id": "f37b3e44c1645b37",
+      "repo": "anthropics/skills",
+      "path": "skills/xlsx/SKILL.md",
+      "revision": "dbd4588f9e1033efb41dad4bef2f7947c8993d44",
+      "sha256": "6712b39718fe815054abca9c3ee72f989613e6f771c8a5c58f30a65a6c905622",
+      "source": "https://github.com/anthropics/skills/blob/dbd4588f9e1033efb41dad4bef2f7947c8993d44/skills/xlsx/SKILL.md",
+      "name": "xlsx"
+    }
+  ],
+  "outcome": "Six independent executable requirement groups per task, deterministic grading, no skill-text assertions",
+  "limits": [
+    "Exploratory small task set; not a general skill score",
+    "Model-generated code evaluated under restricted AST/builtins and timeout",
+    "Subscription usage is not free of opportunity cost; no API spend",
+    "Treatment offers pinned instructions; actual read recorded separately",
+    "All errors and raw runs retained; no retries without new run ID",
+    "Instruction presence is known; model reading or use is not observed. This is not an invocation study."
+  ],
+  "protocol": "Text-only task with versus without inline pinned skill. Tools disabled. Read is unobservable.",
+  "supersedes_attempt": "Offered-file protocol failed because nested sandbox denied shell reads. Original freeze and raw errors retained.",
+  "runner_sha256": "dccf1e3a068a891ab7512f49f8e672e941abd080ef1617bbc542a283f66c2192"
+}

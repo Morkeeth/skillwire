@@ -1,0 +1,224 @@
+{
+  "studies": [
+    {
+      "public_fixture": true,
+      "skill": {
+        "id": "d8861ee81d1cc2ce",
+        "name": "tdd",
+        "repo": "mattpocock/skills",
+        "source": "https://github.com/mattpocock/skills/blob/5beb35b040e3de97e54fa9e386d7e42d15c295c2/skills/engineering/tdd/SKILL.md",
+        "revision": "5beb35b040e3de97e54fa9e386d7e42d15c295c2",
+        "sha256": "5505d25bbaa8fc14a79e4d20163936958992a2995b7f1dd1d6197edc9ed722e0",
+        "license": "MIT"
+      },
+      "family": "tdd: atomic-stock native pilot",
+      "mode": "native_installed",
+      "pairs_planned": 1,
+      "attempted_invocations": 2,
+      "completed_invocations": 2,
+      "both_pass": 1,
+      "both_fail": 0,
+      "treatment_only_wins": 0,
+      "baseline_only_wins": 0,
+      "read_observed_treatments": 1,
+      "effect": {
+        "valid_pairs": 1,
+        "difference": 0.0,
+        "ci95": [
+          -0.9875,
+          0.9875
+        ],
+        "missing_pair_bound": [
+          0.0,
+          0.0
+        ],
+        "exact_discordant_p": 1.0
+      },
+      "cases": [
+        {
+          "case": "atomic-stock",
+          "arms": {
+            "without": {
+              "completion": "completed",
+              "task_passed": true,
+              "checks": [
+                {
+                  "name": "public-behavior-1",
+                  "passed": true
+                },
+                {
+                  "name": "public-behavior-2",
+                  "passed": true
+                },
+                {
+                  "name": "public-behavior-3",
+                  "passed": true
+                },
+                {
+                  "name": "public-behavior-4",
+                  "passed": true
+                },
+                {
+                  "name": "submitted-tests-accept-correct",
+                  "passed": true
+                },
+                {
+                  "name": "submitted-tests-kill-mutant-1",
+                  "passed": true
+                },
+                {
+                  "name": "submitted-tests-kill-mutant-2",
+                  "passed": true
+                },
+                {
+                  "name": "submitted-tests-kill-mutant-3",
+                  "passed": true
+                }
+              ],
+              "seconds": 247.645,
+              "usage": {
+                "input_tokens": 457984,
+                "cached_input_tokens": 426880,
+                "cache_write_input_tokens": 0,
+                "output_tokens": 10567,
+                "reasoning_output_tokens": 1087
+              },
+              "read": {
+                "status": "not_supplied"
+              },
+              "model_requested": "gpt-5.6-sol"
+            },
+            "with": {
+              "completion": "completed",
+              "task_passed": true,
+              "checks": [
+                {
+                  "name": "public-behavior-1",
+                  "passed": true
+                },
+                {
+                  "name": "public-behavior-2",
+                  "passed": true
+                },
+                {
+                  "name": "public-behavior-3",
+                  "passed": true
+                },
+                {
+                  "name": "public-behavior-4",
+                  "passed": true
+                },
+                {
+                  "name": "submitted-tests-accept-correct",
+                  "passed": true
+                },
+                {
+                  "name": "submitted-tests-kill-mutant-1",
+                  "passed": true
+                },
+                {
+                  "name": "submitted-tests-kill-mutant-2",
+                  "passed": true
+                },
+                {
+                  "name": "submitted-tests-kill-mutant-3",
+                  "passed": true
+                }
+              ],
+              "seconds": 101.192,
+              "usage": {
+                "input_tokens": 308432,
+                "cached_input_tokens": 283264,
+                "cache_write_input_tokens": 0,
+                "output_tokens": 4339,
+                "reasoning_output_tokens": 912
+              },
+              "read": {
+                "status": "full_body_tool_output_observed",
+                "matched_skill_ids": [
+                  "d8861ee81d1cc2ce"
+                ],
+                "trace_sha256": "27feb899b312edc12738f68425c87798cd2cf37edc1c5c07ee2dbaa6291e0cd8",
+                "events": 26,
+                "parse_errors": 0,
+                "limit": "Local trace evidence, not authenticated telemetry. Internal model use is unobservable. Partial/trimmed/inline reads are not inferred."
+              },
+              "model_requested": "gpt-5.6-sol"
+            }
+          }
+        }
+      ],
+      "missing_or_infrastructure": [],
+      "interval_method": "Bonferroni subtraction of two97.5% exact Clopper-Pearson marginal intervals; at least95% coverage for paired difference; no catalog-wide claim.",
+      "limit": "1 planned paired case(s) on one CLI setup. One bounded public repository-repair pilot. Baseline and treatment executed; not the planned ten-case study or a broad efficacy estimate. No pooling with inline-reference studies, no ranking by p-values, no inference that installed means read or used.",
+      "study_class": "pilot",
+      "settings": {
+        "model": "gpt-5.6-sol",
+        "reasoning": "low",
+        "harness": "codex",
+        "tools": "local_shell",
+        "mode": "native_installed",
+        "budget": {
+          "max_cli_trials": 2,
+          "timeout_seconds": 360
+        },
+        "arm_order": [
+          "with",
+          "without"
+        ]
+      },
+      "sealed_at": "2026-10-26T07:25:58.688890+00:00",
+      "plan_sha256": "72c6b68fd9523820084285323607e70ad9a7d282e49ef6739cec95cd7f4dc215",
+      "protocol_sha256": "5383cbaadec1e6f6685715d4fccbfdee5d315a97cbfda5e166fb9eb28ad12488",
+      "grader_sha256": "faa0466edb04aeb7c19f171a05bfef3cf0b131d2d527d50dfb176927faaab8cb",
+      "source_manifest_sha256": "0971384ec3974a62017d92c743c0a941a9ce070bfb1d818c0a54bf0be0f045a8",
+      "verification": [
+        {
+          "arm": "without",
+          "boundary_sha256": "7f644aa7cf37bab2573a1dc789645b75b9f00978402869702afc86e347e91743",
+          "record_sha256": "4f0c3468c5ac6de843578cf1a20088a19027bf5e6e593e4d39db98b5524c9f74",
+          "tool_trace_sha256": "5a13853e9ec259e703cb850455eac80910eb03710e224bf4e4787a95a1bfbdb5",
+          "child_runs_sha256": "dc55827e94f34157b7a4c54441c4239846f289a6f5e70b7bf7b65281e0109080",
+          "cli_version": "codex-cli 0.164.0",
+          "finished_at_utc": "2026-10-26T07:31:50.697772+00:00",
+          "artifacts": [
+            {
+              "path": "app.py",
+              "sha256": "65977927dbb77c461ae1a1c56e20cb2d3c12a9837e40ce59cec8d84f6f6e78e4",
+              "content": "def update(stock, changes):\n    \"\"\"Apply ordered stock changes without mutating either input.\"\"\"\n    original = dict(stock)\n    updated = dict(stock)\n\n    for key, delta in changes:\n        if key not in updated or updated[key] + delta < 0:\n            return {\"ok\": False, \"stock\": original}\n        updated[key] += delta\n\n    return {\"ok\": True, \"stock\": updated}\n"
+            },
+            {
+              "path": "test_app.py",
+              "sha256": "1873f1aed851eadc72fd33f021efe98b9c649e8d947e5e7089ad94e79d75785a",
+              "content": "import unittest\n\nfrom app import update\n\n\nclass UpdateTests(unittest.TestCase):\n    def test_applies_changes_in_order(self):\n        stock = {\"apple\": 3, \"pear\": 1}\n        changes = [[\"apple\", -2], [\"pear\", 4], [\"apple\", 1]]\n        self.assertEqual(update(stock, changes), {\"ok\": True, \"stock\": {\"apple\": 2, \"pear\": 5}})\n\n    def test_rejects_negative_intermediate_even_if_later_change_recovers(self):\n        stock = {\"apple\": 2}\n        changes = [[\"apple\", -3], [\"apple\", 5]]\n        self.assertEqual(update(stock, changes), {\"ok\": False, \"stock\": {\"apple\": 2}})\n\n    def test_failure_after_valid_changes_returns_original_stock(self):\n        stock = {\"apple\": 5, \"pear\": 2}\n        changes = [[\"apple\", -2], [\"pear\", -3]]\n        self.assertEqual(\n            update(stock, changes),\n            {\"ok\": False, \"stock\": {\"apple\": 5, \"pear\": 2}},\n        )\n\n    def test_rejects_absent_key_and_returns_original_stock(self):\n        stock = {\"apple\": 5}\n        changes = [[\"orange\", 1]]\n        self.assertEqual(update(stock, changes), {\"ok\": False, \"stock\": {\"apple\": 5}})\n\n    def test_does_not_mutate_inputs_on_success(self):\n        stock = {\"apple\": 5}\n        changes = [[\"apple\", -2]]\n        original_stock = dict(stock)\n        original_changes = [change[:] for change in changes]\n        result = update(stock, changes)\n        self.assertEqual(stock, original_stock)\n        self.assertEqual(changes, original_changes)\n        self.assertIsNot(result[\"stock\"], stock)\n\n    def test_does_not_mutate_inputs_on_failure(self):\n        stock = {\"apple\": 1}\n        changes = [[\"apple\", 2], [\"apple\", -4]]\n        original_stock = dict(stock)\n        original_changes = [change[:] for change in changes]\n        result = update(stock, changes)\n        self.assertEqual(stock, original_stock)\n        self.assertEqual(changes, original_changes)\n        self.assertIsNot(result[\"stock\"], stock)\n\n    def test_allows_value_to_reach_zero(self):\n        self.assertEqual(\n            update({\"apple\": 2}, [[\"apple\", -2]]),\n            {\"ok\": True, \"stock\": {\"apple\": 0}},\n        )\n\n    def test_empty_changes_returns_equal_copy(self):\n        stock = {\"apple\": 2}\n        result = update(stock, [])\n        self.assertEqual(result, {\"ok\": True, \"stock\": stock})\n        self.assertIsNot(result[\"stock\"], stock)\n\n\nif __name__ == \"__main__\":\n    unittest.main()\n"
+            }
+          ]
+        },
+        {
+          "arm": "with",
+          "boundary_sha256": "0feab1c378b953dba067a7705e6525156aac162de9ccf0f6ec9e54a4ef998e44",
+          "record_sha256": "a5439fba0864ff12c840ba407af194a1d367015f8ea34f784ee334dcf1af0822",
+          "tool_trace_sha256": "27feb899b312edc12738f68425c87798cd2cf37edc1c5c07ee2dbaa6291e0cd8",
+          "child_runs_sha256": "778df17987f16ce22072bb1d154477bfbd6c680ec634b05fef4d1f3af286e780",
+          "cli_version": "codex-cli 0.164.0",
+          "finished_at_utc": "2026-10-26T07:27:40.227331+00:00",
+          "artifacts": [
+            {
+              "path": "app.py",
+              "sha256": "8dcc5a90530cecf071b13517581eaa76a714a2164fa237ebcf0bdb0b23f9e1a5",
+              "content": "def update(stock, changes):\n    original = dict(stock)\n    updated = dict(original)\n\n    for key, delta in changes:\n        if key not in updated or updated[key] + delta < 0:\n            return {\"ok\": False, \"stock\": original}\n        updated[key] += delta\n\n    return {\"ok\": True, \"stock\": updated}\n"
+            },
+            {
+              "path": "test_app.py",
+              "sha256": "0933724374ec2b150f77ec849d14af6c9d3a91deccaedcdb8f12592b20c7ad95",
+              "content": "import unittest\n\nfrom app import update\n\n\nclass UpdateTests(unittest.TestCase):\n    def test_applies_changes_in_order_to_a_copy(self):\n        stock = {\"apples\": 5, \"pears\": 2}\n        changes = [[\"apples\", -2], [\"apples\", 4], [\"pears\", 1]]\n\n        result = update(stock, changes)\n\n        self.assertEqual(\n            result,\n            {\"ok\": True, \"stock\": {\"apples\": 7, \"pears\": 3}},\n        )\n        self.assertIsNot(result[\"stock\"], stock)\n\n    def test_negative_intermediate_value_returns_original_stock(self):\n        stock = {\"apples\": 5, \"pears\": 2}\n        changes = [[\"apples\", 3], [\"pears\", -3], [\"pears\", 10]]\n\n        result = update(stock, changes)\n\n        self.assertEqual(\n            result,\n            {\"ok\": False, \"stock\": {\"apples\": 5, \"pears\": 2}},\n        )\n        self.assertIsNot(result[\"stock\"], stock)\n\n    def test_absent_key_returns_original_stock(self):\n        stock = {\"apples\": 5}\n        changes = [[\"apples\", 2], [\"pears\", 1]]\n\n        result = update(stock, changes)\n\n        self.assertEqual(result, {\"ok\": False, \"stock\": {\"apples\": 5}})\n        self.assertIsNot(result[\"stock\"], stock)\n\n    def test_success_does_not_mutate_inputs(self):\n        stock = {\"apples\": 5}\n        changes = [[\"apples\", -2]]\n        original_stock = {\"apples\": 5}\n        original_changes = [[\"apples\", -2]]\n\n        update(stock, changes)\n\n        self.assertEqual(stock, original_stock)\n        self.assertEqual(changes, original_changes)\n\n    def test_failure_does_not_mutate_inputs(self):\n        stock = {\"apples\": 5}\n        changes = [[\"apples\", 2], [\"missing\", 1]]\n        original_stock = {\"apples\": 5}\n        original_changes = [[\"apples\", 2], [\"missing\", 1]]\n\n        update(stock, changes)\n\n        self.assertEqual(stock, original_stock)\n        self.assertEqual(changes, original_changes)\n\n\nif __name__ == \"__main__\":\n    unittest.main()\n"
+            }
+          ]
+        }
+      ],
+      "task": "Repair app.py and add independent unittest regression tests in test_app.py. Agreed public seam: app.update. update(stock, changes): changes is [[key,delta],...]. Apply in order to a copy; if any intermediate value would be negative or key absent return {ok:False,stock:original copy}; else {ok:True,stock:updated}. Never mutate stock/changes.\nRun submitted tests, use standard library only and keep API unchanged. Deliver app.py and test_app.py. This is a fresh bounded native pilot, not a completed efficacy study.",
+      "read_limit": "Exact successful full-body tool output is observable. Offering, explicit invocation and internal influence are distinct; no claim of internal use.",
+      "interpretation": "Preserve observed ties and failures. One matched case cannot establish general skill benefit; interval remains wide."
+    }
+  ]
+}

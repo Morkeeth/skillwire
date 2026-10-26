@@ -1,0 +1,232 @@
+[
+  {
+    "case": "atomic-stock-replay",
+    "positive": {
+      "passed": 10,
+      "total": 10,
+      "outcomes": [
+        {
+          "name": "empty-and-copy",
+          "passed": true,
+          "error": null
+        },
+        {
+          "name": "aggregate-before-feasibility",
+          "passed": true,
+          "error": null
+        },
+        {
+          "name": "atomic-reject",
+          "passed": true,
+          "error": null
+        },
+        {
+          "name": "zero-creates-key",
+          "passed": true,
+          "error": null
+        },
+        {
+          "name": "duplicate-permutation-zero",
+          "passed": true,
+          "error": null
+        },
+        {
+          "name": "rejected-retry-stays-rejected",
+          "passed": true,
+          "error": null
+        },
+        {
+          "name": "conflicting-id",
+          "passed": true,
+          "error": null
+        },
+        {
+          "name": "malformed-duplicate-still-validates",
+          "passed": true,
+          "error": null
+        },
+        {
+          "name": "input-shape-validation",
+          "passed": true,
+          "error": null
+        },
+        {
+          "name": "seeded-replay-80",
+          "passed": true,
+          "error": null
+        }
+      ]
+    },
+    "deliberate_mutant": {
+      "passed": 7,
+      "total": 10,
+      "outcomes": [
+        {
+          "name": "empty-and-copy",
+          "passed": true,
+          "error": null
+        },
+        {
+          "name": "aggregate-before-feasibility",
+          "passed": true,
+          "error": null
+        },
+        {
+          "name": "atomic-reject",
+          "passed": true,
+          "error": null
+        },
+        {
+          "name": "zero-creates-key",
+          "passed": true,
+          "error": null
+        },
+        {
+          "name": "duplicate-permutation-zero",
+          "passed": false,
+          "error": null
+        },
+        {
+          "name": "rejected-retry-stays-rejected",
+          "passed": false,
+          "error": null
+        },
+        {
+          "name": "conflicting-id",
+          "passed": false,
+          "error": null
+        },
+        {
+          "name": "malformed-duplicate-still-validates",
+          "passed": true,
+          "error": null
+        },
+        {
+          "name": "input-shape-validation",
+          "passed": true,
+          "error": null
+        },
+        {
+          "name": "seeded-replay-80",
+          "passed": true,
+          "error": null
+        }
+      ]
+    }
+  },
+  {
+    "case": "portable-archive-plan",
+    "positive": {
+      "passed": 10,
+      "total": 10,
+      "outcomes": [
+        {
+          "name": "normalization-and-order",
+          "passed": true,
+          "error": null
+        },
+        {
+          "name": "unicode-nfc-casefold-collisions",
+          "passed": true,
+          "error": null
+        },
+        {
+          "name": "implicit-then-explicit-dir",
+          "passed": true,
+          "error": null
+        },
+        {
+          "name": "duplicate-explicit-dirs",
+          "passed": true,
+          "error": null
+        },
+        {
+          "name": "file-ancestor-both-orders",
+          "passed": true,
+          "error": null
+        },
+        {
+          "name": "traversal-and-control",
+          "passed": true,
+          "error": null
+        },
+        {
+          "name": "device-and-ntfs-aliases",
+          "passed": true,
+          "error": null
+        },
+        {
+          "name": "literal-percent-and-ordinary-names",
+          "passed": true,
+          "error": null
+        },
+        {
+          "name": "sizes-counts",
+          "passed": true,
+          "error": null
+        },
+        {
+          "name": "malformed-all-kinds",
+          "passed": true,
+          "error": null
+        }
+      ]
+    },
+    "deliberate_mutant": {
+      "passed": 7,
+      "total": 10,
+      "outcomes": [
+        {
+          "name": "normalization-and-order",
+          "passed": true,
+          "error": null
+        },
+        {
+          "name": "unicode-nfc-casefold-collisions",
+          "passed": false,
+          "error": null
+        },
+        {
+          "name": "implicit-then-explicit-dir",
+          "passed": true,
+          "error": null
+        },
+        {
+          "name": "duplicate-explicit-dirs",
+          "passed": false,
+          "error": null
+        },
+        {
+          "name": "file-ancestor-both-orders",
+          "passed": false,
+          "error": null
+        },
+        {
+          "name": "traversal-and-control",
+          "passed": true,
+          "error": null
+        },
+        {
+          "name": "device-and-ntfs-aliases",
+          "passed": true,
+          "error": null
+        },
+        {
+          "name": "literal-percent-and-ordinary-names",
+          "passed": true,
+          "error": null
+        },
+        {
+          "name": "sizes-counts",
+          "passed": true,
+          "error": null
+        },
+        {
+          "name": "malformed-all-kinds",
+          "passed": true,
+          "error": null
+        }
+      ]
+    }
+  }
+]

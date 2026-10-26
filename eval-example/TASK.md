@@ -1,0 +1,1 @@
+Fix app.py's latest(rows) reducer. Return one original row per id: greatest integer version wins, last row wins ties. Output order follows first appearance of each id. Empty input returns []. Do not mutate inputs. This fixture and grader illustrate the offline protocol, not a model or skill-benefit experiment. Use a different relevant task and grader to evaluate your actual work.

@@ -1,0 +1,2749 @@
+{
+  "schema": 1,
+  "generated_at": "2026-10-25T20:30:42.148583+00:00",
+  "frozen_plan_sha256": "d7b778f535ad3f36095bbfaa1d4a4eb0521a94a3976d2b7e9779c44588883e83",
+  "judge_correction": {
+    "corrected_at": "2026-10-25T20:28:23.592737+00:00",
+    "original_sha256": "f419457ade10a076f60bd97b478bf3ff92dc1494f277cd72042b192aa89a6192",
+    "corrected_sha256": "e970cc90b434e1078a20516146c67ce321994794a382daa5189a03dab040b1ac",
+    "reason": "The execution harness omitted Python format, ord, UnicodeError and unicodedata, rejecting valid task solutions. Original outcomes and raw code are retained. Correction only enables these standard-library capabilities; no task prompts, expected answers or checks changed. All arms are regraded uniformly without new inference.",
+    "original_grades": "retained in raw run records and score_v1",
+    "limitation": "Post-run harness correction disclosed; preregistered checker implementation was incomplete."
+  },
+  "evaluations": [
+    {
+      "skill_id": "0c66d793944e662f",
+      "skill_sha256": "7b3dae1ffc5434d890f3c65c8f552af52d0307fab3b35dec13013c9ca3844c4f",
+      "name": "security-best-practices",
+      "source": "https://github.com/openai/skills/blob/49f948faa9258a0c61caceaf225e179651397431/skills/.curated/security-best-practices/SKILL.md",
+      "status": "Measured task outcomes",
+      "n": 4,
+      "model": "gpt-5.6-sol",
+      "date": "2026-10-25",
+      "tasks": [
+        {
+          "id": "redirect-policy",
+          "task": "Implement Python function allowed_redirect(url). Accept an absolute URL only when scheme is https, hostname is exactly example.com or www.example.com (case-insensitive), there is no username or password, and explicit port is absent or 443. Reject whitespace anywhere, backslashes anywhere, control characters, malformed port, relative and protocol-relative URLs, subdomains and lookalike suffixes. Return bool; never throw on a non-string input. You may import urllib.parse. No network or file access. Return JSON with a single code string containing function and necessary standard-library imports.",
+          "checks_per_run": 6,
+          "baseline_n": 2,
+          "treatment_n": 2,
+          "baseline_checks_passed": [
+            6,
+            6
+          ],
+          "treatment_checks_passed": [
+            6,
+            6
+          ],
+          "errors": [],
+          "result": "No observed difference; both arms passed the available task checks. Ceiling limits sensitivity."
+        },
+        {
+          "id": "safe-filename",
+          "task": "Implement Python function valid_filename(name). Return True only for a nonempty ASCII string of at most 80 characters, composed solely of letters, digits, period, underscore and hyphen, that is neither . nor .., does not start with a period, and contains no run of two consecutive periods. Return False for nonstrings. No file operations or imports required. Return JSON with a single code string containing the function.",
+          "checks_per_run": 6,
+          "baseline_n": 2,
+          "treatment_n": 2,
+          "baseline_checks_passed": [
+            6,
+            6
+          ],
+          "treatment_checks_passed": [
+            6,
+            6
+          ],
+          "errors": [],
+          "result": "No observed difference; both arms passed the available task checks. Ceiling limits sensitivity."
+        }
+      ],
+      "protocol": "Same text task with vs without an inline pinned public reference. Tools disabled.",
+      "read": "Content supplied, separate reading/use unobservable.",
+      "verdict": "No observed difference on these tasks; no general efficacy score.",
+      "judge_correction": "Initial restricted execution harness omitted valid standard-library capabilities. All raw outputs uniformly regraded with corrected harness; task checks unchanged. See judge-correction.json."
+    },
+    {
+      "skill_id": "67b1408b4733c4e8",
+      "skill_sha256": "51c6435d98c83c42c96ba7c35725a0b2c376cd487fb1a4e6bd0ddbe7e33ef202",
+      "name": "systematic-debugging",
+      "source": "https://github.com/obra/superpowers/blob/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/systematic-debugging/SKILL.md",
+      "status": "Measured task outcomes",
+      "n": 4,
+      "model": "gpt-5.6-sol",
+      "date": "2026-10-25",
+      "tasks": [
+        {
+          "id": "escaped-record",
+          "task": "Fix this parser by returning complete Python function split_record(text): return text.split(\"|\"). Required grammar: unescaped | separates fields, backslash escapes the next character (including | or backslash), a terminal unpaired backslash raises ValueError. Empty text is one empty field. Empty trailing fields must be kept. Return JSON with a single code string containing function and necessary standard-library imports.",
+          "checks_per_run": 6,
+          "baseline_n": 2,
+          "treatment_n": 2,
+          "baseline_checks_passed": [
+            6,
+            6
+          ],
+          "treatment_checks_passed": [
+            6,
+            6
+          ],
+          "errors": [],
+          "result": "No observed difference; both arms passed the available task checks. Ceiling limits sensitivity."
+        },
+        {
+          "id": "time-window",
+          "task": "Fix Python function in_window(t,start,end) whose broken implementation is start <= t <= end. Inputs are minute-of-day integers 0..1439. Window start is inclusive and end exclusive. A window may cross midnight. start == end means empty, never a full day. Invalid input (including booleans or non-integers) raises ValueError. Return JSON with a single code string containing function and necessary standard-library imports.",
+          "checks_per_run": 6,
+          "baseline_n": 2,
+          "treatment_n": 2,
+          "baseline_checks_passed": [
+            6,
+            6
+          ],
+          "treatment_checks_passed": [
+            6,
+            6
+          ],
+          "errors": [],
+          "result": "No observed difference; both arms passed the available task checks. Ceiling limits sensitivity."
+        }
+      ],
+      "protocol": "Same text task with vs without an inline pinned public reference. Tools disabled.",
+      "read": "Content supplied, separate reading/use unobservable.",
+      "verdict": "No observed difference on these tasks; no general efficacy score.",
+      "judge_correction": "Initial restricted execution harness omitted valid standard-library capabilities. All raw outputs uniformly regraded with corrected harness; task checks unchanged. See judge-correction.json."
+    },
+    {
+      "skill_id": "f37b3e44c1645b37",
+      "skill_sha256": "6712b39718fe815054abca9c3ee72f989613e6f771c8a5c58f30a65a6c905622",
+      "name": "xlsx",
+      "source": "https://github.com/anthropics/skills/blob/dbd4588f9e1033efb41dad4bef2f7947c8993d44/skills/xlsx/SKILL.md",
+      "status": "Measured task outcomes",
+      "n": 4,
+      "model": "gpt-5.6-sol",
+      "date": "2026-10-25",
+      "tasks": [
+        {
+          "id": "money-totals",
+          "task": "Write Python function totals(rows). Each row is a dict with account and amount strings. Ignore rows whose amount is not a finite decimal. Strip account whitespace. Sum exact decimal amounts by account, rounding each final account total to 2 decimals with ROUND_HALF_UP. Return a dict of account to two-decimal strings, including negative values and empty account keys. Do not modify input rows. Use standard library only. Return JSON with a single code string containing function and necessary imports.",
+          "checks_per_run": 6,
+          "baseline_n": 2,
+          "treatment_n": 2,
+          "baseline_checks_passed": [
+            6,
+            6
+          ],
+          "treatment_checks_passed": [
+            6,
+            6
+          ],
+          "errors": [],
+          "result": "No observed difference; both arms passed the available task checks. Ceiling limits sensitivity."
+        },
+        {
+          "id": "table-dedup",
+          "task": "Write Python function latest(rows). Each row has id and integer version. Return one original row per id: the greatest version wins; for equal versions the last row wins. Output order follows the first appearance of each id. Empty input returns []. Do not mutate rows or input. Return JSON with a single code string containing function and necessary standard-library imports.",
+          "checks_per_run": 6,
+          "baseline_n": 2,
+          "treatment_n": 2,
+          "baseline_checks_passed": [
+            6,
+            6
+          ],
+          "treatment_checks_passed": [
+            6,
+            6
+          ],
+          "errors": [],
+          "result": "No observed difference; both arms passed the available task checks. Ceiling limits sensitivity."
+        }
+      ],
+      "protocol": "Same text task with vs without an inline pinned public reference. Tools disabled.",
+      "read": "Content supplied, separate reading/use unobservable.",
+      "verdict": "No observed difference on these tasks; no general efficacy score.",
+      "judge_correction": "Initial restricted execution harness omitted valid standard-library capabilities. All raw outputs uniformly regraded with corrected harness; task checks unchanged. See judge-correction.json."
+    }
+  ],
+  "records": [
+    {
+      "case": "escaped-record",
+      "pair": 1,
+      "arm": "baseline",
+      "skill_id": "67b1408b4733c4e8",
+      "skill_sha256": "51c6435d98c83c42c96ba7c35725a0b2c376cd487fb1a4e6bd0ddbe7e33ef202",
+      "model": "gpt-5.6-sol",
+      "date": "2026-10-25T20:26:34.109483+00:00",
+      "status": "completed",
+      "returncode": 0,
+      "error": null,
+      "seconds": 5.108,
+      "body_read": false,
+      "content_supplied": false,
+      "read_basis": "Inline reference supplied in prompt. No separate skill-read action is observable; internal use cannot be inferred from presence.",
+      "usage": [
+        {
+          "input_tokens": 13419,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 201,
+          "reasoning_output_tokens": 52
+        }
+      ],
+      "score": {
+        "passed": 6,
+        "total": 6,
+        "outcomes": [
+          {
+            "check": 1,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 2,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 3,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 4,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 5,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 6,
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "score_v1": {
+        "passed": 6,
+        "total": 6,
+        "outcomes": [
+          {
+            "check": 1,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 2,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 3,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 4,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 5,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 6,
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "code": "def split_record(text):\n    fields = []\n    field = []\n    escaped = False\n\n    for char in text:\n        if escaped:\n            field.append(char)\n            escaped = False\n        elif char == \"\\\\\":\n            escaped = True\n        elif char == \"|\":\n            fields.append(\"\".join(field))\n            field = []\n        else:\n            field.append(char)\n\n    if escaped:\n        raise ValueError(\"terminal unpaired backslash\")\n\n    fields.append(\"\".join(field))\n    return fields\n",
+      "raw_files": {
+        "judge-v2.json": "49f5983aa86c3f47b19175f9f1746ac39a7d6ff0d17f0edd5acbf1c57b62b59e",
+        "record.json": "d86f6714463261d7df7e79146b765b574842c537b9f0de187d600994c90eb381",
+        "submission.py": "bff4cbfe336461596dbfc530127edaed319ef5dab0ed73e4f7e0597404d1e80f",
+        "prompt.txt": "cc0323df4bdf23425c9b3e895b066c06f239750a8caad7672293f01102523b1f",
+        "stderr.txt": "1aa26269eb1cc57f86b235a03cda53c004edb5b1e9fc99d4da4f00843293d721",
+        "judge.stdout": "49f5983aa86c3f47b19175f9f1746ac39a7d6ff0d17f0edd5acbf1c57b62b59e",
+        "argv.json": "05c911a8e847be477a39cd3239a8e431d4c7a3c807b132883cedfae84f696d84",
+        "schema.json": "a3189efbf12fa748336924594f6fb09af24edab44141bdd3655183f2a7b69612",
+        "final.json": "2cbb0b35abf0c0494ab7d25764327ef97e9569242d3805fc36055da2c953888a",
+        "judge.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.jsonl": "fc2c2e7a80bd5de7ebf9f28e559c5df87767464dc57c47bbb8b93a0b4178da86"
+      }
+    },
+    {
+      "case": "escaped-record",
+      "pair": 1,
+      "arm": "treatment",
+      "skill_id": "67b1408b4733c4e8",
+      "skill_sha256": "51c6435d98c83c42c96ba7c35725a0b2c376cd487fb1a4e6bd0ddbe7e33ef202",
+      "model": "gpt-5.6-sol",
+      "date": "2026-10-25T20:26:38.877217+00:00",
+      "status": "completed",
+      "returncode": 0,
+      "error": null,
+      "seconds": 4.713,
+      "body_read": null,
+      "content_supplied": true,
+      "read_basis": "Inline reference supplied in prompt. No separate skill-read action is observable; internal use cannot be inferred from presence.",
+      "usage": [
+        {
+          "input_tokens": 15642,
+          "cached_input_tokens": 12416,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 204,
+          "reasoning_output_tokens": 56
+        }
+      ],
+      "score": {
+        "passed": 6,
+        "total": 6,
+        "outcomes": [
+          {
+            "check": 1,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 2,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 3,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 4,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 5,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 6,
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "score_v1": {
+        "passed": 6,
+        "total": 6,
+        "outcomes": [
+          {
+            "check": 1,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 2,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 3,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 4,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 5,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 6,
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "code": "def split_record(text):\n    fields = []\n    field = []\n    escaped = False\n\n    for char in text:\n        if escaped:\n            field.append(char)\n            escaped = False\n        elif char == \"\\\\\":\n            escaped = True\n        elif char == \"|\":\n            fields.append(\"\".join(field))\n            field = []\n        else:\n            field.append(char)\n\n    if escaped:\n        raise ValueError(\"terminal unpaired backslash\")\n\n    fields.append(\"\".join(field))\n    return fields",
+      "raw_files": {
+        "judge-v2.json": "49f5983aa86c3f47b19175f9f1746ac39a7d6ff0d17f0edd5acbf1c57b62b59e",
+        "record.json": "6ffef8bbd540f9fad59a255c043d9d47b71d24524588a54bb4dadb6bbbb7ac99",
+        "submission.py": "a6b8db8404c8045f17850612e2d16e537cdee5da870c9a3bd6b06402b605a70a",
+        "prompt.txt": "178eb8592be799edea455f350d1e5f266d57fda02cdbc8ffa4044d356207face",
+        "stderr.txt": "1aa26269eb1cc57f86b235a03cda53c004edb5b1e9fc99d4da4f00843293d721",
+        "judge.stdout": "49f5983aa86c3f47b19175f9f1746ac39a7d6ff0d17f0edd5acbf1c57b62b59e",
+        "argv.json": "5a97d5e8e37341cb972ab9a1863eee7981e833e8cc83654da45430e3001dfe90",
+        "schema.json": "a3189efbf12fa748336924594f6fb09af24edab44141bdd3655183f2a7b69612",
+        "final.json": "26c52c30acc6ff8d123ba518da081c58ed04f66765ebdf2467a45a34cfb1acf2",
+        "judge.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.jsonl": "b68422f4337c4dda8870af72e5d6c20121314ecf53a88e721b77a0eb8d7bb9ef"
+      }
+    },
+    {
+      "case": "escaped-record",
+      "pair": 2,
+      "arm": "baseline",
+      "skill_id": "67b1408b4733c4e8",
+      "skill_sha256": "51c6435d98c83c42c96ba7c35725a0b2c376cd487fb1a4e6bd0ddbe7e33ef202",
+      "model": "gpt-5.6-sol",
+      "date": "2026-10-25T20:26:42.517465+00:00",
+      "status": "completed",
+      "returncode": 0,
+      "error": null,
+      "seconds": 7.758,
+      "body_read": false,
+      "content_supplied": false,
+      "read_basis": "Inline reference supplied in prompt. No separate skill-read action is observable; internal use cannot be inferred from presence.",
+      "usage": [
+        {
+          "input_tokens": 13419,
+          "cached_input_tokens": 12416,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 196,
+          "reasoning_output_tokens": 48
+        }
+      ],
+      "score": {
+        "passed": 6,
+        "total": 6,
+        "outcomes": [
+          {
+            "check": 1,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 2,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 3,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 4,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 5,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 6,
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "score_v1": {
+        "passed": 6,
+        "total": 6,
+        "outcomes": [
+          {
+            "check": 1,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 2,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 3,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 4,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 5,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 6,
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "code": "def split_record(text):\n    fields = []\n    field = []\n    escaped = False\n\n    for char in text:\n        if escaped:\n            field.append(char)\n            escaped = False\n        elif char == \"\\\\\":\n            escaped = True\n        elif char == \"|\":\n            fields.append(\"\".join(field))\n            field = []\n        else:\n            field.append(char)\n\n    if escaped:\n        raise ValueError(\"terminal unpaired backslash\")\n\n    fields.append(\"\".join(field))\n    return fields",
+      "raw_files": {
+        "judge-v2.json": "49f5983aa86c3f47b19175f9f1746ac39a7d6ff0d17f0edd5acbf1c57b62b59e",
+        "record.json": "30de98c336edf411fed461703a59972b03077cd054000d823ed4e1d540a35f50",
+        "submission.py": "a6b8db8404c8045f17850612e2d16e537cdee5da870c9a3bd6b06402b605a70a",
+        "prompt.txt": "cc0323df4bdf23425c9b3e895b066c06f239750a8caad7672293f01102523b1f",
+        "stderr.txt": "1aa26269eb1cc57f86b235a03cda53c004edb5b1e9fc99d4da4f00843293d721",
+        "judge.stdout": "49f5983aa86c3f47b19175f9f1746ac39a7d6ff0d17f0edd5acbf1c57b62b59e",
+        "argv.json": "1c8d7f83d0a0568846ea3e7377dbe4dfe81de8596262dc452c872f9b971fc85b",
+        "schema.json": "a3189efbf12fa748336924594f6fb09af24edab44141bdd3655183f2a7b69612",
+        "final.json": "26c52c30acc6ff8d123ba518da081c58ed04f66765ebdf2467a45a34cfb1acf2",
+        "judge.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.jsonl": "5e8d80894b075650834383589cfbe03ffb9a73142ba9df0887e1a0d1b8442b24"
+      }
+    },
+    {
+      "case": "escaped-record",
+      "pair": 2,
+      "arm": "treatment",
+      "skill_id": "67b1408b4733c4e8",
+      "skill_sha256": "51c6435d98c83c42c96ba7c35725a0b2c376cd487fb1a4e6bd0ddbe7e33ef202",
+      "model": "gpt-5.6-sol",
+      "date": "2026-10-25T20:26:34.702381+00:00",
+      "status": "completed",
+      "returncode": 0,
+      "error": null,
+      "seconds": 4.047,
+      "body_read": null,
+      "content_supplied": true,
+      "read_basis": "Inline reference supplied in prompt. No separate skill-read action is observable; internal use cannot be inferred from presence.",
+      "usage": [
+        {
+          "input_tokens": 15642,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 147,
+          "reasoning_output_tokens": 0
+        }
+      ],
+      "score": {
+        "passed": 6,
+        "total": 6,
+        "outcomes": [
+          {
+            "check": 1,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 2,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 3,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 4,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 5,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 6,
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "score_v1": {
+        "passed": 6,
+        "total": 6,
+        "outcomes": [
+          {
+            "check": 1,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 2,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 3,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 4,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 5,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 6,
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "code": "def split_record(text):\n    fields = []\n    field = []\n    escaped = False\n\n    for char in text:\n        if escaped:\n            field.append(char)\n            escaped = False\n        elif char == \"\\\\\":\n            escaped = True\n        elif char == \"|\":\n            fields.append(\"\".join(field))\n            field = []\n        else:\n            field.append(char)\n\n    if escaped:\n        raise ValueError(\"terminal unpaired backslash\")\n\n    fields.append(\"\".join(field))\n    return fields\n",
+      "raw_files": {
+        "judge-v2.json": "49f5983aa86c3f47b19175f9f1746ac39a7d6ff0d17f0edd5acbf1c57b62b59e",
+        "record.json": "5906ebb1b9f3b5eb6839eed0cfd98b6da3b8ebe1598f59c9243a954e970a2733",
+        "submission.py": "bff4cbfe336461596dbfc530127edaed319ef5dab0ed73e4f7e0597404d1e80f",
+        "prompt.txt": "178eb8592be799edea455f350d1e5f266d57fda02cdbc8ffa4044d356207face",
+        "stderr.txt": "1aa26269eb1cc57f86b235a03cda53c004edb5b1e9fc99d4da4f00843293d721",
+        "judge.stdout": "49f5983aa86c3f47b19175f9f1746ac39a7d6ff0d17f0edd5acbf1c57b62b59e",
+        "argv.json": "6a73d99799b211f414fe4d47782a585c3fab18769d98ed6b16df35a4b8bcd96b",
+        "schema.json": "a3189efbf12fa748336924594f6fb09af24edab44141bdd3655183f2a7b69612",
+        "final.json": "2cbb0b35abf0c0494ab7d25764327ef97e9569242d3805fc36055da2c953888a",
+        "judge.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.jsonl": "6689b18def156c76a47746683f3516ddc15ddb3cd3dd8738f237eeb32e349d8f"
+      }
+    },
+    {
+      "case": "money-totals",
+      "pair": 1,
+      "arm": "baseline",
+      "skill_id": "f37b3e44c1645b37",
+      "skill_sha256": "6712b39718fe815054abca9c3ee72f989613e6f771c8a5c58f30a65a6c905622",
+      "model": "gpt-5.6-sol",
+      "date": "2026-10-25T20:26:04.302365+00:00",
+      "status": "completed",
+      "returncode": 0,
+      "error": null,
+      "seconds": 19.717,
+      "body_read": false,
+      "content_supplied": false,
+      "read_basis": "Inline reference supplied in prompt. No separate skill-read action is observable; internal use cannot be inferred from presence.",
+      "usage": [
+        {
+          "input_tokens": 10767,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 953,
+          "reasoning_output_tokens": 665
+        }
+      ],
+      "score": {
+        "passed": 6,
+        "total": 6,
+        "outcomes": [
+          {
+            "check": 1,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 2,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 3,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 4,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 5,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 6,
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "score_v1": {
+        "passed": 1,
+        "total": 6,
+        "outcomes": [
+          {
+            "check": 1,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 2,
+            "passed": false,
+            "error": "NameError"
+          },
+          {
+            "check": 3,
+            "passed": false,
+            "error": "NameError"
+          },
+          {
+            "check": 4,
+            "passed": false,
+            "error": "NameError"
+          },
+          {
+            "check": 5,
+            "passed": false,
+            "error": "NameError"
+          },
+          {
+            "check": 6,
+            "passed": false,
+            "error": "NameError"
+          }
+        ]
+      },
+      "code": "from decimal import Decimal, InvalidOperation, ROUND_HALF_UP, localcontext\n\n\ndef totals(rows):\n    grouped = {}\n\n    for row in rows:\n        try:\n            amount = Decimal(row[\"amount\"])\n        except (InvalidOperation, ValueError, TypeError):\n            continue\n\n        if not amount.is_finite():\n            continue\n\n        account = row[\"account\"].strip()\n        grouped.setdefault(account, []).append(amount)\n\n    result = {}\n    quantum = Decimal(\"0.01\")\n\n    for account, amounts in grouped.items():\n        min_exponent = min(min(value.as_tuple().exponent, -2) for value in amounts)\n        max_adjusted = max(value.adjusted() if value else 0 for value in amounts)\n        precision = max(1, max_adjusted - min_exponent + len(str(len(amounts))) + 2)\n\n        with localcontext() as context:\n            context.prec = precision\n            total = sum(amounts, Decimal(0))\n            rounded = total.quantize(quantum, rounding=ROUND_HALF_UP)\n\n        result[account] = format(rounded, \".2f\")\n\n    return result",
+      "raw_files": {
+        "judge-v2.json": "49f5983aa86c3f47b19175f9f1746ac39a7d6ff0d17f0edd5acbf1c57b62b59e",
+        "record.json": "7b6e02e2c15c73fea7427d0d32f2a4cb54303c431884ef7f49a39b820a6f335e",
+        "submission.py": "0f0650c94aeb61df2d420175794eb8b01a1073f6a6623d6a5edeb5716c8bbeba",
+        "prompt.txt": "a7c9b175d5edfc58663d2a95db26ca18de5809bb10bed37853fda4c89d2dc3a1",
+        "stderr.txt": "1aa26269eb1cc57f86b235a03cda53c004edb5b1e9fc99d4da4f00843293d721",
+        "judge.stdout": "f74ea0d95d6b67d7cd7096831dc3a9547f71eb9aaa66436991e61988449f06a9",
+        "argv.json": "97f6ccd306a3ff50b15300acb80aec6490277bd50b8f965271b6d7c98f1e2338",
+        "schema.json": "a3189efbf12fa748336924594f6fb09af24edab44141bdd3655183f2a7b69612",
+        "final.json": "d3312e7553638147e9aa115b012a2d44bc4b8ed884ccad39879a2dc2cf9341ad",
+        "judge.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.jsonl": "bb195efe40ba9bfd6c3473fdf285bf43fd49e2f8be3c05c8ea77e3135bcb0084"
+      }
+    },
+    {
+      "case": "money-totals",
+      "pair": 1,
+      "arm": "treatment",
+      "skill_id": "f37b3e44c1645b37",
+      "skill_sha256": "6712b39718fe815054abca9c3ee72f989613e6f771c8a5c58f30a65a6c905622",
+      "model": "gpt-5.6-sol",
+      "date": "2026-10-25T20:26:20.429947+00:00",
+      "status": "completed",
+      "returncode": 0,
+      "error": null,
+      "seconds": 16.048,
+      "body_read": null,
+      "content_supplied": true,
+      "read_basis": "Inline reference supplied in prompt. No separate skill-read action is observable; internal use cannot be inferred from presence.",
+      "usage": [
+        {
+          "input_tokens": 15598,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 814,
+          "reasoning_output_tokens": 503
+        }
+      ],
+      "score": {
+        "passed": 6,
+        "total": 6,
+        "outcomes": [
+          {
+            "check": 1,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 2,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 3,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 4,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 5,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 6,
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "score_v1": {
+        "passed": 1,
+        "total": 6,
+        "outcomes": [
+          {
+            "check": 1,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 2,
+            "passed": false,
+            "error": "NameError"
+          },
+          {
+            "check": 3,
+            "passed": false,
+            "error": "NameError"
+          },
+          {
+            "check": 4,
+            "passed": false,
+            "error": "NameError"
+          },
+          {
+            "check": 5,
+            "passed": false,
+            "error": "NameError"
+          },
+          {
+            "check": 6,
+            "passed": false,
+            "error": "NameError"
+          }
+        ]
+      },
+      "code": "from decimal import Decimal, InvalidOperation, ROUND_HALF_UP, localcontext\n\n\ndef totals(rows):\n    grouped = {}\n\n    for row in rows:\n        try:\n            amount = Decimal(row[\"amount\"])\n        except (InvalidOperation, ValueError, TypeError):\n            continue\n\n        if not amount.is_finite():\n            continue\n\n        account = row[\"account\"].strip()\n        grouped.setdefault(account, []).append(amount)\n\n    result = {}\n    cents = Decimal(\"0.01\")\n\n    for account, amounts in grouped.items():\n        nonzero = [amount for amount in amounts if amount]\n        if nonzero:\n            highest_place = max(amount.adjusted() for amount in nonzero)\n            lowest_place = min(amount.as_tuple().exponent for amount in nonzero)\n            precision = max(2, highest_place - min(lowest_place, -2) + len(str(len(amounts))) + 2)\n        else:\n            precision = 2\n\n        with localcontext() as context:\n            context.prec = precision\n            total = sum(amounts, Decimal(0))\n            rounded = total.quantize(cents, rounding=ROUND_HALF_UP)\n\n        result[account] = format(rounded, \".2f\")\n\n    return result",
+      "raw_files": {
+        "judge-v2.json": "49f5983aa86c3f47b19175f9f1746ac39a7d6ff0d17f0edd5acbf1c57b62b59e",
+        "record.json": "ddfc0039a3eec83f6b6d43f497c03675e6d5ff1b0807c95be777a1bc43d74f6d",
+        "submission.py": "dfbc367edfcdcf096f2f50c2d3709976ddbb7da194eb5b40d28a7721bedb2761",
+        "prompt.txt": "7ea17bc47982750f979d8da00ce5e9e58c413ef8a4eaa17e20389964824628f9",
+        "stderr.txt": "1aa26269eb1cc57f86b235a03cda53c004edb5b1e9fc99d4da4f00843293d721",
+        "judge.stdout": "f74ea0d95d6b67d7cd7096831dc3a9547f71eb9aaa66436991e61988449f06a9",
+        "argv.json": "d687a71410860a79348d3394bf556c1e62d89c3b59809f68bc55a143e7dbd215",
+        "schema.json": "a3189efbf12fa748336924594f6fb09af24edab44141bdd3655183f2a7b69612",
+        "final.json": "464d32da4e2b7440dcaaf4150df6ed9f9d8c88307b6e4d7f7c1b90ae6919a54b",
+        "judge.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.jsonl": "f1954c5d864b76f4a3b300e7abc44a9350ce7201f451db758c3653a58a4f9bda"
+      }
+    },
+    {
+      "case": "money-totals",
+      "pair": 2,
+      "arm": "baseline",
+      "skill_id": "f37b3e44c1645b37",
+      "skill_sha256": "6712b39718fe815054abca9c3ee72f989613e6f771c8a5c58f30a65a6c905622",
+      "model": "gpt-5.6-sol",
+      "date": "2026-10-25T20:26:08.398315+00:00",
+      "status": "completed",
+      "returncode": 0,
+      "error": null,
+      "seconds": 23.813,
+      "body_read": false,
+      "content_supplied": false,
+      "read_basis": "Inline reference supplied in prompt. No separate skill-read action is observable; internal use cannot be inferred from presence.",
+      "usage": [
+        {
+          "input_tokens": 10767,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 1150,
+          "reasoning_output_tokens": 868
+        }
+      ],
+      "score": {
+        "passed": 6,
+        "total": 6,
+        "outcomes": [
+          {
+            "check": 1,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 2,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 3,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 4,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 5,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 6,
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "score_v1": {
+        "passed": 1,
+        "total": 6,
+        "outcomes": [
+          {
+            "check": 1,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 2,
+            "passed": false,
+            "error": "NameError"
+          },
+          {
+            "check": 3,
+            "passed": false,
+            "error": "NameError"
+          },
+          {
+            "check": 4,
+            "passed": false,
+            "error": "NameError"
+          },
+          {
+            "check": 5,
+            "passed": false,
+            "error": "NameError"
+          },
+          {
+            "check": 6,
+            "passed": false,
+            "error": "NameError"
+          }
+        ]
+      },
+      "code": "from decimal import Decimal, InvalidOperation, ROUND_HALF_UP, localcontext\n\n\ndef totals(rows):\n    grouped = {}\n\n    for row in rows:\n        account = row[\"account\"].strip()\n        try:\n            amount = Decimal(row[\"amount\"])\n        except (InvalidOperation, ValueError):\n            continue\n\n        if amount.is_finite():\n            grouped.setdefault(account, []).append(amount)\n\n    result = {}\n    cents = Decimal(\"0.01\")\n\n    for account, amounts in grouped.items():\n        integer_digits = max(max(value.adjusted() + 1, 0) for value in amounts)\n        fractional_digits = max(max(-value.as_tuple().exponent, 0) for value in amounts)\n        carry_digits = len(str(len(amounts)))\n\n        with localcontext() as context:\n            context.prec = max(28, integer_digits + fractional_digits + carry_digits + 2)\n            total = sum(amounts, Decimal(0))\n            rounded = total.quantize(cents, rounding=ROUND_HALF_UP)\n\n        result[account] = format(rounded, \".2f\")\n\n    return result",
+      "raw_files": {
+        "judge-v2.json": "49f5983aa86c3f47b19175f9f1746ac39a7d6ff0d17f0edd5acbf1c57b62b59e",
+        "record.json": "4fde3734c2e44488dca1e69ad773831c57de4705473de499a6147f903e7d6f12",
+        "submission.py": "537d097fc1756ad3bc05be346f6045a20a977eaf2957ca866bc51cf45c8cff2a",
+        "prompt.txt": "a7c9b175d5edfc58663d2a95db26ca18de5809bb10bed37853fda4c89d2dc3a1",
+        "stderr.txt": "1aa26269eb1cc57f86b235a03cda53c004edb5b1e9fc99d4da4f00843293d721",
+        "judge.stdout": "f74ea0d95d6b67d7cd7096831dc3a9547f71eb9aaa66436991e61988449f06a9",
+        "argv.json": "3a851fb33f0d36f523acc86ce1bf4159010ff7a502761525f0982a5b14fbddc3",
+        "schema.json": "a3189efbf12fa748336924594f6fb09af24edab44141bdd3655183f2a7b69612",
+        "final.json": "6d170b4e7b66d9545e4f08d3610fe24ff9634f402192e98dd316e0229af52976",
+        "judge.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.jsonl": "41eee72662a71cc27097f489e0e062a05aa6bb7b1788c053de6c37e4792e201d"
+      }
+    },
+    {
+      "case": "money-totals",
+      "pair": 2,
+      "arm": "treatment",
+      "skill_id": "f37b3e44c1645b37",
+      "skill_sha256": "6712b39718fe815054abca9c3ee72f989613e6f771c8a5c58f30a65a6c905622",
+      "model": "gpt-5.6-sol",
+      "date": "2026-10-25T20:26:19.848632+00:00",
+      "status": "completed",
+      "returncode": 0,
+      "error": null,
+      "seconds": 11.258,
+      "body_read": null,
+      "content_supplied": true,
+      "read_basis": "Inline reference supplied in prompt. No separate skill-read action is observable; internal use cannot be inferred from presence.",
+      "usage": [
+        {
+          "input_tokens": 15598,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 564,
+          "reasoning_output_tokens": 286
+        }
+      ],
+      "score": {
+        "passed": 6,
+        "total": 6,
+        "outcomes": [
+          {
+            "check": 1,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 2,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 3,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 4,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 5,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 6,
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "score_v1": {
+        "passed": 1,
+        "total": 6,
+        "outcomes": [
+          {
+            "check": 1,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 2,
+            "passed": false,
+            "error": "NameError"
+          },
+          {
+            "check": 3,
+            "passed": false,
+            "error": "NameError"
+          },
+          {
+            "check": 4,
+            "passed": false,
+            "error": "NameError"
+          },
+          {
+            "check": 5,
+            "passed": false,
+            "error": "NameError"
+          },
+          {
+            "check": 6,
+            "passed": false,
+            "error": "NameError"
+          }
+        ]
+      },
+      "code": "from decimal import Decimal, InvalidOperation, localcontext, ROUND_HALF_UP\n\n\ndef totals(rows):\n    grouped = {}\n\n    for row in rows:\n        try:\n            amount = Decimal(row[\"amount\"])\n        except (InvalidOperation, ValueError, TypeError):\n            continue\n\n        if not amount.is_finite():\n            continue\n\n        account = row[\"account\"].strip()\n        grouped.setdefault(account, []).append(amount)\n\n    result = {}\n    quantum = Decimal(\"0.01\")\n\n    for account, amounts in grouped.items():\n        min_exponent = min(value.as_tuple().exponent for value in amounts)\n        max_adjusted = max(value.adjusted() for value in amounts)\n        precision = max(28, max_adjusted - min_exponent + len(str(len(amounts))) + 3)\n\n        with localcontext() as context:\n            context.prec = precision\n            total = sum(amounts, Decimal(0))\n            rounded = total.quantize(quantum, rounding=ROUND_HALF_UP)\n\n        result[account] = format(rounded, \".2f\")\n\n    return result",
+      "raw_files": {
+        "judge-v2.json": "49f5983aa86c3f47b19175f9f1746ac39a7d6ff0d17f0edd5acbf1c57b62b59e",
+        "record.json": "47011b8297a12ac85d4bcb07b5cc68c224a56bcc9e50b44fce61384e600d2476",
+        "submission.py": "9cdba7c8e0259d1c51c64ffbacc5aabe4736891135e42eec92e6c6ce5ea84883",
+        "prompt.txt": "7ea17bc47982750f979d8da00ce5e9e58c413ef8a4eaa17e20389964824628f9",
+        "stderr.txt": "1aa26269eb1cc57f86b235a03cda53c004edb5b1e9fc99d4da4f00843293d721",
+        "judge.stdout": "f74ea0d95d6b67d7cd7096831dc3a9547f71eb9aaa66436991e61988449f06a9",
+        "argv.json": "2bc922a6cda9a9f1fc5f1d05d6c9ae89b70eabb0ba5c252e4186e1184b220933",
+        "schema.json": "a3189efbf12fa748336924594f6fb09af24edab44141bdd3655183f2a7b69612",
+        "final.json": "48ced7310d828f41ca03bd8efa20a1e27ea2e8ecf260a20760e5678003d4a696",
+        "judge.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.jsonl": "ebb85a78498e7c1e91063166a1e1933b60d6239a0334112241854666fc6fa8c1"
+      }
+    },
+    {
+      "case": "redirect-policy",
+      "pair": 1,
+      "arm": "baseline",
+      "skill_id": "0c66d793944e662f",
+      "skill_sha256": "7b3dae1ffc5434d890f3c65c8f552af52d0307fab3b35dec13013c9ca3844c4f",
+      "model": "gpt-5.6-sol",
+      "date": "2026-10-25T20:27:28.676800+00:00",
+      "status": "completed",
+      "returncode": 0,
+      "error": null,
+      "seconds": 17.309,
+      "body_read": false,
+      "content_supplied": false,
+      "read_basis": "Inline reference supplied in prompt. No separate skill-read action is observable; internal use cannot be inferred from presence.",
+      "usage": [
+        {
+          "input_tokens": 13455,
+          "cached_input_tokens": 12416,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 923,
+          "reasoning_output_tokens": 676
+        }
+      ],
+      "score": {
+        "passed": 6,
+        "total": 6,
+        "outcomes": [
+          {
+            "check": 1,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 2,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 3,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 4,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 5,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 6,
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "score_v1": {
+        "passed": 0,
+        "total": 6,
+        "error": "ValueError: unsupported import"
+      },
+      "code": "import unicodedata\nfrom urllib.parse import urlsplit\n\n\ndef allowed_redirect(url):\n    if not isinstance(url, str):\n        return False\n\n    try:\n        if any(ch == \"\\\\\" or ch.isspace() or unicodedata.category(ch) == \"Cc\" for ch in url):\n            return False\n\n        parsed = urlsplit(url)\n\n        if parsed.scheme.lower() != \"https\":\n            return False\n        if parsed.username is not None or parsed.password is not None:\n            return False\n        if parsed.hostname is None or parsed.hostname.lower() not in {\"example.com\", \"www.example.com\"}:\n            return False\n\n        port = parsed.port\n        if port is not None and port != 443:\n            return False\n\n        host_port = parsed.netloc.rsplit(\"@\", 1)[-1]\n        if host_port.endswith(\":\"):\n            return False\n\n        return True\n    except (TypeError, ValueError, UnicodeError):\n        return False",
+      "raw_files": {
+        "judge-v2.json": "49f5983aa86c3f47b19175f9f1746ac39a7d6ff0d17f0edd5acbf1c57b62b59e",
+        "record.json": "e3651e107ec986f73303d51ac867b4f126fb19c2b255270ee34d2c79928e99d5",
+        "submission.py": "b845c8d08067a4664c006c4b835f72df0d38b869fc29f069b5850ba2e632d8b2",
+        "prompt.txt": "c26cba43e6a8d59c5e4ab1b5b0231bb267998aa4393ed3d74132fd1438d31d2f",
+        "stderr.txt": "1aa26269eb1cc57f86b235a03cda53c004edb5b1e9fc99d4da4f00843293d721",
+        "judge.stdout": "29135b6102e339f35f0a9a003c3cc77dc5fb439951cee04611f22e9d7b68bace",
+        "argv.json": "6c122dbdf3b19e00c9766f4cffc09f992f2ca366aff5c6ef675b776074e87f97",
+        "schema.json": "a3189efbf12fa748336924594f6fb09af24edab44141bdd3655183f2a7b69612",
+        "final.json": "3821dc769958936e01e0a8722c568b43c2915b98f6769af35df41a3cb3ab63ce",
+        "judge.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.jsonl": "95b7787704bcf688ac4b78471b5ba3189c6d1cd552053f2c75ae6adb4b0b1de5"
+      }
+    },
+    {
+      "case": "redirect-policy",
+      "pair": 1,
+      "arm": "treatment",
+      "skill_id": "0c66d793944e662f",
+      "skill_sha256": "7b3dae1ffc5434d890f3c65c8f552af52d0307fab3b35dec13013c9ca3844c4f",
+      "model": "gpt-5.6-sol",
+      "date": "2026-10-25T20:27:11.297069+00:00",
+      "status": "completed",
+      "returncode": 0,
+      "error": null,
+      "seconds": 22.354,
+      "body_read": null,
+      "content_supplied": true,
+      "read_basis": "Inline reference supplied in prompt. No separate skill-read action is observable; internal use cannot be inferred from presence.",
+      "usage": [
+        {
+          "input_tokens": 12463,
+          "cached_input_tokens": 7936,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 1034,
+          "reasoning_output_tokens": 767
+        }
+      ],
+      "score": {
+        "passed": 6,
+        "total": 6,
+        "outcomes": [
+          {
+            "check": 1,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 2,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 3,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 4,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 5,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 6,
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "score_v1": {
+        "passed": 0,
+        "total": 6,
+        "outcomes": [
+          {
+            "check": 1,
+            "passed": false,
+            "error": "NameError"
+          },
+          {
+            "check": 2,
+            "passed": false,
+            "error": "NameError"
+          },
+          {
+            "check": 3,
+            "passed": false,
+            "error": "NameError"
+          },
+          {
+            "check": 4,
+            "passed": false,
+            "error": "NameError"
+          },
+          {
+            "check": 5,
+            "passed": false,
+            "error": "NameError"
+          },
+          {
+            "check": 6,
+            "passed": false,
+            "error": "NameError"
+          }
+        ]
+      },
+      "code": "from urllib.parse import urlsplit\n\n\ndef allowed_redirect(url):\n    if not isinstance(url, str):\n        return False\n\n    try:\n        if any(ch.isspace() or ord(ch) < 32 or 127 <= ord(ch) <= 159 for ch in url):\n            return False\n        if \"\\\\\" in url:\n            return False\n\n        parsed = urlsplit(url)\n        if parsed.scheme.lower() != \"https\" or not parsed.netloc:\n            return False\n        if \"@\" in parsed.netloc:\n            return False\n        if parsed.hostname is None or parsed.hostname.lower() not in {\n            \"example.com\",\n            \"www.example.com\",\n        }:\n            return False\n\n        port = parsed.port\n        if \":\" in parsed.netloc:\n            port_text = parsed.netloc.rsplit(\":\", 1)[1]\n            if not port_text or port != 443:\n                return False\n        elif port is not None:\n            return False\n\n        return True\n    except (ValueError, UnicodeError, TypeError):\n        return False",
+      "raw_files": {
+        "judge-v2.json": "49f5983aa86c3f47b19175f9f1746ac39a7d6ff0d17f0edd5acbf1c57b62b59e",
+        "record.json": "28c43594ee39be3e6a599f7ffdd1c95594a2730012c29e169af7da7c0f2493b9",
+        "submission.py": "f5f6898a85734f48ede4cc3163da33f3ae399b02a7d905dd009bbc77569b3cac",
+        "prompt.txt": "86326fe014c9c8f95d89453a61aaba390ca42e9a7c564874bd21e3e633aa0a22",
+        "stderr.txt": "1aa26269eb1cc57f86b235a03cda53c004edb5b1e9fc99d4da4f00843293d721",
+        "judge.stdout": "13369b83ec55bae0e39fb68e4a45da04c89990a90640627a05ab03f73ec42566",
+        "argv.json": "3641c9947211639086ae0eb0b1e1046ad10a8f9decb864b3833f4bafe2809e6f",
+        "schema.json": "a3189efbf12fa748336924594f6fb09af24edab44141bdd3655183f2a7b69612",
+        "final.json": "5229f2cb70038e14ae36044e79b8aac7d2cbc8d0a045bb2bf88c393f31d8ce2c",
+        "judge.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.jsonl": "9e8170ec56f0f7923f92c2bd094450efc5c168059814bf02999aa48d82b30aad"
+      }
+    },
+    {
+      "case": "redirect-policy",
+      "pair": 2,
+      "arm": "baseline",
+      "skill_id": "0c66d793944e662f",
+      "skill_sha256": "7b3dae1ffc5434d890f3c65c8f552af52d0307fab3b35dec13013c9ca3844c4f",
+      "model": "gpt-5.6-sol",
+      "date": "2026-10-25T20:27:30.921215+00:00",
+      "status": "completed",
+      "returncode": 0,
+      "error": null,
+      "seconds": 22.557,
+      "body_read": false,
+      "content_supplied": false,
+      "read_basis": "Inline reference supplied in prompt. No separate skill-read action is observable; internal use cannot be inferred from presence.",
+      "usage": [
+        {
+          "input_tokens": 10782,
+          "cached_input_tokens": 10240,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 976,
+          "reasoning_output_tokens": 676
+        }
+      ],
+      "score": {
+        "passed": 6,
+        "total": 6,
+        "outcomes": [
+          {
+            "check": 1,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 2,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 3,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 4,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 5,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 6,
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "score_v1": {
+        "passed": 0,
+        "total": 6,
+        "error": "ValueError: unsupported import"
+      },
+      "code": "import unicodedata\nfrom urllib.parse import urlsplit\n\n\ndef allowed_redirect(url):\n    if not isinstance(url, str):\n        return False\n\n    if any(ch == \"\\\\\" or ch.isspace() or unicodedata.category(ch) == \"Cc\" for ch in url):\n        return False\n\n    try:\n        parsed = urlsplit(url)\n        hostname = parsed.hostname\n        port = parsed.port\n\n        if parsed.scheme.lower() != \"https\" or not parsed.netloc:\n            return False\n        if hostname is None or hostname.lower() not in {\"example.com\", \"www.example.com\"}:\n            return False\n        if parsed.username is not None or parsed.password is not None:\n            return False\n        if port is not None and port != 443:\n            return False\n\n        netloc = parsed.netloc.lower()\n        host = hostname.lower()\n        if netloc == host:\n            return True\n        if not netloc.startswith(host + \":\"):\n            return False\n\n        raw_port = netloc[len(host) + 1:]\n        return bool(raw_port) and raw_port.isascii() and raw_port.isdecimal() and port == 443\n    except (ValueError, UnicodeError):\n        return False",
+      "raw_files": {
+        "judge-v2.json": "49f5983aa86c3f47b19175f9f1746ac39a7d6ff0d17f0edd5acbf1c57b62b59e",
+        "record.json": "ed88056de252276cbe96ee3d501cee5e954a84c4865d22a35f85ce8f44cf43a0",
+        "submission.py": "fe582a499644ff8e5a013599f7a6c7fb6987d7a0031532bd1a077cbb2ad917a7",
+        "prompt.txt": "c26cba43e6a8d59c5e4ab1b5b0231bb267998aa4393ed3d74132fd1438d31d2f",
+        "stderr.txt": "1aa26269eb1cc57f86b235a03cda53c004edb5b1e9fc99d4da4f00843293d721",
+        "judge.stdout": "29135b6102e339f35f0a9a003c3cc77dc5fb439951cee04611f22e9d7b68bace",
+        "argv.json": "e63a8cea47e84bccac2927eef6a89311d5548ab30871bc014dee143f28705375",
+        "schema.json": "a3189efbf12fa748336924594f6fb09af24edab44141bdd3655183f2a7b69612",
+        "final.json": "6454e083441e46fe9905794048399bfdad2ae0f1030c0cfbcaaa16ad192f84db",
+        "judge.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.jsonl": "5210d3d9b82fea4cdc2c594dbcc136c0b21ac437ce8aa799d44bd78ae8cc75a4"
+      }
+    },
+    {
+      "case": "redirect-policy",
+      "pair": 2,
+      "arm": "treatment",
+      "skill_id": "0c66d793944e662f",
+      "skill_sha256": "7b3dae1ffc5434d890f3c65c8f552af52d0307fab3b35dec13013c9ca3844c4f",
+      "model": "gpt-5.6-sol",
+      "date": "2026-10-25T20:27:08.300956+00:00",
+      "status": "completed",
+      "returncode": 0,
+      "error": null,
+      "seconds": 15.51,
+      "body_read": null,
+      "content_supplied": true,
+      "read_basis": "Inline reference supplied in prompt. No separate skill-read action is observable; internal use cannot be inferred from presence.",
+      "usage": [
+        {
+          "input_tokens": 15136,
+          "cached_input_tokens": 12416,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 563,
+          "reasoning_output_tokens": 347
+        }
+      ],
+      "score": {
+        "passed": 6,
+        "total": 6,
+        "outcomes": [
+          {
+            "check": 1,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 2,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 3,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 4,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 5,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 6,
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "score_v1": {
+        "passed": 0,
+        "total": 6,
+        "error": "ValueError: unsupported import"
+      },
+      "code": "import unicodedata\nfrom urllib.parse import urlsplit\n\n\ndef allowed_redirect(url):\n    if not isinstance(url, str) or not url:\n        return False\n\n    if \"\\\\\" in url or any(\n        char.isspace() or unicodedata.category(char) == \"Cc\" for char in url\n    ):\n        return False\n\n    try:\n        parsed = urlsplit(url)\n        hostname = parsed.hostname\n        port = parsed.port\n    except (TypeError, ValueError, UnicodeError):\n        return False\n\n    return (\n        parsed.scheme.lower() == \"https\"\n        and bool(parsed.netloc)\n        and hostname is not None\n        and hostname.lower() in {\"example.com\", \"www.example.com\"}\n        and parsed.username is None\n        and parsed.password is None\n        and (port is None or port == 443)\n    )",
+      "raw_files": {
+        "judge-v2.json": "49f5983aa86c3f47b19175f9f1746ac39a7d6ff0d17f0edd5acbf1c57b62b59e",
+        "record.json": "53cb76a33064bdb434a35ac85ec9a5fe3e28ae3281d8cfd6180c1f71abd62ebc",
+        "submission.py": "c9b9960e26336e441d59055b7909a614a1c9640540b170985fd0193ef0de13f0",
+        "prompt.txt": "86326fe014c9c8f95d89453a61aaba390ca42e9a7c564874bd21e3e633aa0a22",
+        "stderr.txt": "1aa26269eb1cc57f86b235a03cda53c004edb5b1e9fc99d4da4f00843293d721",
+        "judge.stdout": "29135b6102e339f35f0a9a003c3cc77dc5fb439951cee04611f22e9d7b68bace",
+        "argv.json": "e4605a2a31ff2ea89428354220b810e24a88f0d08e938f790ead476383409eef",
+        "schema.json": "a3189efbf12fa748336924594f6fb09af24edab44141bdd3655183f2a7b69612",
+        "final.json": "ca2f0ebb0b382ad4a9502355c6dcc64045aa67fea148ac3f80ed50e7db7c8277",
+        "judge.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.jsonl": "d8a8f97820d300ae7519b5e04c00cd54bafe3188f46b07d949d05f9cde4a480f"
+      }
+    },
+    {
+      "case": "safe-filename",
+      "pair": 1,
+      "arm": "baseline",
+      "skill_id": "0c66d793944e662f",
+      "skill_sha256": "7b3dae1ffc5434d890f3c65c8f552af52d0307fab3b35dec13013c9ca3844c4f",
+      "model": "gpt-5.6-sol",
+      "date": "2026-10-25T20:27:36.624652+00:00",
+      "status": "completed",
+      "returncode": 0,
+      "error": null,
+      "seconds": 4.064,
+      "body_read": false,
+      "content_supplied": false,
+      "read_basis": "Inline reference supplied in prompt. No separate skill-read action is observable; internal use cannot be inferred from presence.",
+      "usage": [
+        {
+          "input_tokens": 13427,
+          "cached_input_tokens": 12416,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 89,
+          "reasoning_output_tokens": 0
+        }
+      ],
+      "score": {
+        "passed": 6,
+        "total": 6,
+        "outcomes": [
+          {
+            "check": 1,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 2,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 3,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 4,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 5,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 6,
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "score_v1": {
+        "passed": 6,
+        "total": 6,
+        "outcomes": [
+          {
+            "check": 1,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 2,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 3,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 4,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 5,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 6,
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "code": "def valid_filename(name):\n    return (\n        isinstance(name, str)\n        and 0 < len(name) <= 80\n        and name.isascii()\n        and not name.startswith('.')\n        and '..' not in name\n        and all(c.isalnum() or c in '._-' for c in name)\n    )",
+      "raw_files": {
+        "judge-v2.json": "49f5983aa86c3f47b19175f9f1746ac39a7d6ff0d17f0edd5acbf1c57b62b59e",
+        "record.json": "bfe414c716aeafba4eb2f7b20b825c335c0289674288fbc594f47a598adf79f7",
+        "submission.py": "5839784815b8d9e4387444bda5c1a43bf308006a67e221221a687cae7a65f73c",
+        "prompt.txt": "20c0e460f55d08d5525e5e3725e3c5a2f960493a4f599086eeb30e23c59c30d3",
+        "stderr.txt": "1aa26269eb1cc57f86b235a03cda53c004edb5b1e9fc99d4da4f00843293d721",
+        "judge.stdout": "49f5983aa86c3f47b19175f9f1746ac39a7d6ff0d17f0edd5acbf1c57b62b59e",
+        "argv.json": "bbe71ae838158a61ee88f9acd9dd1257aaa840336b4a5fa89dd967c0d1418b7c",
+        "schema.json": "a3189efbf12fa748336924594f6fb09af24edab44141bdd3655183f2a7b69612",
+        "final.json": "bc87a87158ab7114ba92682f9442c2e96ec18881ecca731fe65aae442f1afc1c",
+        "judge.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.jsonl": "a93f07ed9dc2face5b9cad0a54daea3f3c5c06a696d2b2882bb4a822bbd36280"
+      }
+    },
+    {
+      "case": "safe-filename",
+      "pair": 1,
+      "arm": "treatment",
+      "skill_id": "0c66d793944e662f",
+      "skill_sha256": "7b3dae1ffc5434d890f3c65c8f552af52d0307fab3b35dec13013c9ca3844c4f",
+      "model": "gpt-5.6-sol",
+      "date": "2026-10-25T20:27:32.517967+00:00",
+      "status": "completed",
+      "returncode": 0,
+      "error": null,
+      "seconds": 3.757,
+      "body_read": null,
+      "content_supplied": true,
+      "read_basis": "Inline reference supplied in prompt. No separate skill-read action is observable; internal use cannot be inferred from presence.",
+      "usage": [
+        {
+          "input_tokens": 15108,
+          "cached_input_tokens": 12416,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 95,
+          "reasoning_output_tokens": 0
+        }
+      ],
+      "score": {
+        "passed": 6,
+        "total": 6,
+        "outcomes": [
+          {
+            "check": 1,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 2,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 3,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 4,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 5,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 6,
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "score_v1": {
+        "passed": 6,
+        "total": 6,
+        "outcomes": [
+          {
+            "check": 1,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 2,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 3,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 4,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 5,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 6,
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "code": "def valid_filename(name):\n    if not isinstance(name, str) or not 1 <= len(name) <= 80 or not name.isascii():\n        return False\n    if name.startswith('.') or '..' in name:\n        return False\n    return all(c.isascii() and (c.isalnum() or c in '._-') for c in name)\n",
+      "raw_files": {
+        "judge-v2.json": "49f5983aa86c3f47b19175f9f1746ac39a7d6ff0d17f0edd5acbf1c57b62b59e",
+        "record.json": "da591f1e9eb1eaa5ce6d8ce9cec09e3b31de656fd2b99628e75e38b954b4f756",
+        "submission.py": "707dc1255d845a41055eb42bbaadead26e1fd27c9723d5542d30a09cad9ff1d4",
+        "prompt.txt": "0b01cbe941175219b86557e3f1ee904096d85118d842427ea89570e458910261",
+        "stderr.txt": "1aa26269eb1cc57f86b235a03cda53c004edb5b1e9fc99d4da4f00843293d721",
+        "judge.stdout": "49f5983aa86c3f47b19175f9f1746ac39a7d6ff0d17f0edd5acbf1c57b62b59e",
+        "argv.json": "e267e459b5f3a45bf574f3612e217674df31091e1ff0d77a94de104b8823c930",
+        "schema.json": "a3189efbf12fa748336924594f6fb09af24edab44141bdd3655183f2a7b69612",
+        "final.json": "660b68afc1694e8a28c68fc77a896caff834da314f3fd1b59f21c947acb03d1e",
+        "judge.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.jsonl": "7441dc0dbd8fc3ff991af6361b2d30164fe8f36de40385440b3c04bb1f4f06a4"
+      }
+    },
+    {
+      "case": "safe-filename",
+      "pair": 2,
+      "arm": "baseline",
+      "skill_id": "0c66d793944e662f",
+      "skill_sha256": "7b3dae1ffc5434d890f3c65c8f552af52d0307fab3b35dec13013c9ca3844c4f",
+      "model": "gpt-5.6-sol",
+      "date": "2026-10-25T20:27:34.492605+00:00",
+      "status": "completed",
+      "returncode": 0,
+      "error": null,
+      "seconds": 3.524,
+      "body_read": false,
+      "content_supplied": false,
+      "read_basis": "Inline reference supplied in prompt. No separate skill-read action is observable; internal use cannot be inferred from presence.",
+      "usage": [
+        {
+          "input_tokens": 13427,
+          "cached_input_tokens": 12416,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 96,
+          "reasoning_output_tokens": 0
+        }
+      ],
+      "score": {
+        "passed": 6,
+        "total": 6,
+        "outcomes": [
+          {
+            "check": 1,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 2,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 3,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 4,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 5,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 6,
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "score_v1": {
+        "passed": 6,
+        "total": 6,
+        "outcomes": [
+          {
+            "check": 1,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 2,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 3,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 4,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 5,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 6,
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "code": "def valid_filename(name):\n    return (\n        isinstance(name, str)\n        and 0 < len(name) <= 80\n        and name.isascii()\n        and not name.startswith('.')\n        and '..' not in name\n        and all(c.isascii() and (c.isalnum() or c in '._-') for c in name)\n    )",
+      "raw_files": {
+        "judge-v2.json": "49f5983aa86c3f47b19175f9f1746ac39a7d6ff0d17f0edd5acbf1c57b62b59e",
+        "record.json": "a7431bf39c28514a043b38ea0feafa21862c09a48da4fb95a9ade2e3006a6649",
+        "submission.py": "d5b894ac920ff8f14374f8457790fe279b5c8a58527988837b13016b27a5afbb",
+        "prompt.txt": "20c0e460f55d08d5525e5e3725e3c5a2f960493a4f599086eeb30e23c59c30d3",
+        "stderr.txt": "1aa26269eb1cc57f86b235a03cda53c004edb5b1e9fc99d4da4f00843293d721",
+        "judge.stdout": "49f5983aa86c3f47b19175f9f1746ac39a7d6ff0d17f0edd5acbf1c57b62b59e",
+        "argv.json": "a20757f733cd0c18679c021808a7441f9b1ee7f5a39a7adbc8aec7d701315e2f",
+        "schema.json": "a3189efbf12fa748336924594f6fb09af24edab44141bdd3655183f2a7b69612",
+        "final.json": "d7a462e4c5d6e64a26982933f8cbda9770b9349ddc551fa0bd031b25e552c65f",
+        "judge.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.jsonl": "ab9f117cec268601a30f82e5874f27551a12d241d2b041f08f482536c84d6529"
+      }
+    },
+    {
+      "case": "safe-filename",
+      "pair": 2,
+      "arm": "treatment",
+      "skill_id": "0c66d793944e662f",
+      "skill_sha256": "7b3dae1ffc5434d890f3c65c8f552af52d0307fab3b35dec13013c9ca3844c4f",
+      "model": "gpt-5.6-sol",
+      "date": "2026-10-25T20:27:38.104200+00:00",
+      "status": "completed",
+      "returncode": 0,
+      "error": null,
+      "seconds": 3.547,
+      "body_read": null,
+      "content_supplied": true,
+      "read_basis": "Inline reference supplied in prompt. No separate skill-read action is observable; internal use cannot be inferred from presence.",
+      "usage": [
+        {
+          "input_tokens": 15108,
+          "cached_input_tokens": 12416,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 91,
+          "reasoning_output_tokens": 0
+        }
+      ],
+      "score": {
+        "passed": 6,
+        "total": 6,
+        "outcomes": [
+          {
+            "check": 1,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 2,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 3,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 4,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 5,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 6,
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "score_v1": {
+        "passed": 6,
+        "total": 6,
+        "outcomes": [
+          {
+            "check": 1,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 2,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 3,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 4,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 5,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 6,
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "code": "def valid_filename(name):\n    if not isinstance(name, str) or not 1 <= len(name) <= 80:\n        return False\n    if not name.isascii() or name.startswith(\".\") or \"..\" in name:\n        return False\n    return all(char.isalnum() or char in \"._-\" for char in name)",
+      "raw_files": {
+        "judge-v2.json": "49f5983aa86c3f47b19175f9f1746ac39a7d6ff0d17f0edd5acbf1c57b62b59e",
+        "record.json": "7e219abd9bd0997bb55b5b6007bc9162f9b295b588cb606ad9e823b234f7e800",
+        "submission.py": "a59c8bc9645ebf5808808dd620649a858a486f1274fb63483d1fab1ea69910f0",
+        "prompt.txt": "0b01cbe941175219b86557e3f1ee904096d85118d842427ea89570e458910261",
+        "stderr.txt": "1aa26269eb1cc57f86b235a03cda53c004edb5b1e9fc99d4da4f00843293d721",
+        "judge.stdout": "49f5983aa86c3f47b19175f9f1746ac39a7d6ff0d17f0edd5acbf1c57b62b59e",
+        "argv.json": "516e6885e6c0eeee020e1a8030aeaa038f4cb4095a6784cff84dd44aa16c0b1c",
+        "schema.json": "a3189efbf12fa748336924594f6fb09af24edab44141bdd3655183f2a7b69612",
+        "final.json": "5c8821f71d429f4c4ae848f9a93698ad9c312f5f761e10b1b11478a00d6585f3",
+        "judge.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.jsonl": "9cd35c20824ce122542acbb7793f1dfc9d57129d72936beff3a39bb316054a9f"
+      }
+    },
+    {
+      "case": "table-dedup",
+      "pair": 1,
+      "arm": "baseline",
+      "skill_id": "f37b3e44c1645b37",
+      "skill_sha256": "6712b39718fe815054abca9c3ee72f989613e6f771c8a5c58f30a65a6c905622",
+      "model": "gpt-5.6-sol",
+      "date": "2026-10-25T20:26:30.551330+00:00",
+      "status": "completed",
+      "returncode": 0,
+      "error": null,
+      "seconds": 4.919,
+      "body_read": false,
+      "content_supplied": false,
+      "read_basis": "Inline reference supplied in prompt. No separate skill-read action is observable; internal use cannot be inferred from presence.",
+      "usage": [
+        {
+          "input_tokens": 13413,
+          "cached_input_tokens": 12416,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 180,
+          "reasoning_output_tokens": 63
+        }
+      ],
+      "score": {
+        "passed": 6,
+        "total": 6,
+        "outcomes": [
+          {
+            "check": 1,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 2,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 3,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 4,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 5,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 6,
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "score_v1": {
+        "passed": 6,
+        "total": 6,
+        "outcomes": [
+          {
+            "check": 1,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 2,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 3,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 4,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 5,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 6,
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "code": "def latest(rows):\n    winners = {}\n    order = []\n\n    for row in rows:\n        row_id = row[\"id\"]\n        if row_id not in winners:\n            order.append(row_id)\n            winners[row_id] = row\n        elif row[\"version\"] >= winners[row_id][\"version\"]:\n            winners[row_id] = row\n\n    return [winners[row_id] for row_id in order]\n",
+      "raw_files": {
+        "judge-v2.json": "49f5983aa86c3f47b19175f9f1746ac39a7d6ff0d17f0edd5acbf1c57b62b59e",
+        "record.json": "9b337372974e522e78b77563f2ab8c57040494fb0f229f0c6fc979bf1dee3bf9",
+        "submission.py": "d4b2a52ea2ac7907050f7837e44ea71a646b5392b174b89650b96cf6a06e4cbe",
+        "prompt.txt": "fa78006a08ca244e6d1d3db99d06e2b468e8739e45d3e37d53d6e5e5a058f6bb",
+        "stderr.txt": "1aa26269eb1cc57f86b235a03cda53c004edb5b1e9fc99d4da4f00843293d721",
+        "judge.stdout": "49f5983aa86c3f47b19175f9f1746ac39a7d6ff0d17f0edd5acbf1c57b62b59e",
+        "argv.json": "fd407bdf726397d30d587f2915fb7794140f06129cdd60982d570fd92dfc1120",
+        "schema.json": "a3189efbf12fa748336924594f6fb09af24edab44141bdd3655183f2a7b69612",
+        "final.json": "d02ca10d568e3f7d936a5eea35bda4ec92b47d47ae2b8ea4201283fce3b36525",
+        "judge.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.jsonl": "2a5496571ef651f5f15c97fb2d8cf05fe569ebffb7f3a0e273b851ec5372afa5"
+      }
+    },
+    {
+      "case": "table-dedup",
+      "pair": 1,
+      "arm": "treatment",
+      "skill_id": "f37b3e44c1645b37",
+      "skill_sha256": "6712b39718fe815054abca9c3ee72f989613e6f771c8a5c58f30a65a6c905622",
+      "model": "gpt-5.6-sol",
+      "date": "2026-10-25T20:26:25.587943+00:00",
+      "status": "completed",
+      "returncode": 0,
+      "error": null,
+      "seconds": 5.679,
+      "body_read": null,
+      "content_supplied": true,
+      "read_basis": "Inline reference supplied in prompt. No separate skill-read action is observable; internal use cannot be inferred from presence.",
+      "usage": [
+        {
+          "input_tokens": 15571,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 191,
+          "reasoning_output_tokens": 93
+        }
+      ],
+      "score": {
+        "passed": 6,
+        "total": 6,
+        "outcomes": [
+          {
+            "check": 1,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 2,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 3,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 4,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 5,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 6,
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "score_v1": {
+        "passed": 6,
+        "total": 6,
+        "outcomes": [
+          {
+            "check": 1,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 2,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 3,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 4,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 5,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 6,
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "code": "def latest(rows):\n    winners = {}\n    for row in rows:\n        row_id = row[\"id\"]\n        version = row[\"version\"]\n        if row_id not in winners or version >= winners[row_id][0]:\n            winners[row_id] = (version, row)\n    return [row for _, row in winners.values()]\n",
+      "raw_files": {
+        "judge-v2.json": "49f5983aa86c3f47b19175f9f1746ac39a7d6ff0d17f0edd5acbf1c57b62b59e",
+        "record.json": "b45d3e14110086531729bc64726b62f80304b96a85e628708a4ef5fa7380e7d7",
+        "submission.py": "b506788e5e83ebc20252a4c61d83c459d5c4523fbc231f395b965c43647c2faf",
+        "prompt.txt": "f4fdc2f69582af92036210442e99951fb903534552ed6d003347d5043e25c06f",
+        "stderr.txt": "1aa26269eb1cc57f86b235a03cda53c004edb5b1e9fc99d4da4f00843293d721",
+        "judge.stdout": "49f5983aa86c3f47b19175f9f1746ac39a7d6ff0d17f0edd5acbf1c57b62b59e",
+        "argv.json": "f00f19092783616ac88e83a98daa2c4b4a135f8b920b7d86f03e9a6fe3a2b45e",
+        "schema.json": "a3189efbf12fa748336924594f6fb09af24edab44141bdd3655183f2a7b69612",
+        "final.json": "38c7d6503c18caa959b0f021b67d114737973ef980bd62d299cf2add04df92c5",
+        "judge.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.jsonl": "854fb1eff72f5c8ca1ec499bfcce1642ffd56577d59fbf2b2c2fb079c3c3e455"
+      }
+    },
+    {
+      "case": "table-dedup",
+      "pair": 2,
+      "arm": "baseline",
+      "skill_id": "f37b3e44c1645b37",
+      "skill_sha256": "6712b39718fe815054abca9c3ee72f989613e6f771c8a5c58f30a65a6c905622",
+      "model": "gpt-5.6-sol",
+      "date": "2026-10-25T20:26:28.954624+00:00",
+      "status": "completed",
+      "returncode": 0,
+      "error": null,
+      "seconds": 3.598,
+      "body_read": false,
+      "content_supplied": false,
+      "read_basis": "Inline reference supplied in prompt. No separate skill-read action is observable; internal use cannot be inferred from presence.",
+      "usage": [
+        {
+          "input_tokens": 10740,
+          "cached_input_tokens": 10240,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 112,
+          "reasoning_output_tokens": 0
+        }
+      ],
+      "score": {
+        "passed": 6,
+        "total": 6,
+        "outcomes": [
+          {
+            "check": 1,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 2,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 3,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 4,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 5,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 6,
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "score_v1": {
+        "passed": 6,
+        "total": 6,
+        "outcomes": [
+          {
+            "check": 1,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 2,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 3,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 4,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 5,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 6,
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "code": "def latest(rows):\n    best = {}\n    order = []\n    for row in rows:\n        row_id = row[\"id\"]\n        if row_id not in best:\n            order.append(row_id)\n            best[row_id] = row\n        elif row[\"version\"] >= best[row_id][\"version\"]:\n            best[row_id] = row\n    return [best[row_id] for row_id in order]\n",
+      "raw_files": {
+        "judge-v2.json": "49f5983aa86c3f47b19175f9f1746ac39a7d6ff0d17f0edd5acbf1c57b62b59e",
+        "record.json": "41699a1b2fc207cccbcf6f41087ca0b5f672962bf7e8f5f70997b7820a4d5697",
+        "submission.py": "810a0018a2f80bd796d664bcf10936b886e8b3508bdc7e169281c1e71cb54cf6",
+        "prompt.txt": "fa78006a08ca244e6d1d3db99d06e2b468e8739e45d3e37d53d6e5e5a058f6bb",
+        "stderr.txt": "1aa26269eb1cc57f86b235a03cda53c004edb5b1e9fc99d4da4f00843293d721",
+        "judge.stdout": "49f5983aa86c3f47b19175f9f1746ac39a7d6ff0d17f0edd5acbf1c57b62b59e",
+        "argv.json": "0d57a39e36930badf14b3a4fbe761772cf23f1678e1af8fad53d87d603cb7778",
+        "schema.json": "a3189efbf12fa748336924594f6fb09af24edab44141bdd3655183f2a7b69612",
+        "final.json": "16f64afb9e7d45f993f087e9758d3be9bb24ecba5c97dd5d23615bbc97a191f0",
+        "judge.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.jsonl": "6cb6b23168cf60bb05dfa61b0b8094e5c8da97151e4acc89c10c86d57dd2a225"
+      }
+    },
+    {
+      "case": "table-dedup",
+      "pair": 2,
+      "arm": "treatment",
+      "skill_id": "f37b3e44c1645b37",
+      "skill_sha256": "6712b39718fe815054abca9c3ee72f989613e6f771c8a5c58f30a65a6c905622",
+      "model": "gpt-5.6-sol",
+      "date": "2026-10-25T20:26:25.289666+00:00",
+      "status": "completed",
+      "returncode": 0,
+      "error": null,
+      "seconds": 4.805,
+      "body_read": null,
+      "content_supplied": true,
+      "read_basis": "Inline reference supplied in prompt. No separate skill-read action is observable; internal use cannot be inferred from presence.",
+      "usage": [
+        {
+          "input_tokens": 15571,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 81,
+          "reasoning_output_tokens": 0
+        }
+      ],
+      "score": {
+        "passed": 6,
+        "total": 6,
+        "outcomes": [
+          {
+            "check": 1,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 2,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 3,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 4,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 5,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 6,
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "score_v1": {
+        "passed": 6,
+        "total": 6,
+        "outcomes": [
+          {
+            "check": 1,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 2,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 3,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 4,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 5,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 6,
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "code": "def latest(rows):\n    winners = {}\n    for row in rows:\n        row_id = row[\"id\"]\n        if row_id not in winners or row[\"version\"] >= winners[row_id][\"version\"]:\n            winners[row_id] = row\n    return list(winners.values())",
+      "raw_files": {
+        "judge-v2.json": "49f5983aa86c3f47b19175f9f1746ac39a7d6ff0d17f0edd5acbf1c57b62b59e",
+        "record.json": "32c0cac94e74d0a61ecc27ca6b6a227943ffc94d3ea5296c528e155f4971717f",
+        "submission.py": "b9083a62fa16d6db2247f93d0e0ced2b6435e8ab4da1aaa5ea80cf0f1ee8531e",
+        "prompt.txt": "f4fdc2f69582af92036210442e99951fb903534552ed6d003347d5043e25c06f",
+        "stderr.txt": "1aa26269eb1cc57f86b235a03cda53c004edb5b1e9fc99d4da4f00843293d721",
+        "judge.stdout": "49f5983aa86c3f47b19175f9f1746ac39a7d6ff0d17f0edd5acbf1c57b62b59e",
+        "argv.json": "88fb6ad598ba8e88d220924637f1d22a7d7e2b09d1bfaaa0c56fcbf46f066198",
+        "schema.json": "a3189efbf12fa748336924594f6fb09af24edab44141bdd3655183f2a7b69612",
+        "final.json": "8e56c2a44e10fee41e7caaff9b689c532edcea8242f2cb3f3cee31c2c0347eb9",
+        "judge.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.jsonl": "dfa15440a88ff3c51df712fa7f450cd468b28c103c9b2b3282ec53ae3c8275ce"
+      }
+    },
+    {
+      "case": "time-window",
+      "pair": 1,
+      "arm": "baseline",
+      "skill_id": "67b1408b4733c4e8",
+      "skill_sha256": "51c6435d98c83c42c96ba7c35725a0b2c376cd487fb1a4e6bd0ddbe7e33ef202",
+      "model": "gpt-5.6-sol",
+      "date": "2026-10-25T20:26:44.618643+00:00",
+      "status": "completed",
+      "returncode": 0,
+      "error": null,
+      "seconds": 5.681,
+      "body_read": false,
+      "content_supplied": false,
+      "read_basis": "Inline reference supplied in prompt. No separate skill-read action is observable; internal use cannot be inferred from presence.",
+      "usage": [
+        {
+          "input_tokens": 10754,
+          "cached_input_tokens": 7936,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 154,
+          "reasoning_output_tokens": 0
+        }
+      ],
+      "score": {
+        "passed": 6,
+        "total": 6,
+        "outcomes": [
+          {
+            "check": 1,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 2,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 3,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 4,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 5,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 6,
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "score_v1": {
+        "passed": 6,
+        "total": 6,
+        "outcomes": [
+          {
+            "check": 1,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 2,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 3,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 4,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 5,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 6,
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "code": "def in_window(t, start, end):\n    values = (t, start, end)\n    if any(isinstance(value, bool) or not isinstance(value, int) for value in values):\n        raise ValueError(\"t, start, and end must be integers\")\n    if any(value < 0 or value > 1439 for value in values):\n        raise ValueError(\"t, start, and end must be between 0 and 1439\")\n    if start == end:\n        return False\n    if start < end:\n        return start <= t < end\n    return t >= start or t < end",
+      "raw_files": {
+        "judge-v2.json": "49f5983aa86c3f47b19175f9f1746ac39a7d6ff0d17f0edd5acbf1c57b62b59e",
+        "record.json": "69e85a0ffa5ea7793f3266262e44ac3227767627787fbb6e30178dcd254e856d",
+        "submission.py": "aa4d76ddb2b9bcd408ae109fc115cbda1abdcad4192e0a4df395efe919a9ff28",
+        "prompt.txt": "87266346acdbf81724e1cf7314795ef1f13f6058623df26381bb2feafdbfd2ec",
+        "stderr.txt": "1aa26269eb1cc57f86b235a03cda53c004edb5b1e9fc99d4da4f00843293d721",
+        "judge.stdout": "49f5983aa86c3f47b19175f9f1746ac39a7d6ff0d17f0edd5acbf1c57b62b59e",
+        "argv.json": "c980f5eae7df1050f573ea44b813203208a315cbb82f910f130902214ada5ab4",
+        "schema.json": "a3189efbf12fa748336924594f6fb09af24edab44141bdd3655183f2a7b69612",
+        "final.json": "008c2f4002bc5343f725edae8e2a4d6da3609b4495b7050b3501e00b9ffab445",
+        "judge.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.jsonl": "0b68f7e9c18da37588415bf549aa3cb5c9cba5d56417615bd030d18c9f671b0b"
+      }
+    },
+    {
+      "case": "time-window",
+      "pair": 1,
+      "arm": "treatment",
+      "skill_id": "67b1408b4733c4e8",
+      "skill_sha256": "51c6435d98c83c42c96ba7c35725a0b2c376cd487fb1a4e6bd0ddbe7e33ef202",
+      "model": "gpt-5.6-sol",
+      "date": "2026-10-25T20:26:48.896748+00:00",
+      "status": "completed",
+      "returncode": 0,
+      "error": null,
+      "seconds": 4.213,
+      "body_read": null,
+      "content_supplied": true,
+      "read_basis": "Inline reference supplied in prompt. No separate skill-read action is observable; internal use cannot be inferred from presence.",
+      "usage": [
+        {
+          "input_tokens": 12977,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 130,
+          "reasoning_output_tokens": 0
+        }
+      ],
+      "score": {
+        "passed": 6,
+        "total": 6,
+        "outcomes": [
+          {
+            "check": 1,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 2,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 3,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 4,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 5,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 6,
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "score_v1": {
+        "passed": 6,
+        "total": 6,
+        "outcomes": [
+          {
+            "check": 1,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 2,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 3,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 4,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 5,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 6,
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "code": "def in_window(t, start, end):\n    values = (t, start, end)\n    if any(isinstance(value, bool) or not isinstance(value, int) or not 0 <= value <= 1439 for value in values):\n        raise ValueError(\"t, start, and end must be integers from 0 to 1439\")\n\n    if start == end:\n        return False\n    if start < end:\n        return start <= t < end\n    return t >= start or t < end\n",
+      "raw_files": {
+        "judge-v2.json": "49f5983aa86c3f47b19175f9f1746ac39a7d6ff0d17f0edd5acbf1c57b62b59e",
+        "record.json": "aff5c5110b3cc480b16970a0d8947c8e34615b717ac7539234cc880841bccaf3",
+        "submission.py": "f564c3ed43b9682a0c9b741d0239232be8d733b216f84bc13500c6e47588b52d",
+        "prompt.txt": "041a9e1e97926560d59eb88995cc5baf0b339b93f7543b595a6bcc1ee6e7de03",
+        "stderr.txt": "1aa26269eb1cc57f86b235a03cda53c004edb5b1e9fc99d4da4f00843293d721",
+        "judge.stdout": "49f5983aa86c3f47b19175f9f1746ac39a7d6ff0d17f0edd5acbf1c57b62b59e",
+        "argv.json": "b4dd88bd91d9310881f349327a78b85d77739d9a1a41055b98c9d4fd7496507d",
+        "schema.json": "a3189efbf12fa748336924594f6fb09af24edab44141bdd3655183f2a7b69612",
+        "final.json": "5f89772634be0a7886f51d26cf38ddb9569ecca5496157177826903927b1df6f",
+        "judge.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.jsonl": "dee023df7ef343ba7b0531b175f5c58fe39513b39a1259fe9950d23ee81beca3"
+      }
+    },
+    {
+      "case": "time-window",
+      "pair": 2,
+      "arm": "baseline",
+      "skill_id": "67b1408b4733c4e8",
+      "skill_sha256": "51c6435d98c83c42c96ba7c35725a0b2c376cd487fb1a4e6bd0ddbe7e33ef202",
+      "model": "gpt-5.6-sol",
+      "date": "2026-10-25T20:26:47.394255+00:00",
+      "status": "completed",
+      "returncode": 0,
+      "error": null,
+      "seconds": 4.828,
+      "body_read": false,
+      "content_supplied": false,
+      "read_basis": "Inline reference supplied in prompt. No separate skill-read action is observable; internal use cannot be inferred from presence.",
+      "usage": [
+        {
+          "input_tokens": 13427,
+          "cached_input_tokens": 7936,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 184,
+          "reasoning_output_tokens": 60
+        }
+      ],
+      "score": {
+        "passed": 6,
+        "total": 6,
+        "outcomes": [
+          {
+            "check": 1,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 2,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 3,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 4,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 5,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 6,
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "score_v1": {
+        "passed": 6,
+        "total": 6,
+        "outcomes": [
+          {
+            "check": 1,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 2,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 3,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 4,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 5,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 6,
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "code": "def in_window(t, start, end):\n    values = (t, start, end)\n    if any(type(value) is not int or not 0 <= value <= 1439 for value in values):\n        raise ValueError(\"t, start, and end must be integers from 0 to 1439\")\n\n    if start == end:\n        return False\n    if start < end:\n        return start <= t < end\n    return t >= start or t < end",
+      "raw_files": {
+        "judge-v2.json": "49f5983aa86c3f47b19175f9f1746ac39a7d6ff0d17f0edd5acbf1c57b62b59e",
+        "record.json": "36a87ad486ce456eb3643be7962d789090440a979bf3535a7d594501baa4b397",
+        "submission.py": "57eef6463a7adf3aec8513cf5d25bf39bc9fe1294c3020db416e03af6710fbff",
+        "prompt.txt": "87266346acdbf81724e1cf7314795ef1f13f6058623df26381bb2feafdbfd2ec",
+        "stderr.txt": "1aa26269eb1cc57f86b235a03cda53c004edb5b1e9fc99d4da4f00843293d721",
+        "judge.stdout": "49f5983aa86c3f47b19175f9f1746ac39a7d6ff0d17f0edd5acbf1c57b62b59e",
+        "argv.json": "187453f2ad0d42c6b0978ea2fd63d288c5bd37203b9a199824065abef5e637d8",
+        "schema.json": "a3189efbf12fa748336924594f6fb09af24edab44141bdd3655183f2a7b69612",
+        "final.json": "7c750d7b7a32017b00c58c72630eef32a5e528eadac987ffcd3139085f31da15",
+        "judge.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.jsonl": "d4a322191d1a31c94eee56e12b6b6e0159105c21589b68e073041d0afef9b273"
+      }
+    },
+    {
+      "case": "time-window",
+      "pair": 2,
+      "arm": "treatment",
+      "skill_id": "67b1408b4733c4e8",
+      "skill_sha256": "51c6435d98c83c42c96ba7c35725a0b2c376cd487fb1a4e6bd0ddbe7e33ef202",
+      "model": "gpt-5.6-sol",
+      "date": "2026-10-25T20:26:52.730893+00:00",
+      "status": "completed",
+      "returncode": 0,
+      "error": null,
+      "seconds": 5.285,
+      "body_read": null,
+      "content_supplied": true,
+      "read_basis": "Inline reference supplied in prompt. No separate skill-read action is observable; internal use cannot be inferred from presence.",
+      "usage": [
+        {
+          "input_tokens": 15650,
+          "cached_input_tokens": 12416,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 156,
+          "reasoning_output_tokens": 0
+        }
+      ],
+      "score": {
+        "passed": 6,
+        "total": 6,
+        "outcomes": [
+          {
+            "check": 1,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 2,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 3,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 4,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 5,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 6,
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "score_v1": {
+        "passed": 6,
+        "total": 6,
+        "outcomes": [
+          {
+            "check": 1,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 2,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 3,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 4,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 5,
+            "passed": true,
+            "error": null
+          },
+          {
+            "check": 6,
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "code": "def in_window(t, start, end):\n    values = (t, start, end)\n    if any(isinstance(value, bool) or not isinstance(value, int) for value in values):\n        raise ValueError(\"t, start, and end must be integers\")\n    if any(value < 0 or value > 1439 for value in values):\n        raise ValueError(\"t, start, and end must be between 0 and 1439\")\n\n    if start == end:\n        return False\n    if start < end:\n        return start <= t < end\n    return t >= start or t < end\n",
+      "raw_files": {
+        "judge-v2.json": "49f5983aa86c3f47b19175f9f1746ac39a7d6ff0d17f0edd5acbf1c57b62b59e",
+        "record.json": "c452dadb3e4ed5b5afe707d304f36906f2c50d832cf0bcdb90bb389d6e5442c3",
+        "submission.py": "eb11694ad3d57f646d8bcf6c8dc30ad3ea0bfd1cc622375563bc81892dc6fc58",
+        "prompt.txt": "041a9e1e97926560d59eb88995cc5baf0b339b93f7543b595a6bcc1ee6e7de03",
+        "stderr.txt": "1aa26269eb1cc57f86b235a03cda53c004edb5b1e9fc99d4da4f00843293d721",
+        "judge.stdout": "49f5983aa86c3f47b19175f9f1746ac39a7d6ff0d17f0edd5acbf1c57b62b59e",
+        "argv.json": "c3448d4a315ce991f9eca74b68e25a65cad032b9129fceaa49d25e4ebe7c1754",
+        "schema.json": "a3189efbf12fa748336924594f6fb09af24edab44141bdd3655183f2a7b69612",
+        "final.json": "a2cd0065de2e9b71d52b968a128c37aaf801d2a4be06ec557d003d031191910a",
+        "judge.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.jsonl": "f3b174c4ee66b7e76d35499813b626e30d3d96916945fea4b345eb71b6a41d68"
+      }
+    }
+  ],
+  "limits": [
+    "Exploratory small task set; not a general skill score",
+    "Model-generated code evaluated under restricted AST/builtins and timeout",
+    "Subscription usage is not free of opportunity cost; no API spend",
+    "Treatment supplies pinned public instructions inline; separate reading or internal use is unobservable.",
+    "All errors and raw runs retained; no retries without new run ID",
+    "Instruction presence is known; model reading or use is not observed. This is not an invocation study.",
+    "Every result is at the task-check ceiling, so this small benchmark provides no evidence that any skill helps.",
+    "The xlsx tasks are Python tabular transforms, not spreadsheet artifact or rendering tests."
+  ],
+  "metadata_correction": "Ambiguous read-recorded limitation corrected after independent review; task outcomes and raw runs unchanged."
+}

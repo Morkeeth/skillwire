@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Blind artifact review · SkillWire</title><link rel="stylesheet" href="finder-base.css"><link rel="stylesheet" href="finder.css"></head>
+<body><main class="local-eval-guide human-review-page">
+<p><a href="index.html">Back to Eval</a></p>
+<h1>Which result would you keep?</h1>
+<p>Compare two saved outputs for the same task. The skill condition and automated checks stay hidden until after you save your choice. This page reads a local file in your browser; it sends nothing to SkillWire.</p>
+<label class="review-upload">Choose blind-review.json <input id="blind-file" type="file" accept="application/json,.json"></label>
+<p id="review-status" role="status" aria-live="polite">No pair loaded.</p>
+<section id="review-workspace" hidden>
+<h2>Task</h2><pre id="review-task" class="review-task"></pre>
+<section id="review-context-section" hidden><h2>Starting files</h2><p>These files were the same in both runs. Use them to judge the results.</p><div id="review-context"></div></section>
+<div class="review-pair"><article><h2>Result A</h2><div id="review-a"></div></article><article><h2>Result B</h2><div id="review-b"></div></article></div>
+<form id="review-form">
+<fieldset><legend>On this task, which result would you use?</legend>
+<label><input type="radio" name="choice" value="A" required> A</label>
+<label><input type="radio" name="choice" value="B"> B</label>
+<label><input type="radio" name="choice" value="tie"> Tie</label>
+<label><input type="radio" name="choice" value="cannot_judge"> Cannot judge</label>
+</fieldset>
+<label for="review-reason">Why? Name the useful detail or missing piece.</label>
+<textarea id="review-reason" required minlength="15" maxlength="4000" rows="4" placeholder="I would keep ... because ..."></textarea>
+<label><input id="reviewed-both" type="checkbox" required> I read both results.</label>
+<button type="submit" class="classic-button">Save blind review</button>
+</form>
+<p>Keep the saved verdict with the withheld key. The kit instructions show how to reveal the conditions after the choice is final. A choice here is one person's task preference.</p>
+</section>
+</main><script src="human-review.js"></script></body></html>

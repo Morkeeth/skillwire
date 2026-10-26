@@ -1,0 +1,2 @@
+def latest(rows):
+    return []

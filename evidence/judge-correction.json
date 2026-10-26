@@ -1,0 +1,9 @@
+{
+  "corrected_at": "2026-10-25T20:28:23.592737+00:00",
+  "original_sha256": "f419457ade10a076f60bd97b478bf3ff92dc1494f277cd72042b192aa89a6192",
+  "corrected_sha256": "e970cc90b434e1078a20516146c67ce321994794a382daa5189a03dab040b1ac",
+  "reason": "The execution harness omitted Python format, ord, UnicodeError and unicodedata, rejecting valid task solutions. Original outcomes and raw code are retained. Correction only enables these standard-library capabilities; no task prompts, expected answers or checks changed. All arms are regraded uniformly without new inference.",
+  "original_grades": "retained in raw run records and score_v1",
+  "corrected_grades": "data/eval/2026-10-25/lime-inline-202544/records-regraded.json",
+  "limitation": "Post-run harness correction disclosed; preregistered checker implementation was incomplete."
+}

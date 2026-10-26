@@ -1,0 +1,1189 @@
+{
+  "schema": 1,
+  "frozen_at": "2026-10-25T21:49:37.900583+00:00",
+  "judge_sha256": "0011a69fe2a0a8703aeeef8cbd46e57f371affa14ae9000e52896fb5960ac378",
+  "model": "gpt-5.6-sol",
+  "reasoning": "low",
+  "protocol": "Paired synthetic task with vs without optional inline pinned public reference, tools disabled.",
+  "body_read": null,
+  "read_basis": "Separate read/internal use unobservable. Treatment reference content supplied; presence is not use.",
+  "original_null_retained": "public-evaluation-results.json unchanged",
+  "launch_correction": "Initial -I launch could not import judge dependency. Every raw launch error retained, not counted as task failure. Saved outputs graded uniformly using explicit script import path, frozen task/judge unchanged, no new inference.",
+  "tasks": [
+    {
+      "id": "atomic-stock-replay",
+      "skill": "67b1408b4733c4e8",
+      "checks": 10,
+      "prompt": "Repair a stock event reducer. Return JSON {\"code\": \"...\"} implementing Python replay(initial, events). Standard library only, no I/O. initial is a dict of str SKU to exact nonnegative int (bool invalid). events is a list of dicts. Validate inputs; invalid raises ValueError and nothing mutates. Return {\"stock\": dict, \"applied\": list, \"rejected\": list}. Each event has nonempty str id and list moves; each move is [SKU, delta], SKU nonempty str, delta exact int. Extra keys are ignored. Invalid types/shapes raise ValueError even on duplicates or rejected events. For each event aggregate all deltas per SKU before checking feasibility. Reject if any resulting stock would be negative; append its id to rejected. Otherwise commit all moves atomically and append its id to applied. Unknown SKU starts at zero; a committed zero delta creates the SKU. Event ids are idempotency keys. Equality of duplicate content means equal aggregate mapping after dropping zero net deltas, independent of move order; duplicate with identical content is ignored entirely even if first occurrence rejected. Conflicting content for an existing id raises ValueError. Remember rejected ids too. Duplicate validation precedes ignoring it. Return lists follow first encounter order. Initial may contain empty SKU (preserve it) but moves may not. Empty moves is a valid committed event. Do not mutate or alias input initial/events; result stock must be separate. Broken code uses per-move balance checks, mutates initial and records ids only on success. Supply complete corrected function and imports."
+    },
+    {
+      "id": "portable-archive-plan",
+      "skill": "0c66d793944e662f",
+      "checks": 10,
+      "prompt": "Implement Python plan(entries) as JSON {\"code\": \"...\"}. No file or network operations. entries is a list of dicts with path (str), size (exact int >=0), kind (\"file\" or \"dir\"). Other fields ignored. Return ordered normalized file paths, excluding directory entries. Invalid input or conflict raises ValueError, never partially returns or mutates input. Validate ALL entries including dirs. Limits: <=100 files and sum of file sizes <=1,000,000 bytes. Dir size must be zero. Normalize Unicode path to NFC, replace backslashes with '/', then split; remove components exactly '.'; repeated '/' collapse. Reject leading slash, any '..' component, NUL or any Unicode control character category Cc, empty result, any colon in any component, trailing period or space in any component, and any Windows device component (case insensitive basename before FIRST period equals CON PRN AUX NUL COM1..COM9 or LPT1..LPT9). A trailing slash is allowed only for dirs, and only after normalization of separators. Reject file paths ending in slash. Case insensitive collision key is NFC normalized component.casefold() joined by '/'. Reject duplicate explicit entries of any kind, including identical dir entries. Also reject file/dir same key, and any file ancestor of another entry, whether explicit dir or file. Implicit parent dirs are allowed to later become an explicit dir ONCE. Preserve normalized component case in returned file strings and input order. A directory ancestor of another entry is valid. Reject malformed entries with ValueError (including booleans as size). Do not percent-decode; percent characters are literal. Empty entries returns []. Use only standard library. Supply complete function and imports."
+    }
+  ],
+  "skills": [
+    {
+      "id": "0c66d793944e662f",
+      "repo": "openai/skills",
+      "path": "skills/.curated/security-best-practices/SKILL.md",
+      "revision": "49f948faa9258a0c61caceaf225e179651397431",
+      "sha256": "7b3dae1ffc5434d890f3c65c8f552af52d0307fab3b35dec13013c9ca3844c4f",
+      "source": "https://github.com/openai/skills/blob/49f948faa9258a0c61caceaf225e179651397431/skills/.curated/security-best-practices/SKILL.md",
+      "name": "security-best-practices"
+    },
+    {
+      "id": "67b1408b4733c4e8",
+      "repo": "obra/superpowers",
+      "path": "skills/systematic-debugging/SKILL.md",
+      "revision": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+      "sha256": "51c6435d98c83c42c96ba7c35725a0b2c376cd487fb1a4e6bd0ddbe7e33ef202",
+      "source": "https://github.com/obra/superpowers/blob/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/systematic-debugging/SKILL.md",
+      "name": "systematic-debugging"
+    },
+    {
+      "id": "f37b3e44c1645b37",
+      "repo": "anthropics/skills",
+      "path": "skills/xlsx/SKILL.md",
+      "revision": "dbd4588f9e1033efb41dad4bef2f7947c8993d44",
+      "sha256": "6712b39718fe815054abca9c3ee72f989613e6f771c8a5c58f30a65a6c905622",
+      "source": "https://github.com/anthropics/skills/blob/dbd4588f9e1033efb41dad4bef2f7947c8993d44/skills/xlsx/SKILL.md",
+      "name": "xlsx"
+    }
+  ],
+  "summary": [
+    {
+      "case": "atomic-stock-replay",
+      "skill": "67b1408b4733c4e8",
+      "outcome_groups": 10,
+      "scores": {
+        "baseline": [
+          10,
+          10,
+          10
+        ],
+        "treatment": [
+          10,
+          10,
+          10
+        ]
+      },
+      "all_groups_pass": {
+        "baseline": 3,
+        "treatment": 3
+      },
+      "n_per_arm": 3
+    },
+    {
+      "case": "portable-archive-plan",
+      "skill": "0c66d793944e662f",
+      "outcome_groups": 10,
+      "scores": {
+        "baseline": [
+          10,
+          10,
+          10
+        ],
+        "treatment": [
+          10,
+          10,
+          10
+        ]
+      },
+      "all_groups_pass": {
+        "baseline": 3,
+        "treatment": 3
+      },
+      "n_per_arm": 3
+    }
+  ],
+  "runs": [
+    {
+      "case": "atomic-stock-replay",
+      "pair": 1,
+      "arm": "baseline",
+      "skill_id": "67b1408b4733c4e8",
+      "skill_sha256": "51c6435d98c83c42c96ba7c35725a0b2c376cd487fb1a4e6bd0ddbe7e33ef202",
+      "model": "gpt-5.6-sol",
+      "date": "2026-10-25T21:50:02.749831+00:00",
+      "status": "completed",
+      "returncode": 0,
+      "error": null,
+      "seconds": 16.886,
+      "body_read": false,
+      "content_supplied": false,
+      "read_command_seen": false,
+      "read_basis": "Inline reference supplied in prompt. No separate skill-read action is observable; internal use cannot be inferred from presence.",
+      "usage": [
+        {
+          "input_tokens": 10991,
+          "cached_input_tokens": 10240,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 872,
+          "reasoning_output_tokens": 351
+        }
+      ],
+      "parse_errors": [],
+      "score": {
+        "passed": 10,
+        "total": 10,
+        "outcomes": [
+          {
+            "name": "empty-and-copy",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "aggregate-before-feasibility",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "atomic-reject",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "zero-creates-key",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "duplicate-permutation-zero",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "rejected-retry-stays-rejected",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "conflicting-id",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "malformed-duplicate-still-validates",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "input-shape-validation",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "seeded-replay-80",
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "initial_grade": {
+        "passed": 0,
+        "total": 10,
+        "error": "judge process failed"
+      },
+      "grade_launch_correction": "Explicit script import path under -I. Frozen task/judge source unchanged.",
+      "code": "def replay(initial, events):\n    if not isinstance(initial, dict) or not isinstance(events, list):\n        raise ValueError(\"invalid input\")\n\n    stock = {}\n    for sku, quantity in initial.items():\n        if not isinstance(sku, str):\n            raise ValueError(\"invalid initial SKU\")\n        if type(quantity) is not int or quantity < 0:\n            raise ValueError(\"invalid initial quantity\")\n        stock[sku] = quantity\n\n    applied = []\n    rejected = []\n    seen = {}\n\n    for event in events:\n        if not isinstance(event, dict):\n            raise ValueError(\"invalid event\")\n\n        event_id = event.get(\"id\")\n        moves = event.get(\"moves\")\n        if not isinstance(event_id, str) or not event_id:\n            raise ValueError(\"invalid event id\")\n        if not isinstance(moves, list):\n            raise ValueError(\"invalid moves\")\n\n        totals = {}\n        touched = set()\n        for move in moves:\n            if not isinstance(move, list) or len(move) != 2:\n                raise ValueError(\"invalid move\")\n            sku, delta = move\n            if not isinstance(sku, str) or not sku:\n                raise ValueError(\"invalid move SKU\")\n            if type(delta) is not int:\n                raise ValueError(\"invalid move delta\")\n            touched.add(sku)\n            totals[sku] = totals.get(sku, 0) + delta\n\n        content = {sku: delta for sku, delta in totals.items() if delta != 0}\n        if event_id in seen:\n            if seen[event_id] != content:\n                raise ValueError(\"conflicting duplicate event\")\n            continue\n        seen[event_id] = content\n\n        if any(stock.get(sku, 0) + delta < 0 for sku, delta in totals.items()):\n            rejected.append(event_id)\n            continue\n\n        for sku in touched:\n            stock[sku] = stock.get(sku, 0) + totals[sku]\n        applied.append(event_id)\n\n    return {\"stock\": stock, \"applied\": applied, \"rejected\": rejected}\n"
+    },
+    {
+      "case": "atomic-stock-replay",
+      "pair": 1,
+      "arm": "treatment",
+      "skill_id": "67b1408b4733c4e8",
+      "skill_sha256": "51c6435d98c83c42c96ba7c35725a0b2c376cd487fb1a4e6bd0ddbe7e33ef202",
+      "model": "gpt-5.6-sol",
+      "date": "2026-10-25T21:50:17.246021+00:00",
+      "status": "completed",
+      "returncode": 0,
+      "error": null,
+      "seconds": 14.444,
+      "body_read": null,
+      "content_supplied": true,
+      "read_command_seen": false,
+      "read_basis": "Inline reference supplied in prompt. No separate skill-read action is observable; internal use cannot be inferred from presence.",
+      "usage": [
+        {
+          "input_tokens": 15891,
+          "cached_input_tokens": 7936,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 906,
+          "reasoning_output_tokens": 339
+        }
+      ],
+      "parse_errors": [],
+      "score": {
+        "passed": 10,
+        "total": 10,
+        "outcomes": [
+          {
+            "name": "empty-and-copy",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "aggregate-before-feasibility",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "atomic-reject",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "zero-creates-key",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "duplicate-permutation-zero",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "rejected-retry-stays-rejected",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "conflicting-id",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "malformed-duplicate-still-validates",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "input-shape-validation",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "seeded-replay-80",
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "initial_grade": {
+        "passed": 0,
+        "total": 10,
+        "error": "judge process failed"
+      },
+      "grade_launch_correction": "Explicit script import path under -I. Frozen task/judge source unchanged.",
+      "code": "def replay(initial, events):\n    if not isinstance(initial, dict):\n        raise ValueError(\"initial must be a dict\")\n    if not isinstance(events, list):\n        raise ValueError(\"events must be a list\")\n\n    stock = {}\n    for sku, quantity in initial.items():\n        if not isinstance(sku, str):\n            raise ValueError(\"initial SKUs must be strings\")\n        if type(quantity) is not int or quantity < 0:\n            raise ValueError(\"initial quantities must be nonnegative exact integers\")\n        stock[sku] = quantity\n\n    applied = []\n    rejected = []\n    seen = {}\n\n    for event in events:\n        if not isinstance(event, dict):\n            raise ValueError(\"each event must be a dict\")\n\n        event_id = event.get(\"id\")\n        moves = event.get(\"moves\")\n        if not isinstance(event_id, str) or not event_id:\n            raise ValueError(\"event id must be a nonempty string\")\n        if not isinstance(moves, list):\n            raise ValueError(\"event moves must be a list\")\n\n        aggregate = {}\n        for move in moves:\n            if not isinstance(move, list) or len(move) != 2:\n                raise ValueError(\"each move must be a two-item list\")\n            sku, delta = move\n            if not isinstance(sku, str) or not sku:\n                raise ValueError(\"move SKU must be a nonempty string\")\n            if type(delta) is not int:\n                raise ValueError(\"move delta must be an exact integer\")\n            aggregate[sku] = aggregate.get(sku, 0) + delta\n\n        content = {sku: delta for sku, delta in aggregate.items() if delta != 0}\n        if event_id in seen:\n            if seen[event_id] != content:\n                raise ValueError(\"conflicting content for duplicate event id\")\n            continue\n\n        seen[event_id] = content\n        if any(stock.get(sku, 0) + delta < 0 for sku, delta in aggregate.items()):\n            rejected.append(event_id)\n            continue\n\n        for sku, delta in aggregate.items():\n            stock[sku] = stock.get(sku, 0) + delta\n        applied.append(event_id)\n\n    return {\"stock\": stock, \"applied\": applied, \"rejected\": rejected}\n"
+    },
+    {
+      "case": "atomic-stock-replay",
+      "pair": 2,
+      "arm": "baseline",
+      "skill_id": "67b1408b4733c4e8",
+      "skill_sha256": "51c6435d98c83c42c96ba7c35725a0b2c376cd487fb1a4e6bd0ddbe7e33ef202",
+      "model": "gpt-5.6-sol",
+      "date": "2026-10-25T21:50:00.347502+00:00",
+      "status": "completed",
+      "returncode": 0,
+      "error": null,
+      "seconds": 14.483,
+      "body_read": false,
+      "content_supplied": false,
+      "read_command_seen": false,
+      "read_basis": "Inline reference supplied in prompt. No separate skill-read action is observable; internal use cannot be inferred from presence.",
+      "usage": [
+        {
+          "input_tokens": 10783,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 892,
+          "reasoning_output_tokens": 387
+        }
+      ],
+      "parse_errors": [],
+      "score": {
+        "passed": 10,
+        "total": 10,
+        "outcomes": [
+          {
+            "name": "empty-and-copy",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "aggregate-before-feasibility",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "atomic-reject",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "zero-creates-key",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "duplicate-permutation-zero",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "rejected-retry-stays-rejected",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "conflicting-id",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "malformed-duplicate-still-validates",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "input-shape-validation",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "seeded-replay-80",
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "initial_grade": {
+        "passed": 0,
+        "total": 10,
+        "error": "judge process failed"
+      },
+      "grade_launch_correction": "Explicit script import path under -I. Frozen task/judge source unchanged.",
+      "code": "def replay(initial, events):\n    if type(initial) is not dict or type(events) is not list:\n        raise ValueError(\"invalid input\")\n\n    stock = {}\n    for sku, quantity in initial.items():\n        if type(sku) is not str or type(quantity) is not int or quantity < 0:\n            raise ValueError(\"invalid initial stock\")\n        stock[sku] = quantity\n\n    applied = []\n    rejected = []\n    seen = {}\n\n    for event in events:\n        if type(event) is not dict:\n            raise ValueError(\"invalid event\")\n\n        event_id = event.get(\"id\")\n        moves = event.get(\"moves\")\n        if type(event_id) is not str or not event_id or type(moves) is not list:\n            raise ValueError(\"invalid event\")\n\n        totals = {}\n        touched = []\n        touched_set = set()\n\n        for move in moves:\n            if type(move) is not list or len(move) != 2:\n                raise ValueError(\"invalid move\")\n            sku, delta = move\n            if type(sku) is not str or not sku or type(delta) is not int:\n                raise ValueError(\"invalid move\")\n            if sku not in touched_set:\n                touched_set.add(sku)\n                touched.append(sku)\n            totals[sku] = totals.get(sku, 0) + delta\n\n        content = {sku: delta for sku, delta in totals.items() if delta != 0}\n\n        if event_id in seen:\n            if seen[event_id] != content:\n                raise ValueError(\"conflicting event id\")\n            continue\n\n        seen[event_id] = content\n\n        if any(stock.get(sku, 0) + delta < 0 for sku, delta in totals.items()):\n            rejected.append(event_id)\n            continue\n\n        for sku in touched:\n            stock[sku] = stock.get(sku, 0) + totals[sku]\n        applied.append(event_id)\n\n    return {\"stock\": stock, \"applied\": applied, \"rejected\": rejected}\n"
+    },
+    {
+      "case": "atomic-stock-replay",
+      "pair": 2,
+      "arm": "treatment",
+      "skill_id": "67b1408b4733c4e8",
+      "skill_sha256": "51c6435d98c83c42c96ba7c35725a0b2c376cd487fb1a4e6bd0ddbe7e33ef202",
+      "model": "gpt-5.6-sol",
+      "date": "2026-10-25T21:50:16.237392+00:00",
+      "status": "completed",
+      "returncode": 0,
+      "error": null,
+      "seconds": 15.829,
+      "body_read": null,
+      "content_supplied": true,
+      "read_command_seen": false,
+      "read_basis": "Inline reference supplied in prompt. No separate skill-read action is observable; internal use cannot be inferred from presence.",
+      "usage": [
+        {
+          "input_tokens": 15891,
+          "cached_input_tokens": 7936,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 846,
+          "reasoning_output_tokens": 243
+        }
+      ],
+      "parse_errors": [],
+      "score": {
+        "passed": 10,
+        "total": 10,
+        "outcomes": [
+          {
+            "name": "empty-and-copy",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "aggregate-before-feasibility",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "atomic-reject",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "zero-creates-key",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "duplicate-permutation-zero",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "rejected-retry-stays-rejected",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "conflicting-id",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "malformed-duplicate-still-validates",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "input-shape-validation",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "seeded-replay-80",
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "initial_grade": {
+        "passed": 0,
+        "total": 10,
+        "error": "judge process failed"
+      },
+      "grade_launch_correction": "Explicit script import path under -I. Frozen task/judge source unchanged.",
+      "code": "def replay(initial, events):\n    if not isinstance(initial, dict) or not isinstance(events, list):\n        raise ValueError(\"invalid input\")\n\n    for sku, quantity in initial.items():\n        if not isinstance(sku, str):\n            raise ValueError(\"invalid initial SKU\")\n        if type(quantity) is not int or quantity < 0:\n            raise ValueError(\"invalid initial quantity\")\n\n    parsed = []\n    known_content = {}\n\n    for event in events:\n        if not isinstance(event, dict):\n            raise ValueError(\"invalid event\")\n\n        event_id = event.get(\"id\")\n        moves = event.get(\"moves\")\n        if not isinstance(event_id, str) or not event_id:\n            raise ValueError(\"invalid event id\")\n        if not isinstance(moves, list):\n            raise ValueError(\"invalid moves\")\n\n        aggregate = {}\n        touched = []\n        touched_set = set()\n\n        for move in moves:\n            if not isinstance(move, list) or len(move) != 2:\n                raise ValueError(\"invalid move\")\n            sku, delta = move\n            if not isinstance(sku, str) or not sku:\n                raise ValueError(\"invalid move SKU\")\n            if type(delta) is not int:\n                raise ValueError(\"invalid delta\")\n\n            if sku not in touched_set:\n                touched_set.add(sku)\n                touched.append(sku)\n            aggregate[sku] = aggregate.get(sku, 0) + delta\n\n        content = {sku: delta for sku, delta in aggregate.items() if delta != 0}\n        if event_id in known_content:\n            if known_content[event_id] != content:\n                raise ValueError(\"conflicting duplicate event\")\n            duplicate = True\n        else:\n            known_content[event_id] = content\n            duplicate = False\n\n        parsed.append((event_id, aggregate, touched, duplicate))\n\n    stock = dict(initial)\n    applied = []\n    rejected = []\n\n    for event_id, aggregate, touched, duplicate in parsed:\n        if duplicate:\n            continue\n\n        if any(stock.get(sku, 0) + delta < 0\n               for sku, delta in aggregate.items()):\n            rejected.append(event_id)\n            continue\n\n        for sku in touched:\n            stock[sku] = stock.get(sku, 0) + aggregate[sku]\n        applied.append(event_id)\n\n    return {\"stock\": stock, \"applied\": applied, \"rejected\": rejected}\n"
+    },
+    {
+      "case": "atomic-stock-replay",
+      "pair": 3,
+      "arm": "treatment",
+      "skill_id": "67b1408b4733c4e8",
+      "skill_sha256": "51c6435d98c83c42c96ba7c35725a0b2c376cd487fb1a4e6bd0ddbe7e33ef202",
+      "model": "gpt-5.6-sol",
+      "date": "2026-10-25T21:50:35.499213+00:00",
+      "status": "completed",
+      "returncode": 0,
+      "error": null,
+      "seconds": 19.21,
+      "body_read": null,
+      "content_supplied": true,
+      "read_command_seen": false,
+      "read_basis": "Inline reference supplied in prompt. No separate skill-read action is observable; internal use cannot be inferred from presence.",
+      "usage": [
+        {
+          "input_tokens": 15891,
+          "cached_input_tokens": 12416,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 1052,
+          "reasoning_output_tokens": 508
+        }
+      ],
+      "parse_errors": [],
+      "score": {
+        "passed": 10,
+        "total": 10,
+        "outcomes": [
+          {
+            "name": "empty-and-copy",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "aggregate-before-feasibility",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "atomic-reject",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "zero-creates-key",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "duplicate-permutation-zero",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "rejected-retry-stays-rejected",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "conflicting-id",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "malformed-duplicate-still-validates",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "input-shape-validation",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "seeded-replay-80",
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "initial_grade": {
+        "passed": 0,
+        "total": 10,
+        "error": "judge process failed"
+      },
+      "grade_launch_correction": "Explicit script import path under -I. Frozen task/judge source unchanged.",
+      "code": "def replay(initial, events):\n    if not isinstance(initial, dict) or not isinstance(events, list):\n        raise ValueError(\"invalid input\")\n\n    stock = {}\n    for sku, quantity in initial.items():\n        if not isinstance(sku, str):\n            raise ValueError(\"invalid initial SKU\")\n        if type(quantity) is not int or quantity < 0:\n            raise ValueError(\"invalid initial quantity\")\n        stock[sku] = quantity\n\n    validated = []\n    for event in events:\n        if not isinstance(event, dict):\n            raise ValueError(\"invalid event\")\n\n        event_id = event.get(\"id\")\n        moves = event.get(\"moves\")\n        if not isinstance(event_id, str) or not event_id:\n            raise ValueError(\"invalid event id\")\n        if not isinstance(moves, list):\n            raise ValueError(\"invalid moves\")\n\n        aggregate = {}\n        for move in moves:\n            if not isinstance(move, list) or len(move) != 2:\n                raise ValueError(\"invalid move\")\n            sku, delta = move\n            if not isinstance(sku, str) or not sku:\n                raise ValueError(\"invalid move SKU\")\n            if type(delta) is not int:\n                raise ValueError(\"invalid move delta\")\n            aggregate[sku] = aggregate.get(sku, 0) + delta\n\n        content = {sku: delta for sku, delta in aggregate.items() if delta != 0}\n        validated.append((event_id, aggregate, content))\n\n    applied = []\n    rejected = []\n    seen = {}\n\n    for event_id, aggregate, content in validated:\n        if event_id in seen:\n            if seen[event_id] != content:\n                raise ValueError(\"conflicting duplicate event id\")\n            continue\n\n        seen[event_id] = content\n        if any(stock.get(sku, 0) + delta < 0\n               for sku, delta in aggregate.items()):\n            rejected.append(event_id)\n            continue\n\n        for sku, delta in aggregate.items():\n            stock[sku] = stock.get(sku, 0) + delta\n        applied.append(event_id)\n\n    return {\"stock\": stock, \"applied\": applied, \"rejected\": rejected}\n"
+    },
+    {
+      "case": "atomic-stock-replay",
+      "pair": 3,
+      "arm": "baseline",
+      "skill_id": "67b1408b4733c4e8",
+      "skill_sha256": "51c6435d98c83c42c96ba7c35725a0b2c376cd487fb1a4e6bd0ddbe7e33ef202",
+      "model": "gpt-5.6-sol",
+      "date": "2026-10-25T21:50:50.364670+00:00",
+      "status": "completed",
+      "returncode": 0,
+      "error": null,
+      "seconds": 14.758,
+      "body_read": false,
+      "content_supplied": false,
+      "read_command_seen": false,
+      "read_basis": "Inline reference supplied in prompt. No separate skill-read action is observable; internal use cannot be inferred from presence.",
+      "usage": [
+        {
+          "input_tokens": 10991,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 921,
+          "reasoning_output_tokens": 386
+        }
+      ],
+      "parse_errors": [],
+      "score": {
+        "passed": 10,
+        "total": 10,
+        "outcomes": [
+          {
+            "name": "empty-and-copy",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "aggregate-before-feasibility",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "atomic-reject",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "zero-creates-key",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "duplicate-permutation-zero",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "rejected-retry-stays-rejected",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "conflicting-id",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "malformed-duplicate-still-validates",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "input-shape-validation",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "seeded-replay-80",
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "initial_grade": {
+        "passed": 0,
+        "total": 10,
+        "error": "judge process failed"
+      },
+      "grade_launch_correction": "Explicit script import path under -I. Frozen task/judge source unchanged.",
+      "code": "def replay(initial, events):\n    if not isinstance(initial, dict) or not isinstance(events, list):\n        raise ValueError(\"invalid input\")\n\n    stock = {}\n    for sku, quantity in initial.items():\n        if not isinstance(sku, str):\n            raise ValueError(\"invalid initial SKU\")\n        if type(quantity) is not int or quantity < 0:\n            raise ValueError(\"invalid initial quantity\")\n        stock[sku] = quantity\n\n    applied = []\n    rejected = []\n    seen = {}\n\n    for event in events:\n        if not isinstance(event, dict):\n            raise ValueError(\"invalid event\")\n\n        event_id = event.get(\"id\")\n        moves = event.get(\"moves\")\n        if not isinstance(event_id, str) or not event_id:\n            raise ValueError(\"invalid event id\")\n        if not isinstance(moves, list):\n            raise ValueError(\"invalid moves\")\n\n        aggregate = {}\n        mentioned = []\n        for move in moves:\n            if not isinstance(move, list) or len(move) != 2:\n                raise ValueError(\"invalid move\")\n            sku, delta = move\n            if not isinstance(sku, str) or not sku:\n                raise ValueError(\"invalid move SKU\")\n            if type(delta) is not int:\n                raise ValueError(\"invalid delta\")\n            if sku not in aggregate:\n                aggregate[sku] = 0\n                mentioned.append(sku)\n            aggregate[sku] += delta\n\n        content = {sku: delta for sku, delta in aggregate.items() if delta != 0}\n        if event_id in seen:\n            if seen[event_id] != content:\n                raise ValueError(\"conflicting duplicate event\")\n            continue\n\n        seen[event_id] = content\n        feasible = all(stock.get(sku, 0) + delta >= 0\n                       for sku, delta in aggregate.items())\n        if not feasible:\n            rejected.append(event_id)\n            continue\n\n        for sku in mentioned:\n            stock[sku] = stock.get(sku, 0) + aggregate[sku]\n        applied.append(event_id)\n\n    return {\"stock\": stock, \"applied\": applied, \"rejected\": rejected}"
+    },
+    {
+      "case": "portable-archive-plan",
+      "pair": 1,
+      "arm": "treatment",
+      "skill_id": "0c66d793944e662f",
+      "skill_sha256": "7b3dae1ffc5434d890f3c65c8f552af52d0307fab3b35dec13013c9ca3844c4f",
+      "model": "gpt-5.6-sol",
+      "date": "2026-10-25T21:50:53.298028+00:00",
+      "status": "completed",
+      "returncode": 0,
+      "error": null,
+      "seconds": 35.997,
+      "body_read": null,
+      "content_supplied": true,
+      "read_command_seen": false,
+      "read_basis": "Inline reference supplied in prompt. No separate skill-read action is observable; internal use cannot be inferred from presence.",
+      "usage": [
+        {
+          "input_tokens": 15378,
+          "cached_input_tokens": 7936,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 2136,
+          "reasoning_output_tokens": 1226
+        }
+      ],
+      "parse_errors": [],
+      "score": {
+        "passed": 10,
+        "total": 10,
+        "outcomes": [
+          {
+            "name": "normalization-and-order",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "unicode-nfc-casefold-collisions",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "implicit-then-explicit-dir",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "duplicate-explicit-dirs",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "file-ancestor-both-orders",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "traversal-and-control",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "device-and-ntfs-aliases",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "literal-percent-and-ordinary-names",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "sizes-counts",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "malformed-all-kinds",
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "initial_grade": {
+        "passed": 0,
+        "total": 10,
+        "error": "judge process failed"
+      },
+      "grade_launch_correction": "Explicit script import path under -I. Frozen task/judge source unchanged.",
+      "code": "import unicodedata\n\n_DEVICE_NAMES = {\n    \"CON\", \"PRN\", \"AUX\", \"NUL\",\n    *(f\"COM{i}\" for i in range(1, 10)),\n    *(f\"LPT{i}\" for i in range(1, 10)),\n}\n\n\ndef plan(entries):\n    if not isinstance(entries, list):\n        raise ValueError(\"entries must be a list\")\n\n    normalized_entries = []\n    file_count = 0\n    total_file_size = 0\n\n    for entry in entries:\n        if not isinstance(entry, dict):\n            raise ValueError(\"each entry must be a dict\")\n\n        path = entry.get(\"path\")\n        size = entry.get(\"size\")\n        kind = entry.get(\"kind\")\n\n        if not isinstance(path, str):\n            raise ValueError(\"path must be a string\")\n        if type(size) is not int or size < 0:\n            raise ValueError(\"size must be a nonnegative exact int\")\n        if kind not in (\"file\", \"dir\"):\n            raise ValueError(\"kind must be 'file' or 'dir'\")\n        if kind == \"dir\" and size != 0:\n            raise ValueError(\"directory size must be zero\")\n\n        normalized = unicodedata.normalize(\"NFC\", path).replace(\"\\\\\", \"/\")\n        if normalized.startswith(\"/\"):\n            raise ValueError(\"absolute paths are not allowed\")\n\n        ends_with_slash = normalized.endswith(\"/\")\n        if kind == \"file\" and ends_with_slash:\n            raise ValueError(\"file path cannot end with a slash\")\n\n        if \"\\x00\" in normalized or any(\n            unicodedata.category(char) == \"Cc\" for char in normalized\n        ):\n            raise ValueError(\"control characters are not allowed\")\n\n        components = []\n        for component in normalized.split(\"/\"):\n            if component == \"\" or component == \".\":\n                continue\n            if component == \"..\":\n                raise ValueError(\"parent traversal is not allowed\")\n            if \":\" in component:\n                raise ValueError(\"colons are not allowed\")\n            if component.endswith((\".\", \" \")):\n                raise ValueError(\"components cannot end in a period or space\")\n\n            basename = component.split(\".\", 1)[0]\n            if basename.upper() in _DEVICE_NAMES:\n                raise ValueError(\"Windows device names are not allowed\")\n            components.append(component)\n\n        if not components:\n            raise ValueError(\"path must not normalize to empty\")\n\n        collision_key = tuple(\n            unicodedata.normalize(\"NFC\", component.casefold())\n            for component in components\n        )\n        normalized_path = \"/\".join(components)\n        normalized_entries.append((collision_key, kind, normalized_path))\n\n        if kind == \"file\":\n            file_count += 1\n            total_file_size += size\n\n    if file_count > 100:\n        raise ValueError(\"too many files\")\n    if total_file_size > 1_000_000:\n        raise ValueError(\"total file size exceeds limit\")\n\n    explicit = {}\n    for key, kind, _ in normalized_entries:\n        if key in explicit:\n            raise ValueError(\"duplicate or conflicting entry\")\n        explicit[key] = kind\n\n    file_keys = {key for key, kind, _ in normalized_entries if kind == \"file\"}\n    for key, _, _ in normalized_entries:\n        for length in range(1, len(key)):\n            if key[:length] in file_keys:\n                raise ValueError(\"a file cannot be an ancestor of another entry\")\n\n    return [\n        normalized_path\n        for _, kind, normalized_path in normalized_entries\n        if kind == \"file\"\n    ]"
+    },
+    {
+      "case": "portable-archive-plan",
+      "pair": 1,
+      "arm": "baseline",
+      "skill_id": "0c66d793944e662f",
+      "skill_sha256": "7b3dae1ffc5434d890f3c65c8f552af52d0307fab3b35dec13013c9ca3844c4f",
+      "model": "gpt-5.6-sol",
+      "date": "2026-10-25T21:51:17.388707+00:00",
+      "status": "completed",
+      "returncode": 0,
+      "error": null,
+      "seconds": 24.034,
+      "body_read": false,
+      "content_supplied": false,
+      "read_command_seen": false,
+      "read_basis": "Inline reference supplied in prompt. No separate skill-read action is observable; internal use cannot be inferred from presence.",
+      "usage": [
+        {
+          "input_tokens": 11020,
+          "cached_input_tokens": 10240,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 1509,
+          "reasoning_output_tokens": 554
+        }
+      ],
+      "parse_errors": [],
+      "score": {
+        "passed": 10,
+        "total": 10,
+        "outcomes": [
+          {
+            "name": "normalization-and-order",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "unicode-nfc-casefold-collisions",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "implicit-then-explicit-dir",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "duplicate-explicit-dirs",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "file-ancestor-both-orders",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "traversal-and-control",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "device-and-ntfs-aliases",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "literal-percent-and-ordinary-names",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "sizes-counts",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "malformed-all-kinds",
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "initial_grade": {
+        "passed": 0,
+        "total": 10,
+        "error": "judge process failed"
+      },
+      "grade_launch_correction": "Explicit script import path under -I. Frozen task/judge source unchanged.",
+      "code": "import unicodedata\n\n_DEVICE_NAMES = {\"CON\", \"PRN\", \"AUX\", \"NUL\"}\n_DEVICE_NAMES.update(f\"COM{i}\" for i in range(1, 10))\n_DEVICE_NAMES.update(f\"LPT{i}\" for i in range(1, 10))\n\n\ndef plan(entries):\n    if not isinstance(entries, list):\n        raise ValueError(\"entries must be a list\")\n\n    normalized_entries = []\n    file_count = 0\n    total_file_size = 0\n\n    for entry in entries:\n        if not isinstance(entry, dict):\n            raise ValueError(\"each entry must be a dict\")\n\n        try:\n            path = entry[\"path\"]\n            size = entry[\"size\"]\n            kind = entry[\"kind\"]\n        except KeyError as exc:\n            raise ValueError(\"entry is missing a required field\") from exc\n\n        if not isinstance(path, str):\n            raise ValueError(\"path must be a string\")\n        if type(size) is not int or size < 0:\n            raise ValueError(\"size must be a non-negative exact integer\")\n        if kind not in (\"file\", \"dir\") or not isinstance(kind, str):\n            raise ValueError(\"kind must be 'file' or 'dir'\")\n        if kind == \"dir\" and size != 0:\n            raise ValueError(\"directory size must be zero\")\n\n        normalized_source = unicodedata.normalize(\"NFC\", path).replace(\"\\\\\", \"/\")\n        if normalized_source.startswith(\"/\"):\n            raise ValueError(\"absolute paths are not allowed\")\n        if kind == \"file\" and normalized_source.endswith(\"/\"):\n            raise ValueError(\"file paths may not end in a slash\")\n        if any(ch == \"\\x00\" or unicodedata.category(ch) == \"Cc\" for ch in normalized_source):\n            raise ValueError(\"control characters are not allowed\")\n\n        components = []\n        for component in normalized_source.split(\"/\"):\n            if component == \"\" or component == \".\":\n                continue\n            if component == \"..\":\n                raise ValueError(\"parent traversal is not allowed\")\n\n            component = unicodedata.normalize(\"NFC\", component)\n            if \":\" in component:\n                raise ValueError(\"colons are not allowed\")\n            if component.endswith((\".\", \" \")):\n                raise ValueError(\"components may not end in a period or space\")\n\n            basename = component.split(\".\", 1)[0]\n            if basename.upper() in _DEVICE_NAMES:\n                raise ValueError(\"Windows device names are not allowed\")\n            components.append(component)\n\n        if not components:\n            raise ValueError(\"path must not normalize to empty\")\n\n        normalized_path = \"/\".join(components)\n        collision_key = \"/\".join(\n            unicodedata.normalize(\"NFC\", component.casefold())\n            for component in components\n        )\n        normalized_entries.append((normalized_path, collision_key, kind))\n\n        if kind == \"file\":\n            file_count += 1\n            total_file_size += size\n\n    if file_count > 100:\n        raise ValueError(\"too many files\")\n    if total_file_size > 1_000_000:\n        raise ValueError(\"total file size exceeds limit\")\n\n    seen_keys = set()\n    for _, key, _ in normalized_entries:\n        if key in seen_keys:\n            raise ValueError(\"duplicate or colliding entry\")\n        seen_keys.add(key)\n\n    all_keys = {key for _, key, _ in normalized_entries}\n    for _, key, kind in normalized_entries:\n        if kind == \"file\":\n            prefix = key + \"/\"\n            if any(other.startswith(prefix) for other in all_keys):\n                raise ValueError(\"a file cannot be an ancestor of another entry\")\n\n    return [\n        normalized_path\n        for normalized_path, _, kind in normalized_entries\n        if kind == \"file\"\n    ]"
+    },
+    {
+      "case": "portable-archive-plan",
+      "pair": 2,
+      "arm": "baseline",
+      "skill_id": "0c66d793944e662f",
+      "skill_sha256": "7b3dae1ffc5434d890f3c65c8f552af52d0307fab3b35dec13013c9ca3844c4f",
+      "model": "gpt-5.6-sol",
+      "date": "2026-10-25T21:51:15.683286+00:00",
+      "status": "completed",
+      "returncode": 0,
+      "error": null,
+      "seconds": 25.255,
+      "body_read": false,
+      "content_supplied": false,
+      "read_command_seen": false,
+      "read_basis": "Inline reference supplied in prompt. No separate skill-read action is observable; internal use cannot be inferred from presence.",
+      "usage": [
+        {
+          "input_tokens": 13697,
+          "cached_input_tokens": 7936,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 1696,
+          "reasoning_output_tokens": 762
+        }
+      ],
+      "parse_errors": [],
+      "score": {
+        "passed": 10,
+        "total": 10,
+        "outcomes": [
+          {
+            "name": "normalization-and-order",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "unicode-nfc-casefold-collisions",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "implicit-then-explicit-dir",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "duplicate-explicit-dirs",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "file-ancestor-both-orders",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "traversal-and-control",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "device-and-ntfs-aliases",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "literal-percent-and-ordinary-names",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "sizes-counts",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "malformed-all-kinds",
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "initial_grade": {
+        "passed": 0,
+        "total": 10,
+        "error": "judge process failed"
+      },
+      "grade_launch_correction": "Explicit script import path under -I. Frozen task/judge source unchanged.",
+      "code": "import unicodedata\n\n\ndef plan(entries):\n    if not isinstance(entries, list):\n        raise ValueError(\"entries must be a list\")\n\n    normalized_entries = []\n    file_count = 0\n    total_file_size = 0\n    device_names = {\"CON\", \"PRN\", \"AUX\", \"NUL\"}\n    device_names.update(f\"COM{i}\" for i in range(1, 10))\n    device_names.update(f\"LPT{i}\" for i in range(1, 10))\n\n    for entry in entries:\n        if not isinstance(entry, dict):\n            raise ValueError(\"each entry must be a dict\")\n\n        path = entry.get(\"path\")\n        size = entry.get(\"size\")\n        kind = entry.get(\"kind\")\n\n        if not isinstance(path, str):\n            raise ValueError(\"path must be a string\")\n        if type(size) is not int or size < 0:\n            raise ValueError(\"size must be a nonnegative exact int\")\n        if kind not in (\"file\", \"dir\"):\n            raise ValueError(\"kind must be 'file' or 'dir'\")\n        if kind == \"dir\" and size != 0:\n            raise ValueError(\"directory size must be zero\")\n\n        path = unicodedata.normalize(\"NFC\", path).replace(\"\\\\\", \"/\")\n        if path.startswith(\"/\"):\n            raise ValueError(\"absolute paths are not allowed\")\n        if any(unicodedata.category(char) == \"Cc\" for char in path):\n            raise ValueError(\"control characters are not allowed\")\n\n        has_trailing_slash = path.endswith(\"/\")\n        if kind == \"file\" and has_trailing_slash:\n            raise ValueError(\"file paths cannot end in a slash\")\n\n        components = []\n        for component in path.split(\"/\"):\n            if component == \"\" or component == \".\":\n                continue\n            if component == \"..\":\n                raise ValueError(\"parent components are not allowed\")\n            if \":\" in component:\n                raise ValueError(\"colons are not allowed\")\n            if component.endswith((\".\", \" \")):\n                raise ValueError(\"components cannot end in a period or space\")\n            if component.split(\".\", 1)[0].upper() in device_names:\n                raise ValueError(\"Windows device names are not allowed\")\n            components.append(component)\n\n        if not components:\n            raise ValueError(\"path must not normalize to empty\")\n\n        normalized_path = \"/\".join(components)\n        key = \"/\".join(component.casefold() for component in components)\n        normalized_entries.append((normalized_path, key, kind, size))\n\n        if kind == \"file\":\n            file_count += 1\n            total_file_size += size\n\n    if file_count > 100:\n        raise ValueError(\"too many files\")\n    if total_file_size > 1_000_000:\n        raise ValueError(\"total file size exceeds limit\")\n\n    explicit = {}\n    for normalized_path, key, kind, size in normalized_entries:\n        if key in explicit:\n            raise ValueError(\"duplicate or colliding explicit entry\")\n\n        parts = key.split(\"/\")\n        for index in range(1, len(parts)):\n            ancestor = \"/\".join(parts[:index])\n            if explicit.get(ancestor) == \"file\":\n                raise ValueError(\"a file cannot be an ancestor of another entry\")\n\n        if kind == \"file\":\n            descendant_prefix = key + \"/\"\n            if any(existing.startswith(descendant_prefix) for existing in explicit):\n                raise ValueError(\"a file cannot be an ancestor of another entry\")\n\n        explicit[key] = kind\n\n    return [\n        normalized_path\n        for normalized_path, key, kind, size in normalized_entries\n        if kind == \"file\"\n    ]"
+    },
+    {
+      "case": "portable-archive-plan",
+      "pair": 2,
+      "arm": "treatment",
+      "skill_id": "0c66d793944e662f",
+      "skill_sha256": "7b3dae1ffc5434d890f3c65c8f552af52d0307fab3b35dec13013c9ca3844c4f",
+      "model": "gpt-5.6-sol",
+      "date": "2026-10-25T21:51:45.356371+00:00",
+      "status": "completed",
+      "returncode": 0,
+      "error": null,
+      "seconds": 29.615,
+      "body_read": null,
+      "content_supplied": true,
+      "read_command_seen": false,
+      "read_basis": "Inline reference supplied in prompt. No separate skill-read action is observable; internal use cannot be inferred from presence.",
+      "usage": [
+        {
+          "input_tokens": 15378,
+          "cached_input_tokens": 7936,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 1853,
+          "reasoning_output_tokens": 961
+        }
+      ],
+      "parse_errors": [],
+      "score": {
+        "passed": 10,
+        "total": 10,
+        "outcomes": [
+          {
+            "name": "normalization-and-order",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "unicode-nfc-casefold-collisions",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "implicit-then-explicit-dir",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "duplicate-explicit-dirs",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "file-ancestor-both-orders",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "traversal-and-control",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "device-and-ntfs-aliases",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "literal-percent-and-ordinary-names",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "sizes-counts",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "malformed-all-kinds",
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "initial_grade": {
+        "passed": 0,
+        "total": 10,
+        "error": "judge process failed"
+      },
+      "grade_launch_correction": "Explicit script import path under -I. Frozen task/judge source unchanged.",
+      "code": "import unicodedata\n\n\ndef plan(entries):\n    if not isinstance(entries, list):\n        raise ValueError(\"entries must be a list\")\n\n    validated = []\n    file_count = 0\n    total_file_size = 0\n\n    for entry in entries:\n        if not isinstance(entry, dict):\n            raise ValueError(\"each entry must be a dict\")\n\n        path = entry.get(\"path\")\n        size = entry.get(\"size\")\n        kind = entry.get(\"kind\")\n\n        if not isinstance(path, str):\n            raise ValueError(\"path must be a string\")\n        if type(size) is not int or size < 0:\n            raise ValueError(\"size must be an exact nonnegative int\")\n        if not isinstance(kind, str) or kind not in (\"file\", \"dir\"):\n            raise ValueError(\"kind must be 'file' or 'dir'\")\n        if kind == \"dir\" and size != 0:\n            raise ValueError(\"directory size must be zero\")\n\n        normalized = unicodedata.normalize(\"NFC\", path.replace(\"\\\\\", \"/\"))\n\n        if normalized.startswith(\"/\"):\n            raise ValueError(\"absolute paths are not allowed\")\n\n        ends_in_slash = normalized.endswith(\"/\")\n        if kind == \"file\" and ends_in_slash:\n            raise ValueError(\"file paths cannot end in a slash\")\n\n        components = []\n        for component in normalized.split(\"/\"):\n            if component == \"\" or component == \".\":\n                continue\n            if component == \"..\":\n                raise ValueError(\"parent traversal is not allowed\")\n            if any(ch == \"\\x00\" or unicodedata.category(ch) == \"Cc\" for ch in component):\n                raise ValueError(\"control characters are not allowed\")\n            if \":\" in component:\n                raise ValueError(\"colons are not allowed\")\n            if component.endswith((\".\", \" \")):\n                raise ValueError(\"components cannot end in a period or space\")\n\n            basename = component.split(\".\", 1)[0].casefold()\n            devices = {\"con\", \"prn\", \"aux\", \"nul\"}\n            devices.update(\"com%d\" % i for i in range(1, 10))\n            devices.update(\"lpt%d\" % i for i in range(1, 10))\n            if basename in devices:\n                raise ValueError(\"Windows device names are not allowed\")\n\n            components.append(component)\n\n        if not components:\n            raise ValueError(\"path must not normalize to empty\")\n\n        normalized_path = \"/\".join(components)\n        key_components = tuple(\n            unicodedata.normalize(\"NFC\", component.casefold())\n            for component in components\n        )\n        validated.append((normalized_path, key_components, kind))\n\n        if kind == \"file\":\n            file_count += 1\n            total_file_size += size\n\n    if file_count > 100:\n        raise ValueError(\"too many files\")\n    if total_file_size > 1_000_000:\n        raise ValueError(\"total file size exceeds limit\")\n\n    seen = set()\n    for _, key, _ in validated:\n        if key in seen:\n            raise ValueError(\"duplicate or colliding explicit entry\")\n        seen.add(key)\n\n    file_keys = {key for _, key, kind in validated if kind == \"file\"}\n    for _, key, _ in validated:\n        for end in range(1, len(key)):\n            if key[:end] in file_keys:\n                raise ValueError(\"a file cannot be an ancestor of another entry\")\n\n    return [path for path, _, kind in validated if kind == \"file\"]"
+    },
+    {
+      "case": "portable-archive-plan",
+      "pair": 3,
+      "arm": "treatment",
+      "skill_id": "0c66d793944e662f",
+      "skill_sha256": "7b3dae1ffc5434d890f3c65c8f552af52d0307fab3b35dec13013c9ca3844c4f",
+      "model": "gpt-5.6-sol",
+      "date": "2026-10-25T21:51:39.155244+00:00",
+      "status": "completed",
+      "returncode": 0,
+      "error": null,
+      "seconds": 21.712,
+      "body_read": null,
+      "content_supplied": true,
+      "read_command_seen": false,
+      "read_basis": "Inline reference supplied in prompt. No separate skill-read action is observable; internal use cannot be inferred from presence.",
+      "usage": [
+        {
+          "input_tokens": 15378,
+          "cached_input_tokens": 12416,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 1362,
+          "reasoning_output_tokens": 467
+        }
+      ],
+      "parse_errors": [],
+      "score": {
+        "passed": 10,
+        "total": 10,
+        "outcomes": [
+          {
+            "name": "normalization-and-order",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "unicode-nfc-casefold-collisions",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "implicit-then-explicit-dir",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "duplicate-explicit-dirs",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "file-ancestor-both-orders",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "traversal-and-control",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "device-and-ntfs-aliases",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "literal-percent-and-ordinary-names",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "sizes-counts",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "malformed-all-kinds",
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "initial_grade": {
+        "passed": 0,
+        "total": 10,
+        "error": "judge process failed"
+      },
+      "grade_launch_correction": "Explicit script import path under -I. Frozen task/judge source unchanged.",
+      "code": "import unicodedata\n\n_DEVICE_NAMES = {\"CON\", \"PRN\", \"AUX\", \"NUL\"}\n_DEVICE_NAMES.update(f\"COM{i}\" for i in range(1, 10))\n_DEVICE_NAMES.update(f\"LPT{i}\" for i in range(1, 10))\n\n\ndef plan(entries):\n    if not isinstance(entries, list):\n        raise ValueError(\"entries must be a list\")\n\n    validated = []\n    file_count = 0\n    total_file_size = 0\n\n    for entry in entries:\n        if not isinstance(entry, dict):\n            raise ValueError(\"each entry must be a dict\")\n\n        path = entry.get(\"path\")\n        size = entry.get(\"size\")\n        kind = entry.get(\"kind\")\n\n        if not isinstance(path, str):\n            raise ValueError(\"path must be a string\")\n        if type(size) is not int or size < 0:\n            raise ValueError(\"size must be an exact nonnegative int\")\n        if kind not in (\"file\", \"dir\"):\n            raise ValueError(\"kind must be 'file' or 'dir'\")\n        if kind == \"dir\" and size != 0:\n            raise ValueError(\"directory size must be zero\")\n\n        normalized = unicodedata.normalize(\"NFC\", path).replace(\"\\\\\", \"/\")\n        if normalized.startswith(\"/\"):\n            raise ValueError(\"absolute paths are not allowed\")\n\n        trailing_slash = normalized.endswith(\"/\")\n        if trailing_slash and kind == \"file\":\n            raise ValueError(\"file paths cannot end in a slash\")\n\n        components = []\n        for component in normalized.split(\"/\"):\n            if component == \"\" or component == \".\":\n                continue\n            if component == \"..\":\n                raise ValueError(\"parent traversal is not allowed\")\n            if any(ch == \"\\x00\" or unicodedata.category(ch) == \"Cc\" for ch in component):\n                raise ValueError(\"control characters are not allowed\")\n            if \":\" in component:\n                raise ValueError(\"colons are not allowed\")\n            if component.endswith((\".\", \" \")):\n                raise ValueError(\"components cannot end in a period or space\")\n            if component.split(\".\", 1)[0].upper() in _DEVICE_NAMES:\n                raise ValueError(\"Windows device names are not allowed\")\n            components.append(component)\n\n        if not components:\n            raise ValueError(\"path must not normalize to empty\")\n\n        normalized_path = \"/\".join(components)\n        key_components = [unicodedata.normalize(\"NFC\", part.casefold()) for part in components]\n        key = \"/\".join(key_components)\n        validated.append((normalized_path, key, key_components, kind))\n\n        if kind == \"file\":\n            file_count += 1\n            total_file_size += size\n\n    if file_count > 100:\n        raise ValueError(\"too many files\")\n    if total_file_size > 1_000_000:\n        raise ValueError(\"total file size exceeds limit\")\n\n    explicit = {}\n    for _, key, _, kind in validated:\n        if key in explicit:\n            raise ValueError(\"duplicate or case-insensitive path collision\")\n        explicit[key] = kind\n\n    file_keys = {key for _, key, _, kind in validated if kind == \"file\"}\n    for _, _, key_components, _ in validated:\n        for end in range(1, len(key_components)):\n            if \"/\".join(key_components[:end]) in file_keys:\n                raise ValueError(\"a file cannot be an ancestor of another entry\")\n\n    return [path for path, _, _, kind in validated if kind == \"file\"]"
+    },
+    {
+      "case": "portable-archive-plan",
+      "pair": 3,
+      "arm": "baseline",
+      "skill_id": "0c66d793944e662f",
+      "skill_sha256": "7b3dae1ffc5434d890f3c65c8f552af52d0307fab3b35dec13013c9ca3844c4f",
+      "model": "gpt-5.6-sol",
+      "date": "2026-10-25T21:52:03.308657+00:00",
+      "status": "completed",
+      "returncode": 0,
+      "error": null,
+      "seconds": 24.1,
+      "body_read": false,
+      "content_supplied": false,
+      "read_command_seen": false,
+      "read_basis": "Inline reference supplied in prompt. No separate skill-read action is observable; internal use cannot be inferred from presence.",
+      "usage": [
+        {
+          "input_tokens": 13697,
+          "cached_input_tokens": 12416,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 1661,
+          "reasoning_output_tokens": 710
+        }
+      ],
+      "parse_errors": [],
+      "score": {
+        "passed": 10,
+        "total": 10,
+        "outcomes": [
+          {
+            "name": "normalization-and-order",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "unicode-nfc-casefold-collisions",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "implicit-then-explicit-dir",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "duplicate-explicit-dirs",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "file-ancestor-both-orders",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "traversal-and-control",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "device-and-ntfs-aliases",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "literal-percent-and-ordinary-names",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "sizes-counts",
+            "passed": true,
+            "error": null
+          },
+          {
+            "name": "malformed-all-kinds",
+            "passed": true,
+            "error": null
+          }
+        ]
+      },
+      "initial_grade": {
+        "passed": 0,
+        "total": 10,
+        "error": "judge process failed"
+      },
+      "grade_launch_correction": "Explicit script import path under -I. Frozen task/judge source unchanged.",
+      "code": "import unicodedata\n\n_DEVICE_NAMES = {\n    \"con\", \"prn\", \"aux\", \"nul\",\n    *(f\"com{i}\" for i in range(1, 10)),\n    *(f\"lpt{i}\" for i in range(1, 10)),\n}\n\n\ndef plan(entries):\n    if not isinstance(entries, list):\n        raise ValueError(\"entries must be a list\")\n\n    validated = []\n    file_count = 0\n    total_file_size = 0\n\n    for entry in entries:\n        if not isinstance(entry, dict):\n            raise ValueError(\"each entry must be a dict\")\n        if \"path\" not in entry or \"size\" not in entry or \"kind\" not in entry:\n            raise ValueError(\"entry is missing a required field\")\n\n        path = entry[\"path\"]\n        size = entry[\"size\"]\n        kind = entry[\"kind\"]\n\n        if not isinstance(path, str):\n            raise ValueError(\"path must be a string\")\n        if type(size) is not int or size < 0:\n            raise ValueError(\"size must be an exact nonnegative int\")\n        if type(kind) is not str or kind not in (\"file\", \"dir\"):\n            raise ValueError(\"kind must be 'file' or 'dir'\")\n        if kind == \"dir\" and size != 0:\n            raise ValueError(\"directory size must be zero\")\n        if \"\\x00\" in path or any(unicodedata.category(ch) == \"Cc\" for ch in path):\n            raise ValueError(\"path contains a control character\")\n\n        separated = unicodedata.normalize(\"NFC\", path).replace(\"\\\\\", \"/\")\n        if separated.startswith(\"/\"):\n            raise ValueError(\"absolute paths are not allowed\")\n\n        has_trailing_slash = separated.endswith(\"/\")\n        if has_trailing_slash and kind == \"file\":\n            raise ValueError(\"file path may not end in a slash\")\n\n        components = []\n        for component in separated.split(\"/\"):\n            if component == \"\" or component == \".\":\n                continue\n            if component == \"..\":\n                raise ValueError(\"parent path components are not allowed\")\n            if \":\" in component:\n                raise ValueError(\"colon is not allowed in path components\")\n            if component.endswith((\".\", \" \")):\n                raise ValueError(\"path component may not end in a period or space\")\n            basename = component.split(\".\", 1)[0]\n            if basename.casefold() in _DEVICE_NAMES:\n                raise ValueError(\"Windows device path component is not allowed\")\n            components.append(component)\n\n        if not components:\n            raise ValueError(\"path must not normalize to empty\")\n\n        normalized_path = \"/\".join(components)\n        key_components = tuple(\n            unicodedata.normalize(\"NFC\", component.casefold())\n            for component in components\n        )\n        validated.append((kind, normalized_path, key_components))\n\n        if kind == \"file\":\n            file_count += 1\n            total_file_size += size\n\n    if file_count > 100:\n        raise ValueError(\"too many files\")\n    if total_file_size > 1_000_000:\n        raise ValueError(\"total file size exceeds limit\")\n\n    seen = {}\n    for kind, normalized_path, key_components in validated:\n        if key_components in seen:\n            raise ValueError(\"duplicate or file/directory path collision\")\n        seen[key_components] = kind\n\n    keys = list(seen)\n    for key in keys:\n        for end in range(1, len(key)):\n            ancestor = key[:end]\n            if seen.get(ancestor) == \"file\":\n                raise ValueError(\"a file is an ancestor of another entry\")\n\n    return [\n        normalized_path\n        for kind, normalized_path, _ in validated\n        if kind == \"file\"\n    ]"
+    }
+  ],
+  "limits": [
+    "Small synthetic Python tasks, not real repository repair or deployed app quality.",
+    "No broad efficacy score or general ranking.",
+    "Same model one reasoning setting; no independent model-judge claim.",
+    "This is not a hostile code execution sandbox."
+  ]
+}
