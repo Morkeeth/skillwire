@@ -1,6 +1,6 @@
 # SkillWire
 
-Find public agent skills by the problem they solve, category, harness and named model. Inspect pinned instructions, build a stack in your browser and download the selected public folders with file hashes and source warnings.
+Find public agent skills by the problem they solve, category, harness and named model. A typed query searches the full pinned catalog; Popular is a separate 50-entry browse view you can choose explicitly. Inspect pinned instructions, build a stack in your browser and download the selected public folders with file hashes and source warnings.
 
 ## Run the product locally
 
@@ -27,8 +27,6 @@ Selected public skills have narrow paired task outcomes from a frozen synthetic 
 
 Public evidence is downloadable from `evaluations.json` in the built site. Every original run, error and output is retained locally for review; local credentials, private work and machine paths are excluded from the deployment source. There is no provider-key inference endpoint in the hosted product.
 
-The development checkout also contains an earlier local Finder, Watch and private-skill planning workbench. It is separate from the hosted product and excluded from the hosting export. Historical launch drafts are not current product documentation.
-
 SkillWire source is MIT licensed. Public skill sources retain their own licences. See [CONTRIBUTING.md](CONTRIBUTING.md) for source and evaluation PRs. Contribute source, evaluation fixtures or improvements at [Morkeeth/skillwire](https://github.com/Morkeeth/skillwire).
 
 ## Evaluate through your own setup
@@ -39,7 +37,7 @@ The downloadable local kit detects installed Codex/Claude CLIs and skill metadat
 
 Validation status: a clean extraction of the current kit detected the installed Codex subscription and prepared/sealed both a full local skill folder and a pinned public stack with good/bad controls. These offline checks made no model calls. One prior native atomic-stock pair completed with equal 8/8 outcomes. The ten-pair TDD run recorded eight passing treatment arms and seven passing baseline arms, but a frozen reference disagreed with the task on ASCII DEL and other input boundaries need review. These counts are retained as disputed observations, not a benefit result. A new v2 family has all ten controls and seals ready but no model calls. A real own-task pair has completed locally with a browser-downloaded TDD skill, but its human blind verdict is pending; an unfamiliar user's own-task trial remains unverified.
 
-Recheck saved public outcomes without model calls: `python3 scripts/recheck_public_outcomes.py`. Read EVAL.md for protocol and correction details.
+Recheck saved public outcomes without model calls: `python3 scripts/recheck_public_outcomes.py`. For an offline preflight with the included bug, good/bad controls and grader, follow the [local trial example](docs/eval-reproduction.md#try-the-included-fixture-locally). Read EVAL.md for protocol and correction details.
 
 After a completed pair, `lime_human_review.py prepare` makes a local blind A/B bundle from selected text artifacts. The browser review page hides arm names and automated grades, records A, B, tie or cannot judge with a reason, and downloads a local verdict. Trial opens labelled grades and commands only after that verdict, its blind bundle, and the withheld key are selected. The viewer compares their run links, sealed model and mode, installation and read claims, and supplied raw traces; missing trace evidence stays unverified. The gate and receipts are local consistency checks, not authentication of a person or model run. Ten bundles from completed native TDD pairs have been prepared for review, with their keys apart; no independent human verdict has been collected. Manual artifact pairs can exercise this review interface but do not prove model execution. A single preference is not a general skill effect. The earlier [Skill Issue SkillsBench report](https://github.com/Morkeeth/Skill-Issue-BenchFlow-Agent-Skill-Lift/blob/main/submission/RESULT.md) is historical context: its raw rollouts were deleted, and its reported numbers are not pooled with SkillWire outcomes.
 

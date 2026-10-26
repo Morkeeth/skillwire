@@ -1,0 +1,27 @@
+name: Public source checks
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out proposed source
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Use Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Build pinned public site
+        run: python3 scripts/build_site.py
+      - name: Run included tests
+        run: python3 -m unittest discover -s tests
+      - name: Replay saved public outcomes
+        run: python3 scripts/recheck_public_outcomes.py

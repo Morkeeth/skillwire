@@ -5,6 +5,11 @@
     "bytes": 729
   },
   {
+    "path": ".github/workflows/public-pr-checks.yml",
+    "sha256": "7c171de9c6130b7f3a085849fbea81ca8aedd167e8ecdd022ecf67951d44f4e8",
+    "bytes": 663
+  },
+  {
     "path": ".python-version",
     "sha256": "7b55f8e67b5623c4bef3fa691288da9437d79d3aba156de48d481db32ac7d16d",
     "bytes": 5
@@ -21,8 +26,8 @@
   },
   {
     "path": "CONTRIBUTING.md",
-    "sha256": "eff65c0341557400cc2aa7d7a854dc77a76a59c990c1e60391632204c4c1aa80",
-    "bytes": 3401
+    "sha256": "5110dcf672f82494f552384f9a6a1245a01b3b824d8a5bf91946666c24509d7a",
+    "bytes": 3968
   },
   {
     "path": "EVAL-TOOLS.txt",
@@ -46,8 +51,8 @@
   },
   {
     "path": "README.md",
-    "sha256": "31ed8770ce720fbd03b32930288e988b753842ff48e47cdf2e84c54255d2e9e8",
-    "bytes": 7869
+    "sha256": "66c3e90e9d013b006bea082d583928b029b7c3ce6971073280a60868c67dc1a6",
+    "bytes": 7909
   },
   {
     "path": "api/index.py",
@@ -56,13 +61,13 @@
   },
   {
     "path": "docs/eval-reproduction.md",
-    "sha256": "9755577584bcdcd72d88d6861c663f35f1b41d29668ca05d96054b9726174b80",
-    "bytes": 3769
+    "sha256": "56899297da6d566a6b991aa296817f75d062a820098996ae1ceed9adb34ca06b",
+    "bytes": 6206
   },
   {
     "path": "docs/source-contributions.md",
-    "sha256": "23bc3743545628d8418c6035b392c4d7d15664c6efaf5a39d852f745a1fc7a35",
-    "bytes": 3867
+    "sha256": "77a04fa2743cafc9ce932360e2e20cc8916c46ea9d3cd82e7eb6cddf0b460350",
+    "bytes": 4065
   },
   {
     "path": "docs/usage-evidence.md",
@@ -226,8 +231,8 @@
   },
   {
     "path": "scripts/prepare_public_repo.py",
-    "sha256": "83bf7a2e99fcf84fa72255fd463f338a231b71a310636d4c2991623c79528ebb",
-    "bytes": 2450
+    "sha256": "9a86c23759289bbab59e3fad98b2ebbe897ea54bb647e3445032e97eddc33b18",
+    "bytes": 2491
   },
   {
     "path": "scripts/recheck_public_outcomes.py",
@@ -261,8 +266,8 @@
   },
   {
     "path": "site/app.js",
-    "sha256": "eaf2f7eae5a4289a9ff53dcfb250c5e3898dbbdbbcb915872ebad2d1b00f1d5e",
-    "bytes": 30680
+    "sha256": "611e1594a9939288e778cb3313d319304cae88ba54055dfc6487565beece4318",
+    "bytes": 32780
   },
   {
     "path": "site/eval-guide.html",
@@ -276,8 +281,8 @@
   },
   {
     "path": "site/finder.css",
-    "sha256": "f2470855eca1c67d3e1a3875365c1e4492f22d79261fc41a841a44de75c7867f",
-    "bytes": 27204
+    "sha256": "a79207b35df1726169aa0ca56849815fd5789d2eea144b5d4e8b2333f4a1db02",
+    "bytes": 27864
   },
   {
     "path": "site/human-review.html",
@@ -291,8 +296,8 @@
   },
   {
     "path": "site/index.html",
-    "sha256": "6f1dbcc3efa2efc50ce2fe4db0fa3d32464886d64880e6efbef8f9de10b86d82",
-    "bytes": 17551
+    "sha256": "b27d567267c990206e7d161a7ef846f8883ffe14d688e8dbe68886257b66868c",
+    "bytes": 17736
   },
   {
     "path": "site/installed-skills.js",

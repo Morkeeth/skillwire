@@ -29,6 +29,41 @@ Freeze the task, equal initial files, exact full skill folder or reviewed public
 
 Use disposable workspaces and the runner's required boundary probe. Preserve both arm records, commands, tool outputs, artifacts, usage, errors and grading results. Separate model/task failures from failures that occurred before the model or grader ran. An explicit trial consumes the chosen subscription allowance; a setup check or local doctor is not a completed trial.
 
+## Try the included fixture locally
+
+This is an offline setup check for the provided `eval-example` bug. It is not a study of your task or evidence that a selected skill helps. First inspect `eval-example/grader.py`, then download and review **one** public skill ZIP in SkillWire. Use the actual path where your browser saved that ZIP:
+
+```sh
+STACK_ZIP=/absolute/path/to/skillwire-skill-stack.zip
+RUN_ID="$(date -u +%Y%m%dT%H%M%SZ)-$$"
+RUN_DIR="runs/example-$RUN_ID"
+python3 lime_task_eval.py prepare \
+  --fixture eval-example/bug --reference eval-example/good \
+  --negative eval-example/bad --task eval-example/TASK.md \
+  --grader eval-example/grader.py --stack "$STACK_ZIP" \
+  --out "$RUN_DIR" --trust-grader
+```
+
+`prepare` makes **zero model calls**. Stop unless it reports `ready: true`: the included good solution must pass and the bad one must fail. Inspect `"$RUN_DIR/plan.json"` and `"$RUN_DIR/SKILL-SOURCES.json"` before sealing. The selected ZIP's skill may have no relevance to this example; the check only exercises the controls and frozen file handling.
+
+To continue with your **own supported Codex subscription**, replace `your-supported-Codex-model` with an actual model identifier available in your CLI. The setup command seals one model, settings, random arm order and the two-trial budget without inference:
+
+```sh
+MODEL_NAME=your-supported-Codex-model
+python3 lime_eval_setup.py --run "$RUN_DIR" --agent codex \
+  --mode native_installed --model "$MODEL_NAME" --reasoning low
+```
+
+Stop here if you only wanted the offline check. The next command is the **explicit subscription boundary**: it sends the selected task and skill to your Codex provider, uses your plan allowance, and writes raw arm records. It requires separate disposable workspaces. Do not run it on private material you would not send to that provider.
+
+```sh
+python3 lime_agent_eval.py run --run "$RUN_DIR" --agent codex \
+  --mode native_installed --workspaces "../skillwire-workspaces-$RUN_ID" \
+  --use-subscription
+```
+
+After a completed pair, prepare the blind A/B review using the saved `app.py` output. Keep the reveal key and grades away from the reviewer until they save a choice. A local example result is not a public quality rating or a general skill effect. For a real decision, replace the included task, starting files, good/bad controls and independent grader with your own relevant task **before** sealing; use a new run folder.
+
 ## Review before revealing the conditions
 
 Prepare a blind A/B bundle only from the intended completed pair. Keep its reveal key and automated grades apart from the reviewer. Record A, B, tie or cannot judge with a reason, save the verdict, then reveal. Verify the bundle, verdict, source and run bindings. These local checks establish consistency, not a person's identity or authenticity of an arbitrary imported report.
