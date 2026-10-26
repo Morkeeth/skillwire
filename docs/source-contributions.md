@@ -19,11 +19,13 @@ Use original public bytes for hashes and downloads. A static warning scan record
 
 ## Stage the source without replacing the catalog
 
-Open a source proposal first if no small maintained refresh path exists for the source. `scripts/pull_catalog.py` contains the explicit seed list and a `pull(repo)` function. Its `main()` rebuilds that seed catalog; it is **not** a harmless refresh of every current source. `scripts/enrich_catalog.py` also rebuilds a stars-based Popular selection. Running either against the current evidence can change coverage or ranking.
+The public checkout does not include `scripts/pull_catalog.py`, `scripts/expand_sources.py` or `scripts/pull_marketplace.py`. Those are maintainer-side source refresh tools, not commands a public contributor can run from this repository. The included build consumes the saved public snapshot; it does not fetch a new catalog.
 
-For discovery beyond the seed set, `scripts/expand_sources.py` records canonical repository redirects, pinned trees and partial-fetch errors. `scripts/pull_marketplace.py` joins a saved `skills.sh` snapshot to exact source matches. These are maintainer refresh tools that write shared evidence. Inspect them before use, work in an isolated checkout and keep before/after snapshots. Do not run them as part of an ordinary docs or UI fix.
+Open a [source proposal](https://github.com/Morkeeth/skillwire/issues/new) or a small PR containing the proposed canonical repository and `SKILL.md` path, pinned revision/hash when available, source description, licence evidence and the reason to include or correct it. Disclose missing terms, partial retrieval or an unverified model claim. Do not invent a hash or count to complete a proposal.
 
-A source PR should include the proposed repository/path and minimal reviewed metadata, the resulting count difference, and the expected effect on Popular. Keep downloaded bodies and archives in ignored `data/`; do not add caches to the PR. Preserve canonical repository aliases so a renamed source is not counted twice. Maintainers can perform the reviewed refresh and verify its full source/licence manifest.
+Keep the proposal limited to reviewed public metadata and source links. Do not add downloaded archives, skill-body caches, private sources or local paths. If a source was renamed, include the old and canonical names so the maintainer can preserve its alias instead of counting it twice.
+
+Maintainers perform the source refresh, preserve before/after snapshots, check the full source/licence manifest and review the resulting coverage and Popular selection. The included `scripts/enrich_catalog.py` is a metadata transformation that can rebuild a stars-based selection; it is not a source-fetch command or a harmless refresh of the current install-ranked snapshot. Do not rewrite the saved catalog or ranking as part of an unrelated docs or UI fix.
 
 ## Count and rank honestly
 
