@@ -2,6 +2,18 @@
 import json, shutil, re, sys, gzip, zipfile
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
+EVAL_KIT_FILES=('lime_task_eval.py','lime_agent_eval.py','lime_eval_setup.py','lime_human_review.py','EVAL-TOOLS.txt','LICENSE','eval-example/TASK.md','eval-example/grader.py','eval-example/bug/app.py','eval-example/good/app.py','eval-example/bad/app.py')
+def build_eval_kit(root,out):
+    # These controls are required by the documented clean-extraction example.
+    # Never publish a kit that silently loses them at the hosting upload boundary.
+    missing=[name for name in EVAL_KIT_FILES if not (root/name).is_file()]
+    if missing:raise ValueError('Local evaluation kit missing required files: '+', '.join(missing))
+    with zipfile.ZipFile(out/'local-eval-tools.zip','w',zipfile.ZIP_DEFLATED) as z:
+        for name in EVAL_KIT_FILES:
+            info=zipfile.ZipInfo(name,(2020,1,1,0,0,0))
+            info.compress_type=zipfile.ZIP_DEFLATED
+            info.external_attr=0o100644<<16
+            z.writestr(info,(root/name).read_bytes())
 def main():
     sys.path.insert(0,str(ROOT))
     import published_catalog
@@ -39,12 +51,6 @@ def main():
     (out/'native-studies.json').write_text(native_path.read_text() if native_path.exists() else json.dumps({'studies':[],'status':'No completed native study published. Existing inline results retain their original scope.'}))
     studies=[{'title':'Original exploratory function tasks','model':original['evaluations'][0]['model'],'completed_outputs':len(original['records']),'protocol':'Pinned reference inline; tool use disabled; post-run grader capability correction.','tasks':tasks,'evidence':'evaluations.json'},{'title':'Separately frozen harder follow-up','model':harder['model'],'completed_outputs':len(harder['runs']),'protocol':'Pinned reference inline; tool use disabled; frozen checks, corrected grader launch path.','tasks':[{'task':t['case'],'skill':next(v['name'] for v in harder['skills'] if v['id']==t['skill']),'n':t['n_per_arm'],'groups':t['outcome_groups'],'baseline_passes':t['all_groups_pass']['baseline'],'treatment_passes':t['all_groups_pass']['treatment']} for t in harder['summary']],'evidence':'harder-evaluations.json'}]
     (out/'eval-studies.json').write_text(json.dumps({'studies':studies},indent=2))
-    with zipfile.ZipFile(out/'local-eval-tools.zip','w',zipfile.ZIP_DEFLATED) as z:
-        for file in [ROOT/'lime_task_eval.py',ROOT/'lime_agent_eval.py',ROOT/'lime_eval_setup.py',ROOT/'lime_human_review.py',ROOT/'EVAL-TOOLS.txt',ROOT/'LICENSE',*sorted((ROOT/'eval-example').glob('**/*'))]:
-            if file.is_file() and '__pycache__' not in file.parts:
-                info=zipfile.ZipInfo(file.relative_to(ROOT).as_posix(),(2020,1,1,0,0,0))
-                info.compress_type=zipfile.ZIP_DEFLATED
-                info.external_attr=0o100644<<16
-                z.writestr(info,file.read_bytes())
+    build_eval_kit(ROOT,out)
     print(json.dumps({'build':'static production export','skills':len(ids),'repos':len(catalog['sources']),'output':'dist','network':False}))
 if __name__=='__main__':main()
