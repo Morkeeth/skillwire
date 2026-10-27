@@ -17,7 +17,7 @@ AGENTS.md
 skill_eval.py
 openai_runner.py
 watch.py
-app.py
+/app.py
 demo.py
 conftest.py
 pytest.ini
