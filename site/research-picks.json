@@ -1,0 +1,134 @@
+{
+  "checked_at": "2026-10-28",
+  "method": "Screened 13 primary repositories across software process, frontend, security, science, ML, video and platform work. Shortlisted by a concrete job, specific source guidance, available examples/testing and clear limits. Popularity is a separate discovery signal. Sponsorship never changes these selections or evaluation outcomes.",
+  "coverage": "This is a dated editorial shortlist, not a complete market ranking or universal best-skills claim. Author documentation is labelled separately from our own one-pair trial. Source review can be newer than the pinned catalog download.",
+  "picks": [
+    {
+      "name": "Supabase",
+      "job": "Building with Supabase",
+      "catalog_id": "38195c86542a844b",
+      "why": "For Supabase work, start with the team that maintains the platform. This skill puts changing docs and concrete authorization pitfalls into the workflow.",
+      "evidence": "Primary maintainer instructions cover RLS, view invokers, session handling and checks after changes. The author describes cross-agent evaluation in its 9 April launch article.",
+      "limits": "Author-reported evaluation is not an independent result. No Supabase trial was run here; this is a platform-specific pick.",
+      "source": "https://github.com/supabase/agent-skills/blob/c9be0e931b7930f7d02126d04774d904c381e7d7/skills/supabase/SKILL.md",
+      "version_note": "Catalog downloads have their own pinned version; inspect before installing."
+    },
+    {
+      "name": "React best practices",
+      "job": "React and Next.js performance",
+      "catalog_id": "815857216131ba87",
+      "why": "A focused reference for request waterfalls, bundle cost and rendering. Useful when the job is a specific performance change rather than a new visual style.",
+      "evidence": "Vercel\u2019s source organizes rules by impact, with examples and dedicated references. Our 28 October subscription trial returned identical JavaScript: 3 of 3 checks passed with and without the supplied skill reference.",
+      "limits": "One small task, one pair, inline reference, tools disabled. Native discovery and internal use were not observed. The tie is no evidence of benefit or harm.",
+      "source": "https://github.com/vercel-labs/agent-skills/blob/1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62/skills/react-best-practices/SKILL.md",
+      "version_note": "Catalog downloads have their own pinned version; inspect before installing."
+    },
+    {
+      "name": "Systematic debugging",
+      "job": "Finding the cause of a bug",
+      "catalog_id": "67b1408b4733c4e8",
+      "why": "A process pick for repeated failed fixes: reproduce the problem, trace where it starts, then test the proposed cause.",
+      "evidence": "The reviewed source separates investigation, pattern analysis, hypothesis and implementation. The project also maintains skill-behavior test infrastructure.",
+      "limits": "A documented process and author tests do not show that this skill improves your bug-fix outcome. No new matched debugging trial here.",
+      "source": "https://github.com/obra/superpowers/blob/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/systematic-debugging/SKILL.md",
+      "version_note": "Catalog downloads have their own pinned version; inspect before installing."
+    },
+    {
+      "name": "Skill creator",
+      "job": "Improving a skill itself",
+      "catalog_id": "b51c2b13d57294e2",
+      "why": "Worth opening when you want to turn a vague instruction file into something you can exercise and compare.",
+      "evidence": "The author\u2019s skill includes evaluation, comparison and iteration resources in the reviewed repository. That is more concrete than a promise to make every prompt better.",
+      "limits": "A harness helps run a comparison; it does not validate its grader or prove transfer to a new task. Review the individual folder licence and dependencies.",
+      "source": "https://github.com/anthropics/skills/blob/ca45fc496a3436251f191354091d557da31c15b5/skills/skill-creator/SKILL.md",
+      "version_note": "Catalog downloads have their own pinned version; inspect before installing."
+    },
+    {
+      "name": "Remotion best practices",
+      "job": "Making a Remotion video",
+      "catalog_id": "da7dbcd1189cb86a",
+      "why": "A good starting point when the output really is a Remotion project: the router points to creation, markup, captions, media and rendering guidance.",
+      "evidence": "Maintained in Remotion\u2019s own skills repository and linked from the official project-creation docs. The current source routes to task-specific reference files.",
+      "limits": "A router is not the full implementation. We have not run a paired video trial or established reuse rights from a repository-level licence; inspect the linked folder terms.",
+      "source": "https://github.com/remotion-dev/skills/blob/30d4553ecd46fbc5212fd0ff006ae43af522158b/skills/remotion-best-practices/SKILL.md",
+      "version_note": "Catalog downloads have their own pinned version; inspect before installing."
+    },
+    {
+      "name": "Frontend design",
+      "job": "Exploring a visual direction",
+      "catalog_id": "791e82be065828d7",
+      "why": "Useful as an exploration aid when the brief needs a deliberate visual direction. Bring the real brand, audience and existing work with you.",
+      "evidence": "The reviewed source asks for an intentional design approach and concrete implementation instead of a generic component dump.",
+      "limits": "Visual preference needs human review. This is not an endorsement of its default taste, a substitute for a brand system, or a measured performance win.",
+      "source": "https://github.com/anthropics/skills/blob/ca45fc496a3436251f191354091d557da31c15b5/skills/frontend-design/SKILL.md",
+      "version_note": "Catalog downloads have their own pinned version; inspect before installing."
+    }
+  ],
+  "longlist": [
+    {
+      "repo": "anthropics/skills",
+      "source": "https://github.com/anthropics/skills/tree/ca45fc496a3436251f191354091d557da31c15b5",
+      "decision": "Shortlist skill creation and frontend exploration; inspect individual folder terms."
+    },
+    {
+      "repo": "obra/superpowers",
+      "source": "https://github.com/obra/superpowers/tree/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+      "decision": "Shortlist debugging process. TDD remains interesting, but the existing native pilot tied and another task family has a disputed grader; no benefit claim."
+    },
+    {
+      "repo": "vercel-labs/agent-skills",
+      "source": "https://github.com/vercel-labs/agent-skills/tree/1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62",
+      "decision": "Shortlist task-specific React performance; fresh small trial tied."
+    },
+    {
+      "repo": "vercel-labs/agent-browser",
+      "source": "https://github.com/vercel-labs/agent-browser/tree/5801a50d262a4d3e1a2381996a962b22000d8289",
+      "decision": "Strong browser-workflow candidate; browser permissions and runtime dominate, so compare on a real browser task separately."
+    },
+    {
+      "repo": "remotion-dev/skills",
+      "source": "https://github.com/remotion-dev/skills/tree/30d4553ecd46fbc5212fd0ff006ae43af522158b",
+      "decision": "Shortlist for a Remotion project; not a general film-quality ranking."
+    },
+    {
+      "repo": "huggingface/skills",
+      "source": "https://github.com/huggingface/skills/tree/fabc634a893f62ad5c2039830397efa35fa62715",
+      "decision": "Domain shortlist for Hub operations. Training and hosted-job workflows require separate budget and execution checks."
+    },
+    {
+      "repo": "trailofbits/skills",
+      "source": "https://github.com/trailofbits/skills/tree/2be6433b39e009cd2b6fd3be1895f6b1faa5af9a",
+      "decision": "Security specialist candidate. Detailed audit workflows and author test resources merit task-specific review; not blanket security certification."
+    },
+    {
+      "repo": "supabase/agent-skills",
+      "source": "https://github.com/supabase/agent-skills/tree/c9be0e931b7930f7d02126d04774d904c381e7d7",
+      "decision": "Shortlist official platform workflow with concrete RLS traps and author evaluation description."
+    },
+    {
+      "repo": "expo/skills",
+      "source": "https://github.com/expo/skills/tree/05754e71d02abe0d2d7a2fb5259ccac41f5ea59c",
+      "decision": "Official mobile-platform candidate. Relevant to an Expo job, not an all-purpose coding winner."
+    },
+    {
+      "repo": "cloudflare/skills",
+      "source": "https://github.com/cloudflare/skills/tree/49a31e0b3229ccdffe4944be9c61bc7481d1d432",
+      "decision": "Official Workers and Agents platform candidate. Needs a real platform task to compare."
+    },
+    {
+      "repo": "microsoft/skills",
+      "source": "https://github.com/microsoft/skills/tree/00d66a64919edca5bca2c673373444e36a4b5461",
+      "decision": "Azure-specific candidate with author SDK evaluation infrastructure; no independent across-domain efficacy claim."
+    },
+    {
+      "repo": "K-Dense-AI/scientific-agent-skills",
+      "source": "https://github.com/K-Dense-AI/scientific-agent-skills/tree/5f2bc0341354fd5590aef76a533ada1e1e5b4e62",
+      "decision": "Research-domain candidate with executable helpers, references and author test resources. Validate each scientific task and dependency separately."
+    },
+    {
+      "repo": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "source": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/tree/28b3b8dee8c976df4fa3e94aed4e092ad43fcb03",
+      "decision": "Visual exploration candidate. The README explicitly identifies historical/demo material as inspiration rather than a runtime benchmark; do not rank that footage as measured skill quality."
+    }
+  ]
+}
