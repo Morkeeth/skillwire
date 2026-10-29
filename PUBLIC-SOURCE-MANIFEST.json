@@ -251,8 +251,8 @@
   },
   {
     "path": "scripts/prepare_public_repo.py",
-    "sha256": "3afce625798f23638f11372f3281bb390db1a55174ad8a9d3f82e95ee2853ee6",
-    "bytes": 2638
+    "sha256": "5da09c25dd7946c789d7dea19d937c445ecb0597c96b0f0eb741bf7d2f32bb21",
+    "bytes": 2671
   },
   {
     "path": "scripts/recheck_public_outcomes.py",
@@ -393,6 +393,11 @@
     "path": "tests/test_voting_http.py",
     "sha256": "288d0bbc5502afe7418f48610aa396ffdc53c38de06c1bb570740c683ef93f90",
     "bytes": 2307
+  },
+  {
+    "path": "tests/test_voting_transport.py",
+    "sha256": "ec2433995aafed9f2dd31f18df518d5156738660b191d9fd59f9a8d7363b2924",
+    "bytes": 1243
   },
   {
     "path": "tests/test_x_poll.py",

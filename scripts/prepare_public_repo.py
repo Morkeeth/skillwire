@@ -4,7 +4,7 @@ from pathlib import Path
 from export_release import FILES
 ROOT=Path(__file__).resolve().parents[1]
 EXTRA=['scripts/prepare_public_repo.py','scripts/export_release.py','METHOD.md','CATALOG.md','.github/workflows/public-pr-checks.yml','scripts/verify_native_pilot.py','scripts/summarize_native_eval.py','scripts/native_tdd_cases.py','scripts/native_discovery_cases.py','scripts/run_native_family.py','EVAL.md','tests/test_local_task_eval.py','tests/test_public_product.py','tests/test_human_review.py','tests/test_native_tdd_cases_v2.py','scripts/recheck_public_outcomes.py','scripts/frozen_outcomes.py','scripts/frozen_outcomes_v2.py','scripts/harder_outcomes.py','evidence/subscription-inline-frozen.json','evidence/subscription-harder-frozen.json','evidence/harder-preflight.json']
-EXTRA += ['tests/test_downloaded_eval_kit.py','tests/postgres_store.py','tests/test_voting.py','tests/test_voting_http.py','tests/test_x_poll.py']
+EXTRA += ['tests/test_downloaded_eval_kit.py','tests/postgres_store.py','tests/test_voting.py','tests/test_voting_http.py','tests/test_x_poll.py','tests/test_voting_transport.py']
 def main():
  out=ROOT/'data/public-repo'/datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%SZ');out.mkdir(parents=True,exist_ok=False);manifest=[]
  for name in sorted(set(FILES+EXTRA)):
