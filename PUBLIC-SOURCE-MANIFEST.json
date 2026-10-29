@@ -106,8 +106,8 @@
   },
   {
     "path": "site/index.html",
-    "sha256": "95ce9cf3ea54b9a9460e08f46aacbad4ba86253df46aaff1249ddba7aa056fe3",
-    "bytes": 19785
+    "sha256": "0b5347b536925e1f1c70cb799635f22c4d62ee8aec0f53ebf6b42f9c42f1c94c",
+    "bytes": 19805
   },
   {
     "path": "site/finder-base.css",
@@ -246,8 +246,8 @@
   },
   {
     "path": "site/research-picks.json",
-    "sha256": "66aaf391bf66098a284c3e3aaf6e182fefa5d7b7c6ae3ca556a0f1800f81dd53",
-    "bytes": 10897
+    "sha256": "240bb70369a37e2d752bab8efd2f7d5fd2ad64446ee45e0a21798dfcc991d4c1",
+    "bytes": 10928
   },
   {
     "path": "catalog_egg.py",
