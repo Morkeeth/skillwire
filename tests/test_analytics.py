@@ -1,12 +1,12 @@
 """Exercise the production privacy filter and official loader without sending analytics."""
-import pathlib,subprocess,unittest
+import json,pathlib,subprocess,unittest
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 class AnalyticsTests(unittest.TestCase):
  def test_real_filter_strips_queries_hashes_and_personal_properties(self):
   script=r'''
 const fs=require('fs'),vm=require('vm'),assert=require('assert/strict');
-for(const host of ['skillwire.net','www.skillwire.net','127.0.0.1']){
- const added=[],origin='https://'+host,window={location:{origin,hostname:host}};
+for(const host of ['skillwire.net','www.skillwire.net','127.0.0.1','localhost']){
+ const added=[],origin=(host==='localhost'?'http://':'https://')+host,window={location:{origin,hostname:host}};
  const document={querySelector:()=>null,createElement:()=>({dataset:{}}),head:{append:s=>added.push(s)}};
  vm.runInNewContext(fs.readFileSync('site/analytics.js','utf8'),{window,document,URL,Set});
  const f=window.vaq[0][1];assert.equal(window.vaq[0][0],'beforeSend');
@@ -15,12 +15,20 @@ for(const host of ['skillwire.net','www.skillwire.net','127.0.0.1']){
  for(const url of [origin+'/users/person@example.test','https://foreign.example/','javascript:alert(1)'])assert.equal(f({type:'pageview',url}),null);
  assert.equal(f({type:'event',url:origin+'/',name:'email',data:{email:'private'}}),null);
  assert.equal(f(null),null);assert.equal(f({type:'pageview',url:origin+'/eval-guide.html?secret=private'}).url,origin+'/eval-guide.html');
- assert.equal(added.length,host==='127.0.0.1'?0:1);if(added.length){assert.equal(added[0].src,'/_vercel/insights/script.js');assert.equal(added[0].defer,true);}
+ assert.equal(added.length,['127.0.0.1','localhost'].includes(host)?0:1);if(added.length){assert.equal(added[0].src,'/_vercel/insights/script.js');assert.equal(added[0].defer,true);}
 }
 console.log('PASS: actual privacy callback and official loader, no network');
 '''
   p=subprocess.run(['node','-e',script],cwd=ROOT,capture_output=True,text=True);self.assertEqual(p.returncode,0,p.stdout+p.stderr)
  def test_every_public_page_uses_external_bootstrap_under_existing_csp(self):
   for name in ['index.html','eval-guide.html','human-review.html']:
-   text=(ROOT/'site'/name).read_text();self.assertIn('<script defer src="analytics.js"></script>',text);self.assertIn('name="referrer" content="origin"',text)
+   text=(ROOT/'site'/name).read_text();self.assertIn('<script defer src="analytics.js"></script>',text);self.assertIn('name="referrer" content="strict-origin"',text)
+ def test_csp_and_export_include_bootstrap(self):
+  config=json.loads((ROOT/'vercel.json').read_text())
+  headers=[h for rule in config['headers'] for h in rule['headers']]
+  csp=next(h['value'] for h in headers if h['key']=='Content-Security-Policy')
+  self.assertIn("script-src 'self'",csp);self.assertIn("connect-src 'self'",csp)
+  self.assertEqual(next(h['value'] for h in headers if h['key']=='Referrer-Policy'),'strict-origin')
+  self.assertIn('analytics.js',(ROOT/'scripts/build_site.py').read_text())
+  self.assertIn('site/analytics.js',(ROOT/'scripts/export_release.py').read_text())
 if __name__=='__main__':unittest.main()

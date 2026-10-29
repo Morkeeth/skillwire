@@ -12,7 +12,7 @@
         },
         {
           "key": "Referrer-Policy",
-          "value": "origin"
+          "value": "strict-origin"
         },
         {
           "key": "Content-Security-Policy",
