@@ -1,11 +1,26 @@
 # SkillWire
 
-**SkillWire lets you find public agent skills by the problem they solve, read the pinned source, and download a stack with file hashes, like a download site from 2005.**
+## TLDR
+
+Find public agent skills, inspect their pinned instructions and download a stack with source hashes.<br>
+For people choosing skills for the coding-agent setup they already use.<br>
+Popularity helps discovery; paired local trials let you compare a skill on your own task.
+
+[skillwire.net](https://skillwire.net)
+
+## The problem and approach
 
 Skill files are scattered across repositories, star counts are not evidence they work, and anything downloaded from the internet is untrusted.  
-For people who run coding agents and want to pick a skill with its source in front of them.  
 Search the full pinned catalog by problem, category, harness and named model (Popular is a separate 50-entry browse view), build a stack of up to ten folders in your browser, and download it with per-file hashes, licence metadata and warning lines. No skill code runs during inspection or download.  
 Trial runs a matched paired comparison on your own task through your own Codex or Claude subscription, judged blind; no general skill ranking is claimed. Try it at [skillwire.net](https://skillwire.net), no login.
+
+## Review and pick up the work
+
+[EVAL.md](EVAL.md) · [METHOD.md](METHOD.md) · [docs/eval-reproduction.md](docs/eval-reproduction.md) · [Agent guide](AGENTS.md)
+
+Start with the linked source, setup and evidence. Recorded demos and sample data keep their original scope; use the repository instructions for a fresh run.
+
+Find public agent skills by the problem they solve, category, harness and named model. A typed query searches the full pinned catalog; Popular is a separate 50-entry browse view you can choose explicitly. Inspect pinned instructions, build a stack in your browser and download the selected public folders with file hashes and source warnings.
 
 ## Run the product locally
 
@@ -47,3 +62,7 @@ Recheck saved public outcomes without model calls: `python3 scripts/recheck_publ
 After a completed pair, `lime_human_review.py prepare` makes a local blind A/B bundle from selected text artifacts. The browser review page hides arm names and automated grades, records A, B, tie or cannot judge with a reason, and downloads a local verdict. Trial opens labelled grades and commands only after that verdict, its blind bundle, and the withheld key are selected. The viewer compares their run links, sealed model and mode, installation and read claims, and supplied raw traces; missing trace evidence stays unverified. The gate and receipts are local consistency checks, not authentication of a person or model run. Ten bundles from completed native TDD pairs have been prepared for review, with their keys apart; no independent human verdict has been collected. Manual artifact pairs can exercise this review interface but do not prove model execution. A single preference is not a general skill effect. The earlier [Skill Issue SkillsBench report](https://github.com/Morkeeth/Skill-Issue-BenchFlow-Agent-Skill-Lift/blob/main/submission/RESULT.md) is historical context: its raw rollouts were deleted, and its reported numbers are not pooled with SkillWire outcomes.
 
 Native installed-skill evaluation has a valid completed atomic-stock pilot: both arms passed 8/8, with a full pinned skill-body read observed in treatment. It is a one-case ceiling-limited tie, not general skill benefit. The older technical pilot remains invalid because of a task/reference mismatch (see EVAL.md): `--mode native_installed --workspaces /separate/disposable/root` requires a real restricted-read boundary probe, equal local tools and a verified existing Codex subscription. Select an entire local folder with `prepare --skill-folder`, or a reviewed pinned public stack ZIP. Current fixtures cover TDD behavior/regression tests and explicitly offline discovery/install tasks; live registry performance, interactive grill-me, real media preparation and browser persistence are not completed studies. See EVAL.md for exact limitations. The original 36-output ceiling-limited null remains unchanged.
+
+## License and data boundaries
+
+Code terms: [LICENSE](LICENSE). Data, provider responses, media, fonts and other third-party assets may have separate terms. Repository access alone does not grant rights to those materials. 
