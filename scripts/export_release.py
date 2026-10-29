@@ -7,7 +7,7 @@ if (ROOT/'evidence/public-native-evaluation.json').exists():FILES.append('eviden
 FILES += ['CONTRIBUTING.md','docs/source-contributions.md','docs/eval-reproduction.md',
           'docs/usage-evidence.md','.github/PULL_REQUEST_TEMPLATE.md']
 FILES += ['site/analytics.js','site/research-picks.js','site/research-picks.json','catalog_egg.py','assets/frontend-design-1/rickroll.jpg']
-FILES += ['voting.py','x_poll.py','site/votes.js','site/votes.css','docs/voting.md']
+FILES += ['voting.py','x_poll.py','site/votes.js','site/votes.css','docs/voting.md','migrations/20261029_daily_votes.sql']
 def main():
     destination=ROOT/'data/release-source'/datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%SZ');destination.mkdir(parents=True,exist_ok=False)
     manifest=[]

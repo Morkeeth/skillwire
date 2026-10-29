@@ -56,8 +56,8 @@
   },
   {
     "path": "api/index.py",
-    "sha256": "65950bcb2c60df6b88920fa01e135c9396cc0d739fd32de47dacaa5007380306",
-    "bytes": 4358
+    "sha256": "d80b95776e0e0105f52810da103577ee2590ac031f8e4d3baca448be03371ba3",
+    "bytes": 4826
   },
   {
     "path": "assets/frontend-design-1/rickroll.jpg",
@@ -86,8 +86,8 @@
   },
   {
     "path": "docs/voting.md",
-    "sha256": "50472698f460fbe2b88e166c219a22ba9ee039506f5a974f11a0ed287b27c523",
-    "bytes": 4636
+    "sha256": "4e6aead29babd0987f31476399a608b682d2351e3099ec4ec0dda314920a9fa7",
+    "bytes": 6425
   },
   {
     "path": "eval-example/TASK.md",
@@ -185,6 +185,11 @@
     "bytes": 14173
   },
   {
+    "path": "migrations/20261029_daily_votes.sql",
+    "sha256": "554d5062c043ed500de32e94da859745d31f5d788b33b7ad9185a7d712ef751d",
+    "bytes": 5724
+  },
+  {
     "path": "public_runtime.py",
     "sha256": "fa9a7d1f87fd9039f4c75d8e490d952ab9667e74ea9e1d67da32148c85b75821",
     "bytes": 11149
@@ -211,8 +216,8 @@
   },
   {
     "path": "scripts/export_release.py",
-    "sha256": "5f6ede8eeea9e5e0272936dccaeef23d7dd362f88663426278cd7f506fad273d",
-    "bytes": 3024
+    "sha256": "3b51f7685c543cad29b03a2de65c71a347f087c296d82a6d7e1fcfc2c9def83a",
+    "bytes": 3062
   },
   {
     "path": "scripts/frozen_outcomes.py",
@@ -246,8 +251,8 @@
   },
   {
     "path": "scripts/prepare_public_repo.py",
-    "sha256": "8cca131e3af5e8651ad478ee9472fd6d8c60514909c911b3caef3221dadfe05a",
-    "bytes": 2538
+    "sha256": "3afce625798f23638f11372f3281bb390db1a55174ad8a9d3f82e95ee2853ee6",
+    "bytes": 2638
   },
   {
     "path": "scripts/recheck_public_outcomes.py",
@@ -350,6 +355,11 @@
     "bytes": 4308
   },
   {
+    "path": "tests/postgres_store.py",
+    "sha256": "86eaa2cf534f96a8b69e9490e78fa50c9d0f662e82de06ede863ce8d46b57840",
+    "bytes": 2497
+  },
+  {
     "path": "tests/test_downloaded_eval_kit.py",
     "sha256": "e53fe4a08e2009238a51ab504af428cef0a52cc5885fbbca1d0205e1db2acd06",
     "bytes": 2325
@@ -375,14 +385,29 @@
     "bytes": 4394
   },
   {
+    "path": "tests/test_voting.py",
+    "sha256": "7c30590bb307678af5e7c229dad3a515744eccd686433045fee2586ed6ce7574",
+    "bytes": 4236
+  },
+  {
+    "path": "tests/test_voting_http.py",
+    "sha256": "288d0bbc5502afe7418f48610aa396ffdc53c38de06c1bb570740c683ef93f90",
+    "bytes": 2307
+  },
+  {
+    "path": "tests/test_x_poll.py",
+    "sha256": "0e86b804088fae5a2736c48dc1081f47fb148f551b15c6d38f4ee4c5a0cb3686",
+    "bytes": 1900
+  },
+  {
     "path": "vercel.json",
-    "sha256": "0f815b110e8c8fcaf420ffe2b87211eaf31eef6a012510bc7ec5b7609cd4739d",
-    "bytes": 1357
+    "sha256": "c68356a34e7add969b1183b4f7f32e9031e0b7f50c48c38e8aa0bf9c8ac70945",
+    "bytes": 1362
   },
   {
     "path": "voting.py",
-    "sha256": "ba5abc5b46a0c098f70fc654ac35b57825da95b31c1a21b71681df97c8ed7f8c",
-    "bytes": 5182
+    "sha256": "21dc335decb2452c81516202652ecdc7bd9aff38ecf7411df1506dfb20e147ea",
+    "bytes": 5002
   },
   {
     "path": "web/favicon.svg",
@@ -391,7 +416,7 @@
   },
   {
     "path": "x_poll.py",
-    "sha256": "0347395c9a12c00d885cfc7fe5f7883ba8dd4448640211c306575deb4b66a87c",
-    "bytes": 2666
+    "sha256": "8787d29560bfe1e715216231eb800fcf0ed379916ad1ee5a0cfd0b648a0c6c7d",
+    "bytes": 2565
   }
 ]

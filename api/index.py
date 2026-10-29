@@ -1,5 +1,5 @@
 """Vercel Python function for public source inspection and selected downloads."""
-import json,sys,os
+import json,sys,os,hmac
 from http.cookies import SimpleCookie
 from http.server import BaseHTTPRequestHandler
 from pathlib import Path
@@ -27,6 +27,12 @@ class handler(BaseHTTPRequestHandler):
     def do_GET(self):
         u=urlsplit(self.path);q=parse_qs(u.query);route=q.get('route',[u.path.rsplit('/',1)[-1]])[0]
         try:
+            if route=='vote-maintenance':
+                secret=os.environ.get('CRON_SECRET','')
+                if not secret or not hmac.compare_digest(self.headers.get('Authorization',''),'Bearer '+secret):raise voting.VoteError(401,'Unauthorized job.')
+                result=voting.configured().store.keepalive()
+                import x_poll
+                return self.send(200,{'store':result,'x_poll':x_poll.sync(self.headers.get('Authorization',''))})
             if route=='votes':
                 service=voting.configured();body,cookie=service.status(self.vote_cookie(),self.vote_ip())
                 import x_poll

@@ -17,3 +17,8 @@ class VoteHTTP(DailyVotes):
   self.assertEqual(self.request('POST','/api/vote',body,headers)[0],409)
   result=self.request('GET','/api/votes',headers={'Cookie':cookie})[2];self.assertEqual(result['total'],1);self.assertEqual(result['selected_today'],'a'*16)
   headers['Origin']='https://evil.invalid';self.assertEqual(self.request('POST','/api/vote',body,headers)[0],403)
+ def test_daily_maintenance_requires_cron_auth_and_x_stays_off(self):
+  with patch.dict('os.environ',{'CRON_SECRET':'test-cron','SKILLWIRE_X_POLL_ENABLED':'0'}):
+   self.assertEqual(self.request('GET','/api/vote-maintenance')[0],401)
+   status,_,result=self.request('GET','/api/vote-maintenance',headers={'Authorization':'Bearer test-cron'})
+   self.assertEqual(status,200);self.assertTrue(result['store']['ok']);self.assertFalse(result['x_poll']['fetched'])

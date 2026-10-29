@@ -1,28 +1,14 @@
 import concurrent.futures,datetime,json,subprocess,tempfile,time,unittest
 from pathlib import Path
 from voting import Voting,VoteError
-class Redis:
- def __init__(self,sock):self.sock=sock
- def command(self,*args):
-  r=subprocess.run(['redis-cli','-s',self.sock,'--json',*[str(a) for a in args]],capture_output=True,text=True,check=True)
-  d=json.loads(r.stdout)
-  if isinstance(d,dict) and 'error' in d:raise RuntimeError(d['error'])
-  return d
+from postgres_store import Postgres
 class DailyVotes(unittest.TestCase):
  @classmethod
- def setUpClass(cls):
-  cls.tmp=tempfile.TemporaryDirectory();cls.sock=str(Path(cls.tmp.name)/'redis.sock')
-  cls.proc=subprocess.Popen(['redis-server','--port','0','--unixsocket',cls.sock,'--save','','--appendonly','no'],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
-  cls.store=Redis(cls.sock)
-  for _ in range(100):
-   try:
-    if cls.store.command('PING')=='PONG':break
-   except Exception:time.sleep(.02)
-  else:raise RuntimeError('Owned test Redis did not start')
+ def setUpClass(cls):cls.store=Postgres()
  @classmethod
- def tearDownClass(cls):cls.proc.terminate();cls.proc.wait(timeout=5);cls.tmp.cleanup()
+ def tearDownClass(cls):cls.store.close()
  def setUp(self):
-  self.store.command('FLUSHDB');self.clock=datetime.datetime(2026,10,29,23,59,tzinfo=datetime.timezone.utc)
+  self.store.clear();self.clock=datetime.datetime(2026,10,29,23,59,tzinfo=datetime.timezone.utc)
   self.v=Voting('test-only-secret-32-bytes-minimum!!',self.store,[{'id':'a'*16,'name':'Alpha','repo':'a/alpha'},{'id':'b'*16,'name':'Beta','repo':'b/beta'}],'test',lambda:self.clock)
  def person(self,ip='192.0.2.1'):
   s,c=self.v.status(None,ip);return c,s['csrf']
@@ -51,18 +37,28 @@ class DailyVotes(unittest.TestCase):
   self.assertEqual(self.v.status(c,'192.0.2.1')[0]['total'],0)
  def test_hashes_only_no_ip_or_cookie_in_persisted_keys(self):
   c,t=self.person();self.v.cast(c,'192.0.2.1','a'*16,t)
-  keys=self.store.command('KEYS','*');self.assertTrue(keys);self.assertNotIn('192.0.2.1',str(keys));self.assertNotIn(c,str(keys))
+  rows=self.store.sql("select row_to_json(v) from public.skillwire_daily_votes v;")
+  self.assertNotIn('192.0.2.1',rows);self.assertNotIn(c.split('.')[0],rows)
+  self.assertEqual(len(json.loads(rows)['voter_hash']),64)
+
  def test_preview_namespace_isolates_real_votes_and_storage_failure_fails_closed(self):
   c,t=self.person();self.v.cast(c,'192.0.2.1','b'*16,t)
   preview=Voting('test-only-secret-32-bytes-minimum!!',self.store,self.v.catalog,'preview',lambda:self.clock)
   self.assertEqual(preview.status(None,'192.0.2.1')[0]['total'],0)
   # The actual store is stopped: no in-memory acceptance or fabricated zero count.
-  self.proc.terminate();self.proc.wait(timeout=5)
-  with self.assertRaises(Exception):self.v.status(c,'192.0.2.1')
-  with self.assertRaises(Exception):self.v.cast(c,'192.0.2.2','a'*16,t)
-  self.__class__.proc=subprocess.Popen(['redis-server','--port','0','--unixsocket',self.sock,'--save','','--appendonly','no'],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
-  for _ in range(100):
-   try:
-    if self.store.command('PING')=='PONG':break
-   except Exception:time.sleep(.02)
-  else:raise RuntimeError('Test Redis restart failed')
+  self.store.stop()
+  try:
+   with self.assertRaises(Exception):self.v.status(c,'192.0.2.1')
+   with self.assertRaises(Exception):self.v.cast(c,'192.0.2.2','a'*16,t)
+  finally:self.store.start()
+ def test_rls_and_rpc_permissions_block_anon_and_authenticated(self):
+  for role in ['anon','authenticated']:
+   for query in ["select * from public.skillwire_daily_votes", "select public.skillwire_cast_vote('x','2026-10-29','"+'a'*64+"','"+'b'*64+"','"+'a'*16+"')"]:
+    with self.assertRaises(subprocess.CalledProcessError):self.store.sql('set role '+role+';'+query+';')
+  self.assertEqual(self.store.sql("select count(*) from pg_class where relname like 'skillwire_%' and relkind='r' and relrowsecurity;"),'5')
+ def test_keepalive_preserves_counts_and_prunes_expired_claims(self):
+  c,t=self.person();self.v.cast(c,'192.0.2.1','a'*16,t)
+  self.store.sql("update public.skillwire_daily_votes set day='2000-01-01';update public.skillwire_daily_networks set day='2000-01-01';")
+  self.assertTrue(self.store.keepalive()['ok'])
+  self.assertEqual(self.store.sql('select count(*) from public.skillwire_daily_votes;'),'0')
+  self.assertEqual(self.v.status(c,'192.0.2.1')[0]['total'],1)
