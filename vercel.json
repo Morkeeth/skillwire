@@ -23,7 +23,7 @@
   ],
   "functions": {
     "api/index.py": {
-      "includeFiles": "{catalog_egg.py,assets/**,public_runtime.py,published_catalog.py,public_skill_finder.py,evidence/runtime-catalog.json.gz,evidence/public-source-licences.json}",
+      "includeFiles": "{voting.py,x_poll.py,catalog_egg.py,assets/**,public_runtime.py,published_catalog.py,public_skill_finder.py,evidence/runtime-catalog.json.gz,evidence/public-source-licences.json}",
       "excludeFiles": "{data/**,article-kit/**,tests/**,examples/**,.git/**,.codex/**,dist/**,site/**,scripts/**,web/**,evidence/hosted-catalog.json,evidence/public-evaluation-results.json,evidence/public-harder-results.json,evidence/judge-correction.json}",
       "maxDuration": 60
     }
@@ -32,6 +32,12 @@
     {
       "source": "/api/:path*",
       "destination": "/api/index.py?route=:path*"
+    }
+  ],
+  "crons": [
+    {
+      "path": "/api/x-poll-sync",
+      "schedule": "17 6 * * *"
     }
   ]
 }
