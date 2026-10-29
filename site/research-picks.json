@@ -4,26 +4,6 @@
   "coverage": "This is a dated editorial shortlist, not a complete market ranking or universal best-skills claim. Author documentation is labelled separately from our own one-pair trial. Source review can be newer than the pinned catalog download.",
   "picks": [
     {
-      "name": "Supabase",
-      "job": "Building with Supabase",
-      "catalog_id": "38195c86542a844b",
-      "why": "For Supabase work, start with the team that maintains the platform. This skill puts changing docs and concrete authorization pitfalls into the workflow.",
-      "evidence": "Primary maintainer instructions cover RLS, view invokers, session handling and checks after changes. The author describes cross-agent evaluation in its 9 April launch article.",
-      "limits": "Author-reported evaluation is not an independent result. No Supabase trial was run here; this is a platform-specific pick.",
-      "source": "https://github.com/supabase/agent-skills/blob/c9be0e931b7930f7d02126d04774d904c381e7d7/skills/supabase/SKILL.md",
-      "version_note": "Catalog downloads have their own pinned version; inspect before installing."
-    },
-    {
-      "name": "React best practices",
-      "job": "React and Next.js performance",
-      "catalog_id": "815857216131ba87",
-      "why": "A focused reference for request waterfalls, bundle cost and rendering. Useful when the job is a specific performance change rather than a new visual style.",
-      "evidence": "Vercel\u2019s source organizes rules by impact, with examples and dedicated references. Our 28 October subscription trial returned identical JavaScript: 3 of 3 checks passed with and without the supplied skill reference.",
-      "limits": "One small task, one pair, inline reference, tools disabled. Native discovery and internal use were not observed. The tie is no evidence of benefit or harm.",
-      "source": "https://github.com/vercel-labs/agent-skills/blob/1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62/skills/react-best-practices/SKILL.md",
-      "version_note": "Catalog downloads have their own pinned version; inspect before installing."
-    },
-    {
       "name": "Systematic debugging",
       "job": "Finding the cause of a bug",
       "catalog_id": "67b1408b4733c4e8",
@@ -31,27 +11,57 @@
       "evidence": "The reviewed source separates investigation, pattern analysis, hypothesis and implementation. The project also maintains skill-behavior test infrastructure.",
       "limits": "A documented process and author tests do not show that this skill improves your bug-fix outcome. No new matched debugging trial here.",
       "source": "https://github.com/obra/superpowers/blob/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/systematic-debugging/SKILL.md",
-      "version_note": "Catalog downloads have their own pinned version; inspect before installing."
+      "version_note": "Catalog downloads have their own pinned version; inspect before installing.",
+      "rank": 1,
+      "reason": "Start here when fixes keep failing: reproduce the bug and test its cause before changing more code."
+    },
+    {
+      "name": "React best practices",
+      "job": "React and Next.js performance",
+      "catalog_id": "815857216131ba87",
+      "why": "A focused reference for request waterfalls, bundle cost and rendering. Useful when the job is a specific performance change rather than a new visual style.",
+      "evidence": "Vercel’s source organizes rules by impact, with examples and dedicated references. Our 28 October subscription trial returned identical JavaScript: 3 of 3 checks passed with and without the supplied skill reference.",
+      "limits": "One small task, one pair, inline reference, tools disabled. Native discovery and internal use were not observed. The tie is no evidence of benefit or harm.",
+      "source": "https://github.com/vercel-labs/agent-skills/blob/1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62/skills/react-best-practices/SKILL.md",
+      "version_note": "Catalog downloads have their own pinned version; inspect before installing.",
+      "rank": 2,
+      "reason": "For React performance work: tackle request waterfalls, bundle weight and rendering with concrete examples."
     },
     {
       "name": "Skill creator",
       "job": "Improving a skill itself",
       "catalog_id": "b51c2b13d57294e2",
       "why": "Worth opening when you want to turn a vague instruction file into something you can exercise and compare.",
-      "evidence": "The author\u2019s skill includes evaluation, comparison and iteration resources in the reviewed repository. That is more concrete than a promise to make every prompt better.",
+      "evidence": "The author’s skill includes evaluation, comparison and iteration resources in the reviewed repository. That is more concrete than a promise to make every prompt better.",
       "limits": "A harness helps run a comparison; it does not validate its grader or prove transfer to a new task. Review the individual folder licence and dependencies.",
       "source": "https://github.com/anthropics/skills/blob/ca45fc496a3436251f191354091d557da31c15b5/skills/skill-creator/SKILL.md",
-      "version_note": "Catalog downloads have their own pinned version; inspect before installing."
+      "version_note": "Catalog downloads have their own pinned version; inspect before installing.",
+      "rank": 3,
+      "reason": "For improving a skill: turn instructions into a repeatable task, comparison and iteration loop."
+    },
+    {
+      "name": "Supabase",
+      "job": "Building with Supabase",
+      "catalog_id": "38195c86542a844b",
+      "why": "For Supabase work, start with the team that maintains the platform. This skill puts changing docs and concrete authorization pitfalls into the workflow.",
+      "evidence": "Primary maintainer instructions cover RLS, view invokers, session handling and checks after changes. The author describes cross-agent evaluation in its 9 April launch article.",
+      "limits": "Author-reported evaluation is not an independent result. No Supabase trial was run here; this is a platform-specific pick.",
+      "source": "https://github.com/supabase/agent-skills/blob/c9be0e931b7930f7d02126d04774d904c381e7d7/skills/supabase/SKILL.md",
+      "version_note": "Catalog downloads have their own pinned version; inspect before installing.",
+      "rank": 4,
+      "reason": "For Supabase projects: use the platform maintainer’s guidance on RLS, sessions and authorization traps."
     },
     {
       "name": "Remotion best practices",
       "job": "Making a Remotion video",
       "catalog_id": "da7dbcd1189cb86a",
       "why": "A good starting point when the output really is a Remotion project: the router points to creation, markup, captions, media and rendering guidance.",
-      "evidence": "Maintained in Remotion\u2019s own skills repository and linked from the official project-creation docs. The current source routes to task-specific reference files.",
+      "evidence": "Maintained in Remotion’s own skills repository and linked from the official project-creation docs. The current source routes to task-specific reference files.",
       "limits": "A router is not the full implementation. We have not run a paired video trial or established reuse rights from a repository-level licence; inspect the linked folder terms.",
       "source": "https://github.com/remotion-dev/skills/blob/30d4553ecd46fbc5212fd0ff006ae43af522158b/skills/remotion-best-practices/SKILL.md",
-      "version_note": "Catalog downloads have their own pinned version; inspect before installing."
+      "version_note": "Catalog downloads have their own pinned version; inspect before installing.",
+      "rank": 5,
+      "reason": "For a Remotion film: jump to task-specific guidance on captions, media and rendering."
     },
     {
       "name": "Frontend design",
@@ -61,7 +71,9 @@
       "evidence": "The reviewed source asks for an intentional design approach and concrete implementation instead of a generic component dump.",
       "limits": "Visual preference needs human review. This is not an endorsement of its default taste, a substitute for a brand system, or a measured performance win.",
       "source": "https://github.com/anthropics/skills/blob/ca45fc496a3436251f191354091d557da31c15b5/skills/frontend-design/SKILL.md",
-      "version_note": "Catalog downloads have their own pinned version; inspect before installing."
+      "version_note": "Catalog downloads have their own pinned version; inspect before installing.",
+      "rank": 6,
+      "reason": "For visual exploration: choose a deliberate direction, then judge it against your own brand and audience."
     }
   ],
   "longlist": [
@@ -130,5 +142,7 @@
       "source": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/tree/28b3b8dee8c976df4fa3e94aed4e092ad43fcb03",
       "decision": "Visual exploration candidate. The README explicitly identifies historical/demo material as inspiration rather than a runtime benchmark; do not rank that footage as measured skill quality."
     }
-  ]
+  ],
+  "ranked_at": "2026-10-30",
+  "ranking_basis": "Editorial starting order for a general software builder: reusable debugging first, then specific performance work, skill evaluation and platform/media/design jobs. This is a source-reviewed recommendation, not a usage ranking or a measured effectiveness score. Choose the matching job, not the highest number."
 }
