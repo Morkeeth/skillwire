@@ -1,9 +1,10 @@
 # SkillWire
 
 **SkillWire lets you find public agent skills by the problem they solve, read the pinned source, and download a stack with file hashes, like a download site from 2005.**
-Skill files are scattered across repositories, star counts are not evidence they work, and anything downloaded from the internet is untrusted.
-For people who run coding agents and want to pick a skill with its source in front of them.
-Search the full pinned catalog by problem, category, harness and named model (Popular is a separate 50-entry browse view), build a stack of up to ten folders in your browser, and download it with per-file hashes, licence metadata and warning lines. No skill code runs during inspection or download.
+
+Skill files are scattered across repositories, star counts are not evidence they work, and anything downloaded from the internet is untrusted.  
+For people who run coding agents and want to pick a skill with its source in front of them.  
+Search the full pinned catalog by problem, category, harness and named model (Popular is a separate 50-entry browse view), build a stack of up to ten folders in your browser, and download it with per-file hashes, licence metadata and warning lines. No skill code runs during inspection or download.  
 Trial runs a matched paired comparison on your own task through your own Codex or Claude subscription, judged blind; no general skill ranking is claimed. Try it at [skillwire.net](https://skillwire.net), no login.
 
 ## Run the product locally
