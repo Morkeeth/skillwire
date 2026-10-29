@@ -34,7 +34,7 @@ def main():
     out=ROOT/'dist';out.mkdir(exist_ok=True)
     old_style=out/'style.css'
     if old_style.exists():old_style.unlink()
-    for n in ('index.html','finder-base.css','finder.css','app.js','paired-inspector.js','installed-skills.js','adjacent.json','human-review.html','human-review.js'):shutil.copyfile(ROOT/'site'/n,out/n)
+    for n in ('index.html','finder-base.css','finder.css','app.js','paired-inspector.js','installed-skills.js','adjacent.json','human-review.html','human-review.js','research-picks.js','research-picks.json'):shutil.copyfile(ROOT/'site'/n,out/n)
     shutil.copyfile(ROOT/'web/favicon.svg',out/'favicon.svg')
     (out/'catalog.json').write_text(json.dumps(catalog,separators=(',',':')))
     if (ROOT/'evidence/public-evaluation-results.json').exists():

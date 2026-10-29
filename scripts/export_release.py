@@ -6,6 +6,7 @@ FILES=['lime_task_eval.py','lime_agent_eval.py','lime_eval_setup.py','lime_human
 if (ROOT/'evidence/public-native-evaluation.json').exists():FILES.append('evidence/public-native-evaluation.json')
 FILES += ['CONTRIBUTING.md','docs/source-contributions.md','docs/eval-reproduction.md',
           'docs/usage-evidence.md','.github/PULL_REQUEST_TEMPLATE.md']
+FILES += ['site/research-picks.js','site/research-picks.json']
 def main():
     destination=ROOT/'data/release-source'/datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%SZ');destination.mkdir(parents=True,exist_ok=False)
     manifest=[]

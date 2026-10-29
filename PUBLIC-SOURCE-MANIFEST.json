@@ -16,8 +16,8 @@
   },
   {
     "path": ".vercelignore",
-    "sha256": "7ddddc72cc191cc68bc2a96704284afb60dfc367b3b53ff8e24dae5127d63ec9",
-    "bytes": 232
+    "sha256": "01b41c2faff00b7a82c1210d446718a39cb686666ac9a34f9f1990dca8ee3cfd",
+    "bytes": 233
   },
   {
     "path": "CATALOG.md",
@@ -186,8 +186,8 @@
   },
   {
     "path": "scripts/build_site.py",
-    "sha256": "f41c1dd0e7cf8b601158a9241d80ae8d28dcbfcd43fb8f41ae411049df296b0b",
-    "bytes": 4856
+    "sha256": "600c07282d063c49041d3a3b11c2fed6629ac468343a94725a3275cb5093d5ae",
+    "bytes": 5271
   },
   {
     "path": "scripts/enrich_catalog.py",
@@ -196,8 +196,8 @@
   },
   {
     "path": "scripts/export_release.py",
-    "sha256": "7f96d579b9ff25611b8ce24d258e8083a472d3980312bd0a05462600e8a03700",
-    "bytes": 2799
+    "sha256": "7dab31feaa8ac6378357839dcc5217c6f7d4c38042e3ff2781ec5a433bc4ac09",
+    "bytes": 2862
   },
   {
     "path": "scripts/frozen_outcomes.py",
@@ -231,8 +231,8 @@
   },
   {
     "path": "scripts/prepare_public_repo.py",
-    "sha256": "9a86c23759289bbab59e3fad98b2ebbe897ea54bb647e3445032e97eddc33b18",
-    "bytes": 2491
+    "sha256": "8cca131e3af5e8651ad478ee9472fd6d8c60514909c911b3caef3221dadfe05a",
+    "bytes": 2538
   },
   {
     "path": "scripts/recheck_public_outcomes.py",
@@ -281,8 +281,8 @@
   },
   {
     "path": "site/finder.css",
-    "sha256": "a79207b35df1726169aa0ca56849815fd5789d2eea144b5d4e8b2333f4a1db02",
-    "bytes": 27864
+    "sha256": "64f617430ff865a63566cc7503eeff9f83780cdc9ce7b5234bd936701c2dae50",
+    "bytes": 29215
   },
   {
     "path": "site/human-review.html",
@@ -296,8 +296,8 @@
   },
   {
     "path": "site/index.html",
-    "sha256": "b27d567267c990206e7d161a7ef846f8883ffe14d688e8dbe68886257b66868c",
-    "bytes": 17736
+    "sha256": "2afce086af25a9018269b65328b217b1975d3b29d6e7f08cc61c46ba2c00a310",
+    "bytes": 19750
   },
   {
     "path": "site/installed-skills.js",
@@ -308,6 +308,16 @@
     "path": "site/paired-inspector.js",
     "sha256": "a7718a930e1fb8772552740f9dd3c7ce4e66126622de56709b7e7fcfab1539dd",
     "bytes": 15595
+  },
+  {
+    "path": "site/research-picks.js",
+    "sha256": "470004c88137776bf9a4277c6845adfa6b0306bfd9dede70efdcc64bb4ecd52f",
+    "bytes": 2089
+  },
+  {
+    "path": "site/research-picks.json",
+    "sha256": "921a3be9eae52cbc4ac6c01f0ff852b6466cc430494016930cde6f6d9fede7fc",
+    "bytes": 9728
   },
   {
     "path": "tests/test_human_review.py",
