@@ -20,6 +20,3 @@
     for(const item of data.longlist){const p=el('p','');p.append(link(item.repo+' ↗',item.source),document.createTextNode(' — '+item.decision));details.append(p);}host.append(details);
   }catch(error){host.replaceChildren(el('p','','Research picks could not load. The full catalog is still available.'));}
 })();
-const nostalgiaDialog=document.querySelector('#nostalgia-dialog');
-document.querySelector('#nostalgia-open').onclick=()=>nostalgiaDialog.showModal();
-for(const id of ['nostalgia-close','nostalgia-back'])document.querySelector('#'+id).onclick=()=>nostalgiaDialog.close();

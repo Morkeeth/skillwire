@@ -26,12 +26,15 @@ def main():
     for s in catalog['skills']:
         assert s['id'] not in ids;ids.add(s['id'])
         assert s['category'] in catalog['taxonomy'] and s['problem'] and s['models']
-        assert s['source'].startswith('https://github.com/') and len(s['revision'])==40
+        assert (s['source'].startswith('https://github.com/') or s.get('local_bundle')) and len(s['revision'])==40
         assert (s['eval']['status']=='Not tested' and s['eval']['n']==0) or (s['eval']['status']=='Measured task outcomes' and s['eval']['skill_sha256']==s['sha256'])
-    runtime_keys=['id','name','repo','path','source','revision','sha256','license','folder_files']
+    runtime_keys=['id','name','repo','path','source','revision','sha256','license','folder_files','local_bundle']
     runtime={'skills':[{k:s[k] for k in runtime_keys if k in s} for s in catalog['skills']],'sources':[{k:s[k] for k in ['repo','revision','archive_sha256'] if k in s} for s in catalog['sources']]}
     (ROOT/'evidence/runtime-catalog.json.gz').write_bytes(gzip.compress(json.dumps(runtime,separators=(',',':')).encode(),mtime=0))
     out=ROOT/'dist';out.mkdir(exist_ok=True)
+    from catalog_egg import files, FOLDER
+    payload=out/'assets'/FOLDER;payload.mkdir(parents=True,exist_ok=True)
+    for name,raw in files().items():(payload/name).write_bytes(raw)
     old_style=out/'style.css'
     if old_style.exists():old_style.unlink()
     for n in ('index.html','finder-base.css','finder.css','app.js','paired-inspector.js','installed-skills.js','adjacent.json','human-review.html','human-review.js','research-picks.js','research-picks.json'):shutil.copyfile(ROOT/'site'/n,out/n)

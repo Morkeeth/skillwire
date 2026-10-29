@@ -24,7 +24,8 @@ def load():
             selected=next((s for s in c['skills'] if s['id']==study['skill']['id']),None)
             assert selected and selected['sha256']==study['skill']['sha256'],'Native result source hash mismatch'
             if study['effect']['valid_pairs']>0:selected['native_eval']=copy.deepcopy(study)
-    return c
+    from catalog_egg import add
+    return add(c)
 
 
 def load_runtime():

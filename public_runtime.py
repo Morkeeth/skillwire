@@ -39,6 +39,9 @@ def local_cache(s):return ROOT/'data/hosted-sources'/s['repo'].replace('/','--')
 @lru_cache(maxsize=24)
 def body_bytes(skill_id):
     s=skill(skill_id);p=local_cache(s)/(s['sha256']+'.md')
+    if s.get('local_bundle'):
+        from catalog_egg import files
+        return files()['SKILL.md']
     raw=p.read_bytes() if p.is_file() else fetch('https://raw.githubusercontent.com/'+s['repo']+'/'+s['revision']+'/'+s['path'],finder.MAX_FILE)
     if digest(raw)!=s['sha256']:raise PublicError('Source hash changed. Download stopped.')
     return raw
@@ -64,6 +67,9 @@ def inspect(skill_id):
     return {'id':s['id'],'source':s['source'],'revision':s['revision'],'sha256':digest(raw),'body':redact(body),'body_display':'Email addresses removed for display. Download preserves original public source bytes.','warnings':warnings_for({'SKILL.md':raw}),'scan_scope':'SKILL.md only. The stack download scans every included text file. At most 500 matches are shown. Pattern matches are not a malicious verdict.','files_downloaded':False,'executed':False}
 
 def folder_files(s,archive_loader=None):
+    if s.get('local_bundle'):
+        from catalog_egg import files
+        return files()
     source=next((r for r in catalog()['sources'] if r['repo']==s['repo']),None)
     path=local_cache(s)/'source.zip'
     if not archive_loader and not path.is_file() and s.get('folder_files'):
@@ -120,7 +126,15 @@ def repository_licences():
 
 def bundle(ids,archive_loader=None):
     if not isinstance(ids,list) or not 1<=len(ids)<=10 or len(set(ids))!=len(ids):raise PublicError('Choose one to ten different skills.')
-    chosen=[skill(i) for i in ids];out=io.BytesIO();total=0;manifest={'schema':1,'privacy':'Only chosen public source folders. No local/private skills, credentials or user history.','notice':'Untrusted public source, never executed by SkillWire. Check source licences and warning lines before use.','skills':[]}
+    chosen=[skill(i) for i in ids]
+    if len(chosen)==1 and chosen[0].get('local_bundle'):
+        from catalog_egg import FOLDER
+        output=io.BytesIO()
+        with zipfile.ZipFile(output,'w',zipfile.ZIP_DEFLATED) as z:
+            for name,raw in sorted(folder_files(chosen[0]).items()):
+                info=zipfile.ZipInfo(FOLDER+'/'+name,(1980,1,1,0,0,0));info.compress_type=zipfile.ZIP_DEFLATED;info.external_attr=0o100644<<16;z.writestr(info,raw)
+        return output.getvalue()
+    out=io.BytesIO();total=0;manifest={'schema':1,'privacy':'Only chosen public source folders. No local/private skills, credentials or user history.','notice':'Untrusted public source, never executed by SkillWire. Check source licences and warning lines before use.','skills':[]}
     with zipfile.ZipFile(out,'w',zipfile.ZIP_DEFLATED) as z:
         def write_fixed(name,raw):
             info=zipfile.ZipInfo(name,date_time=(1980,1,1,0,0,0))
