@@ -11,7 +11,7 @@ Popularity helps discovery; paired local trials let you compare a skill on your 
 ## The problem and approach
 
 Skill files are scattered across repositories, star counts are not evidence they work, and anything downloaded from the internet is untrusted.  
-Search the full pinned catalog by problem, category, harness and named model (Popular is a separate 50-entry browse view), build a stack of up to ten folders in your browser, and download it with per-file hashes, licence metadata and warning lines. No skill code runs during inspection or download.  
+Search the full pinned catalog by problem, category, harness and named model (Popular is a separate curated browse view), build a stack of up to ten folders in your browser, and download it with per-file hashes, licence metadata and warning lines. No skill code runs during inspection or download.  
 Trial runs a matched paired comparison on your own task through your own Codex or Claude subscription, judged blind; no general skill ranking is claimed. Try it at [skillwire.net](https://skillwire.net), no login.
 
 ## Review and pick up the work
@@ -20,7 +20,7 @@ Trial runs a matched paired comparison on your own task through your own Codex o
 
 Start with the linked source, setup and evidence. Recorded demos and sample data keep their original scope; use the repository instructions for a fresh run.
 
-Find public agent skills by the problem they solve, category, harness and named model. A typed query searches the full pinned catalog; Popular is a separate 50-entry browse view you can choose explicitly. Inspect pinned instructions, build a stack in your browser and download the selected public folders with file hashes and source warnings.
+Find public agent skills by the problem they solve, category, harness and named model. A typed query searches the full pinned catalog; Popular is a separate curated browse view you can choose explicitly. Inspect pinned instructions, build a stack in your browser and download the selected public folders with file hashes and source warnings.
 
 ## Run the product locally
 
