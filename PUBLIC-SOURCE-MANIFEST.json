@@ -106,8 +106,8 @@
   },
   {
     "path": "site/index.html",
-    "sha256": "0b5347b536925e1f1c70cb799635f22c4d62ee8aec0f53ebf6b42f9c42f1c94c",
-    "bytes": 19805
+    "sha256": "9950c0d00b027a01e7703e0b8d863f653dac362f045d4c1b60e748723fe2de03",
+    "bytes": 19839
   },
   {
     "path": "site/finder-base.css",
@@ -121,8 +121,8 @@
   },
   {
     "path": "site/app.js",
-    "sha256": "857466ea72a6ef2781a4bdd4568e91a30c3faa6613cc2c0b19d8e06745b48c9e",
-    "bytes": 33169
+    "sha256": "947e89c7c82ce89124eca5a9986e2e2f6256e062780e090e3b0852691c6a042d",
+    "bytes": 33197
   },
   {
     "path": "site/paired-inspector.js",
@@ -271,13 +271,13 @@
   },
   {
     "path": "site/votes.js",
-    "sha256": "9a987ac6d503f7903b4861cf84152af7d66481f1ed494c9c5b4b58bb820ea5e7",
-    "bytes": 4308
+    "sha256": "87f887b86adcbab951657dc0c754e3316e01c61bcfa558f6928527ccd5d91346",
+    "bytes": 4563
   },
   {
     "path": "site/votes.css",
-    "sha256": "3474600800e50b2997b79089c582b1b15b7643d475ec9f3c49e660ea72d31b8c",
-    "bytes": 510
+    "sha256": "41263910e666dba027eb65563218627c1b556dedb111e7c921961ffab8854b53",
+    "bytes": 1174
   },
   {
     "path": "docs/voting.md",

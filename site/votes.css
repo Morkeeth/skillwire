@@ -1,1 +1,5 @@
 .community-vote{margin:4px 0 4px 8px;white-space:normal;min-height:32px}.community-vote:disabled{opacity:.7}.vote-trap{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}#vote-ranking{padding:12px}#vote-ranking article{min-width:0}#vote-ranking h2{overflow-wrap:anywhere}#vote-status{font-weight:bold}#x-poll-results{border-top:1px solid #777}@media(max-width:600px){.community-vote{display:block;margin:6px 0;min-height:40px}#content-votes .classic-button{margin-bottom:8px;max-width:100%}}
+
+/* A count belongs to a stable column, never inside a skill name. */
+.finder-results th.vote-heading{width:64px;min-width:64px;max-width:64px;text-align:center}.finder-results td.vote-cell{text-align:center;width:64px;min-width:64px;padding:2px 4px}.vote-cell .community-vote{display:inline-block;min-width:44px;width:44px;min-height:28px;margin:0;white-space:nowrap;font-weight:bold;font-variant-numeric:tabular-nums}.community-vote[aria-pressed=true]{border-style:inset;background:#d5e7b4}
+@media(max-width:1100px){.finder-results td.vote-cell{text-align:left;width:auto;max-width:none}.vote-cell .community-vote{display:inline-block;min-height:40px;margin:0}}
