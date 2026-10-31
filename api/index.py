@@ -33,6 +33,9 @@ class handler(BaseHTTPRequestHandler):
                 result=voting.configured().store.keepalive()
                 import x_poll
                 return self.send(200,{'store':result,'x_poll':x_poll.sync(self.headers.get('Authorization',''))})
+            if route=='directions':
+                service=voting.configured_directions();body,cookie=service.status(self.vote_cookie(),self.vote_ip())
+                return self.send(200,body,extra={'Set-Cookie':'sw_vote='+cookie+'; Path=/; Max-Age=2592000; HttpOnly; Secure; SameSite=Strict'})
             if route=='votes':
                 service=voting.configured();body,cookie=service.status(self.vote_cookie(),self.vote_ip())
                 import x_poll
@@ -49,7 +52,7 @@ class handler(BaseHTTPRequestHandler):
         except Exception:return self.send(502,{'error':'Pinned public source is unavailable. Try again or open its source link.'})
     def do_POST(self):
         u=urlsplit(self.path);route=parse_qs(u.query).get('route',[u.path.rsplit('/',1)[-1]])[0]
-        if route!='vote':return self.send(405,{'error':'This service accepts no uploads or private skills.'})
+        if route not in ('vote','direction'):return self.send(405,{'error':'This service accepts no uploads or private skills.'})
         try:
             if not self.vote_origin():raise voting.VoteError(403,'Refresh this page before voting.')
             if self.headers.get('Content-Type','').split(';')[0]!='application/json':raise voting.VoteError(415,'Use a JSON vote request.')
@@ -59,7 +62,9 @@ class handler(BaseHTTPRequestHandler):
             try:body=json.loads(self.rfile.read(length))
             except (ValueError,UnicodeDecodeError):raise voting.VoteError(400,'Invalid vote request.')
             if not isinstance(body,dict) or not isinstance(body.get('skill_id'),str):raise voting.VoteError(400,'Choose a published skill.')
-            result=voting.configured().cast(self.vote_cookie(),self.vote_ip(),body.get('skill_id'),body.get('csrf'),True,body.get('website',''))
+            if route=='direction':
+                result=voting.configured_directions().cast(self.vote_cookie(),self.vote_ip(),body.get('skill_id'),body.get('csrf'),body.get('value'),True,body.get('website',''))
+            else:result=voting.configured().cast(self.vote_cookie(),self.vote_ip(),body.get('skill_id'),body.get('csrf'),True,body.get('website',''))
             return self.send(201,result)
         except voting.VoteError as e:return self.send(e.status,{'error':str(e)})
         except Exception:return self.send(503,{'error':'Community voting is temporarily unavailable.'})
