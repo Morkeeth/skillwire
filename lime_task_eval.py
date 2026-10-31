@@ -104,7 +104,7 @@ def prepare(a):
  ready=positive['status']=='graded' and positive['passed'] is True and bad['status']=='graded' and bad['passed'] is False
  plan={'schema':1,'frozen_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'ready':ready,'task_sha256':sha(task),'grader_sha256':sha(grader),'initial_fixture':inventory(fixture),'reference':inventory(reference),'negative':inventory(negative),'skills':skills,'controls':{'reference':positive,'deliberately_bad':bad},'protocol':{'unit':'One user task; report every pair separately. Freeze model/version, reasoning, harness/tools, budget and order before inference in protocol.json.','arms':'Same task and initial fixture. without has no selected skills; with has only selected pinned skills. Disable unrelated global/project skills in both sessions.','read':'Require retained tool trace if full-body read is to be observed; otherwise unobserved. Reading is not use.','outcome':'Execute the independent artifact grader. Grader failure is infrastructure, not a task failure. Keep every error and original artifact.','scope':'No inference performed by this tool. One pair is not general efficacy. Grader is trusted local code, not an OS sandbox.'}}
  (root/'plan.json').write_text(json.dumps(plan,indent=2)+'\n');(root/'protocol.json').write_text(json.dumps({'status':'NOT RUN','model':None,'reasoning':None,'harness':None,'tools':None,'budget':None,'arm_order':None,'instruction':'Fill and hash this before model runs; never add missing fields after observing outcomes.'},indent=2)+'\n')
- print(json.dumps({'ready':ready,'directory':str(a.out),'inference':False,'next':'Freeze protocol.json then use separate fresh sessions to complete TASK.md in each arm. This tool does not run them.'}));return 0 if ready else 1
+ print(json.dumps({'ready':ready,'directory':str(a.out),'inference':False,'next':'Controls passed. Seal the protocol with lime_eval_setup.py (EVAL-TOOLS.txt step 4) before any model run. This tool makes no model call.' if ready else 'Stop: the good control must pass and the bad control must fail. Fix the grader or controls, then prepare a fresh folder.'}));return 0 if ready else 1
 
 def seal(a):
  root=a.run.resolve();plan=json.loads((root/'plan.json').read_text());assert plan['ready'],'Preflight did not pass'
@@ -140,7 +140,11 @@ def grade(a):
  if result_path.exists():raise ValueError('Results already exist; retain them, use a fresh run for new outputs')
  result={'plan_sha256':sha((root/'plan.json').read_bytes()),'protocol_sha256':sha((root/'protocol.json').read_bytes()),'model_execution':'Not verified by this offline grader; attach raw run evidence, not self-reported efficacy.','arms':{},'inference':False}
  for name,trace in [('without',a.without_trace),('with',a.with_trace)]:
-  result['arms'][name]={'grade':judge(root/'grader.py',root/name,root/(name+'-grade')),'read':read_evidence(trace,plan['skills'])}
+  # An arm still byte-identical to the starting fixture has no completed run: unverified, never a loss.
+  arm=root/name;files=sorted(p.relative_to(arm).as_posix() for p in arm.rglob('*') if p.is_file() and '.agents' not in p.relative_to(arm).parts)
+  unchanged=files==sorted(f['path'] for f in plan['initial_fixture']) and all(sha((arm/f['path']).read_bytes())==f['sha256'] for f in plan['initial_fixture'])
+  outcome={'status':'unverified','passed':None,'limit':'Arm unchanged from the starting fixture; no completed run to grade. Missing is not a failure.'} if unchanged else judge(root/'grader.py',root/name,root/(name+'-grade'))
+  result['arms'][name]={'grade':outcome,'read':read_evidence(trace,plan['skills'])}
  result_path.write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result,indent=2))
 
 def main():

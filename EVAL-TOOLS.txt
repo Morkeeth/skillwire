@@ -4,6 +4,40 @@ Unzip this archive into a fresh folder. Python 3 and an installed Codex CLI are
 needed for the native installed-skill trial. The helper does not install a CLI,
 change global skills, request API keys, or send files to SkillWire.
 
+Start here: a 2-minute offline check (no model call, no CLI needed)
+
+Run these from the unzipped folder to confirm the kit works on your machine:
+
+   python3 lime_task_eval.py prepare --fixture eval-example/bug \
+     --reference eval-example/good --negative eval-example/bad \
+     --task eval-example/TASK.md --grader eval-example/grader.py \
+     --skill-folder eval-example/demo-skill --out runs/example --trust-grader
+
+Expected: "ready": true. In runs/example, positive-control.json shows
+"passed": true (4 of 4 checks) and negative-control.json shows "passed": false
+(it fails greatest-and-last-tie and first-id-order).
+
+   python3 lime_eval_setup.py --run runs/example --agent codex \
+     --mode native_installed --model any-model --reasoning low
+   python3 lime_task_eval.py grade --run runs/example
+
+Expected: both arms show "status": "unverified" and "passed": null, because no
+model has run yet. A missing run is unverified, never a loss. If you see
+"passed": false for an arm nobody ran, your kit is out of date.
+
+How to read a result
+
+- grade: what the independent grader observed in that arm's files. "graded"
+  with passed true or false is an observed outcome. "unverified" means no
+  completed run exists for that arm. "grader_error" or "infrastructure_error"
+  is a broken run, not a task failure.
+- read: whether a retained tool trace shows the skill's full text being read.
+  "unobserved" means no trace showed it; it does not mean the skill was ignored.
+  A read is not proof the skill influenced the answer.
+- Influence: nothing in this kit measures it directly. The only evidence of
+  benefit is a graded outcome difference between the two arms on your task, and
+  one pair is one observation.
+
 1. Detect the local CLI and installed skill folders without a model call:
 
    python3 lime_agent_eval.py doctor --show-paths

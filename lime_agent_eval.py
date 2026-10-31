@@ -91,6 +91,8 @@ def run(a):
   path=root/'artifact-results.json';result=json.loads(path.read_text())
   for record in records:
    if record['status']=='task_failure':result['arms'][record['arm']]['grade']={'status':'graded','passed':False,'checks':[{'name':'valid-requested-artifact-format','passed':False}],'error':record['error']}
+   # A run that completed yet left the fixture untouched is an observed failure, not a missing run.
+   elif result['arms'][record['arm']]['grade']['status']=='unverified':result['arms'][record['arm']]['grade']={'status':'graded','passed':False,'checks':[{'name':'completed-run-changed-the-fixture','passed':False}]}
   result['inference']=True;result['model_execution']='Local CLI completion and raw structured output observed by runner; native skill invocation not tested.';result['runner_records_sha256']=task.sha((dest/'records.json').read_bytes());path.write_text(json.dumps(result,indent=2)+'\n')
  else:print('Infrastructure errors retained. No artifact task scores assigned to incomplete model runs.')
 
