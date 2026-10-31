@@ -1,0 +1,277 @@
+{
+  "captured_at": "2026-10-31T14:07:47.378Z",
+  "catalog_at": "2026-10-25T20:53:32.586956+00:00",
+  "live_daily_votes": 4,
+  "skills": [
+    {
+      "id": "7bb0dcbc94c07f71",
+      "name": "find-skills",
+      "repo": "vercel-labs/skills",
+      "problem": "Helps users discover and install agent skills when they ask questions like \"how do I do X\", \"find a skill for X\", \"is there a skill that can...\", or express interest in extending capabilities.",
+      "category": "Development",
+      "source": "https://github.com/vercel-labs/skills/blob/a80e4c9d12d607631249d4d7d059f835d4b2f13a/skills/find-skills/SKILL.md",
+      "installs": 4000000.0,
+      "eval": {
+        "status": "Not tested",
+        "n": 0,
+        "model": null,
+        "date": null
+      }
+    },
+    {
+      "id": "9e48ab763bfc41ba",
+      "name": "grill-me",
+      "repo": "mattpocock/skills",
+      "problem": "A relentless interview to sharpen a plan or design.",
+      "category": "Workflow",
+      "source": "https://github.com/mattpocock/skills/blob/5beb35b040e3de97e54fa9e386d7e42d15c295c2/skills/productivity/grill-me/SKILL.md",
+      "installs": 1400000.0,
+      "eval": {
+        "status": "Not tested",
+        "n": 0,
+        "model": null,
+        "date": null
+      }
+    },
+    {
+      "id": "791f5d89d10ebd03",
+      "name": "grill-with-docs",
+      "repo": "mattpocock/skills",
+      "problem": "A relentless interview to sharpen a plan or design, which also creates docs (ADR's and glossary) as we go.",
+      "category": "Workflow",
+      "source": "https://github.com/mattpocock/skills/blob/5beb35b040e3de97e54fa9e386d7e42d15c295c2/skills/engineering/grill-with-docs/SKILL.md",
+      "installs": 1200000.0,
+      "eval": {
+        "status": "Not tested",
+        "n": 0,
+        "model": null,
+        "date": null
+      }
+    },
+    {
+      "id": "ac226e2d6fd875c6",
+      "name": "improve-codebase-architecture",
+      "repo": "mattpocock/skills",
+      "problem": "Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick.",
+      "category": "Design",
+      "source": "https://github.com/mattpocock/skills/blob/5beb35b040e3de97e54fa9e386d7e42d15c295c2/skills/engineering/improve-codebase-architecture/SKILL.md",
+      "installs": 1200000.0,
+      "eval": {
+        "status": "Not tested",
+        "n": 0,
+        "model": null,
+        "date": null
+      }
+    },
+    {
+      "id": "1e2b64a9e023c4dc",
+      "name": "hyperframes",
+      "repo": "heygen-com/hyperframes",
+      "problem": "Read first to make, edit, animate or render any video with HyperFrames (HTML rendered to video), including launch films, explainers, music videos, charts, maps, vertical clips, title cards, captions and overlays.",
+      "category": "Development",
+      "source": "https://github.com/heygen-com/hyperframes/blob/0c169e2c560b02479eb8043f119f0137a2023ad0/skills/hyperframes/SKILL.md",
+      "installs": 1200000.0,
+      "eval": {
+        "status": "Not tested",
+        "n": 0,
+        "model": null,
+        "date": null
+      }
+    },
+    {
+      "id": "c33e579b428e98bb",
+      "name": "hyperframes-cli",
+      "repo": "heygen-com/hyperframes",
+      "problem": "The HyperFrames CLI by job - scaffold, check, look at frames, edit the timeline, preview, render locally or in the cloud, publish, project history - plus reading its JSON and recovering from build or render failures.",
+      "category": "Infrastructure",
+      "source": "https://github.com/heygen-com/hyperframes/blob/0c169e2c560b02479eb8043f119f0137a2023ad0/skills/hyperframes-cli/SKILL.md",
+      "installs": 1200000.0,
+      "eval": {
+        "status": "Not tested",
+        "n": 0,
+        "model": null,
+        "date": null
+      }
+    },
+    {
+      "id": "2903c52426a2c79e",
+      "name": "agent-browser",
+      "repo": "vercel-labs/agent-browser",
+      "problem": "Browser automation CLI for AI agents.",
+      "category": "Development",
+      "source": "https://github.com/vercel-labs/agent-browser/blob/372ac5ce20fab885dbf45ee0c9d510ec8c3b6fdb/skills/agent-browser/SKILL.md",
+      "installs": 1200000.0,
+      "eval": {
+        "status": "Not tested",
+        "n": 0,
+        "model": null,
+        "date": null
+      }
+    },
+    {
+      "id": "2bbb754fa911bcde",
+      "name": "media-use",
+      "repo": "heygen-com/hyperframes",
+      "problem": "Get or make any media for a HyperFrames video - music, sound effects, images, icons, logos, voiceover, avatar and generated video, transcripts, cutouts, colour grades and looks - with HeyGen or free local tools, and\u2026",
+      "category": "Development",
+      "source": "https://github.com/heygen-com/hyperframes/blob/0c169e2c560b02479eb8043f119f0137a2023ad0/skills/media-use/SKILL.md",
+      "installs": 1100000.0,
+      "eval": {
+        "status": "Not tested",
+        "n": 0,
+        "model": null,
+        "date": null
+      }
+    },
+    {
+      "id": "c78123d259d57724",
+      "name": "reddit-automation",
+      "repo": "flowkit-labs/skills",
+      "problem": "Find Reddit threads where people are genuinely asking for what you offer, then draft short, genuinely helpful replies \u2014 disclosing your affiliation honestly and naming your product only when it truly answers the\u2026",
+      "category": "Development",
+      "source": "https://github.com/flowkit-labs/skills/blob/0c9e2b63f504a296a86e45ed3a60a426dd979ca6/reddit-automation/SKILL.md",
+      "installs": 1100000.0,
+      "eval": {
+        "status": "Not tested",
+        "n": 0,
+        "model": null,
+        "date": null
+      }
+    },
+    {
+      "id": "791e82be065828d7",
+      "name": "frontend-design",
+      "repo": "anthropics/skills",
+      "problem": "Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one.",
+      "category": "Design",
+      "source": "https://github.com/anthropics/skills/blob/dbd4588f9e1033efb41dad4bef2f7947c8993d44/skills/frontend-design/SKILL.md",
+      "installs": 1000000.0,
+      "eval": {
+        "status": "Not tested",
+        "n": 0,
+        "model": null,
+        "date": null
+      }
+    },
+    {
+      "id": "f0e17d35a19c2005",
+      "name": "frontend-design (1)",
+      "repo": "skillwire/local",
+      "problem": "A familiar starting point for distinctive frontend layouts and visual direction.",
+      "category": "Design",
+      "source": "/assets/frontend-design-1/SKILL.md",
+      "installs": null,
+      "eval": {
+        "status": "Not tested",
+        "n": 0,
+        "model": null,
+        "date": null
+      }
+    },
+    {
+      "id": "828facdf41afacb6",
+      "name": "design-mobile-apps",
+      "repo": "designed-by-ai/skills",
+      "problem": "Design mobile app screens with Sleek, edit Sleek projects, and implement their designs in React Native or HTML.",
+      "category": "Development",
+      "source": "https://github.com/designed-by-ai/skills/blob/03c20aec6dcedb5fabfb03dc37982eb52ef19ed6/skills/design-mobile-apps/SKILL.md",
+      "installs": 1000000.0,
+      "eval": {
+        "status": "Not tested",
+        "n": 0,
+        "model": null,
+        "date": null
+      }
+    },
+    {
+      "id": "6f8577220523422d",
+      "name": "ai-video-generation",
+      "repo": "101-skills/superpowers",
+      "problem": "Generate AI videos with Google Veo, Seedance 2.0, HappyHorse, Wan, Grok and 40+ models via inference.sh CLI.",
+      "category": "Development",
+      "source": "https://github.com/101-skills/superpowers/blob/becc25649700d5457772a00e5143e28ccf9e5afa/tools/video/ai-video-generation/SKILL.md",
+      "installs": 867900.0,
+      "eval": {
+        "status": "Not tested",
+        "n": 0,
+        "model": null,
+        "date": null
+      }
+    },
+    {
+      "id": "0a357cfbe9a7b0ed",
+      "name": "ai-image-generation",
+      "repo": "101-skills/superpowers",
+      "problem": "Generate AI images with GPT-Image-2, FLUX, Gemini, Grok, Seedream, Reve and 50+ models via inference.sh CLI.",
+      "category": "Development",
+      "source": "https://github.com/101-skills/superpowers/blob/becc25649700d5457772a00e5143e28ccf9e5afa/tools/image/ai-image-generation/SKILL.md",
+      "installs": 866700.0,
+      "eval": {
+        "status": "Not tested",
+        "n": 0,
+        "model": null,
+        "date": null
+      }
+    },
+    {
+      "id": "72eff92338a3882e",
+      "name": "twitter-automation",
+      "repo": "101-skills/superpowers",
+      "problem": "Automate Twitter/X with posting, engagement, and user management via inference.sh CLI.",
+      "category": "Development",
+      "source": "https://github.com/101-skills/superpowers/blob/becc25649700d5457772a00e5143e28ccf9e5afa/tools/social/twitter-automation/SKILL.md",
+      "installs": 866400.0,
+      "eval": {
+        "status": "Not tested",
+        "n": 0,
+        "model": null,
+        "date": null
+      }
+    },
+    {
+      "id": "815857216131ba87",
+      "name": "vercel-react-best-practices",
+      "repo": "vercel-labs/agent-skills",
+      "problem": "React and Next.js performance optimization guidelines from Vercel Engineering.",
+      "category": "Development",
+      "source": "https://github.com/vercel-labs/agent-skills/blob/063bee94c3f4df8453406c830b0a7df0f2860278/skills/react-best-practices/SKILL.md",
+      "installs": 837900.0,
+      "eval": {
+        "status": "Not tested",
+        "n": 0,
+        "model": null,
+        "date": null
+      }
+    },
+    {
+      "id": "38b949fd23ec2612",
+      "name": "web-design-guidelines",
+      "repo": "vercel-labs/agent-skills",
+      "problem": "Review UI code for Web Interface Guidelines compliance.",
+      "category": "Design",
+      "source": "https://github.com/vercel-labs/agent-skills/blob/063bee94c3f4df8453406c830b0a7df0f2860278/skills/web-design-guidelines/SKILL.md",
+      "installs": 783400.0,
+      "eval": {
+        "status": "Not tested",
+        "n": 0,
+        "model": null,
+        "date": null
+      }
+    },
+    {
+      "id": "2f6cdf184d8cdd9e",
+      "name": "ai-image-generation",
+      "repo": "magentosh/superpowers",
+      "problem": "Generate AI images with GPT-Image-2, FLUX, Gemini, Grok, Seedream, Reve and 50+ models via inference.sh CLI.",
+      "category": "Development",
+      "source": "https://github.com/magentosh/superpowers/blob/becc25649700d5457772a00e5143e28ccf9e5afa/tools/image/ai-image-generation/SKILL.md",
+      "installs": 758400.0,
+      "eval": {
+        "status": "Not tested",
+        "n": 0,
+        "model": null,
+        "date": null
+      }
+    }
+  ]
+}
