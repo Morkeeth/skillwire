@@ -68,30 +68,49 @@ class Directions(Voting):
   return ident if hmac.compare_digest(sig,self.mac('direction-cookie:'+ident)) else None
  def network_key(self,ip,day):
   try:
-   address=ipaddress.ip_address(ip);network=str(ipaddress.ip_network(str(address)+'/64',strict=False)) if address.version==6 else str(address)
+   address=ipaddress.ip_address(ip)
+   if address.version==6 and address.ipv4_mapped:address=address.ipv4_mapped
+   network=str(ipaddress.ip_network(str(address)+'/48',strict=False)) if address.version==6 else str(address)
   except ValueError:raise VoteError(503,'Network identity unavailable. Please try again.') from None
   return self.mac('direction-network:'+network)
+ def new_cookie(self,request_key=None):
+  if request_key is None:request_key=secrets.token_hex(24)
+  if not isinstance(request_key,str) or not re.fullmatch(r'[a-f0-9]{48}',request_key):raise VoteError(400,'Refresh before your first vote.')
+  ident=self.mac('direction-first:'+request_key)[:48]
+  return ident+'.'+self.mac('direction-cookie:'+ident)
+ def csrf(self,ident,network,day):
+  return self.mac(('csrf:'+ident if ident else 'direction-guest:'+network)+':'+day)
  def status(self,cookie,ip):
   now,day,reset=self.clock();ident=self.identity(cookie)
-  if not ident:
-   permitted=self.store.rpc('direction_mint',p_namespace=self.ns,p_day=day,p_network_hash=self.network_key(ip,day))
-   if permitted is not True:raise VoteError(429,'This network has reached today’s new-browser limit. Keep your existing voting cookie or try tomorrow.')
-   ident=secrets.token_hex(24);cookie=ident+'.'+self.mac('direction-cookie:'+ident)
-  snapshot=self.store.rpc('direction_status',p_namespace=self.ns,p_voter_hash=self.person_key(ident,day))
+  try:network=self.network_key(ip,day)
+  except VoteError:network=None
+  # Public reads never issue an identity or spend any network budget.
+  snapshot=self.store.rpc('direction_status',p_namespace=self.ns,p_voter_hash=self.person_key(ident,day) if ident else '')
   counts={k:v for k,v in snapshot['counts'].items() if k in self.byid and not self.byid[k].get('local_bundle')}
-  mine={k:v for k,v in snapshot['mine'].items() if k in self.byid}
+  mine={k:v for k,v in snapshot['mine'].items() if k in self.byid} if ident else {}
   ranked=sorted(counts,key=lambda k:(-counts[k]['score'],-counts[k]['up'],self.byid[k]['name'].lower(),k))[:50]
   ranking=[{k:self.byid[i].get(k,'') for k in ('id','name','repo')}|counts[i] for i in ranked]
-  return {'day':day,'csrf':self.mac('csrf:'+ident+':'+day),'counts':counts,'mine':mine,'ranking':ranking,'total':sum(v['up']+v['down'] for v in counts.values()),'updated_at':snapshot.get('updated_at') or now.isoformat(),'rule':'One up or down preference per skill per browser. Tap again to undo. Clearing cookies or changing browsers can bypass identity; network limits reduce abuse, not eliminate it.'},cookie
- def cast(self,cookie,ip,skill_id,csrf,value,origin_valid=True,honeypot=''):
+  return {'day':day,'csrf':self.csrf(ident,network,day) if network else None,'has_identity':bool(ident),'counts':counts,'mine':mine,'ranking':ranking,'total':sum(v['up']+v['down'] for v in counts.values()),'updated_at':snapshot.get('updated_at') or now.isoformat(),'read_only_reason':None if network else 'Counts are available; voting network identity is unavailable.','rule':'One up or down preference per skill per browser. Tap again to undo. Clearing cookies or changing browsers can bypass identity; network limits reduce abuse, not eliminate it.'},cookie if ident else None
+ def cast(self,cookie,ip,skill_id,csrf,value,origin_valid=True,honeypot='',request_key=None):
   now,day,reset=self.clock();ident=self.identity(cookie)
-  if not origin_valid or honeypot or not ident or not isinstance(csrf,str) or not hmac.compare_digest(csrf,self.mac('csrf:'+ident+':'+day)):raise VoteError(403,'Refresh this page before voting.')
+  if not origin_valid or honeypot or not isinstance(csrf,str):raise VoteError(403,'Refresh this page before voting.')
+  network=self.network_key(ip,day)
+  valid_days=[day,(now-dt.timedelta(days=1)).date().isoformat()]
+  if not any(hmac.compare_digest(csrf,self.csrf(ident,network,d)) for d in valid_days):raise VoteError(403,'Refresh this page before voting.')
   if skill_id not in self.byid or self.byid[skill_id].get('local_bundle'):raise VoteError(400,'Choose a published skill.')
   if type(value) is not int or value not in (-1,0,1):raise VoteError(400,'Choose up, down, or undo.')
-  result=self.store.rpc('direction_set',p_namespace=self.ns,p_day=day,p_voter_hash=self.person_key(ident,day),p_network_hash=self.network_key(ip,day),p_skill=skill_id,p_value=value)
-  if result==-1:raise VoteError(429,'A browser, network or skill limit was reached. You can still undo your existing vote.')
+  if not ident:
+   if value==0:return self.status(None,ip)[0],None
+   cookie=self.new_cookie(request_key) if request_key is not None else None
+   if not cookie:raise VoteError(400,'Refresh before your first vote.')
+   ident=self.identity(cookie)
+   permitted=self.store.rpc('direction_mint',p_namespace=self.ns,p_day=day,p_network_hash=network,p_voter_hash=self.person_key(ident,day))
+   if permitted is not True:raise VoteError(429,'This network has reached today’s new-voter limit. Counts remain readable; try voting tomorrow.')
+  result=self.store.rpc('direction_set',p_namespace=self.ns,p_day=day,p_voter_hash=self.person_key(ident,day),p_network_hash=network,p_skill=skill_id,p_value=value)
+  if result==-1:raise VoteError(429,'A browser, network or recent skill-vote limit was reached. You can still undo your existing vote.')
   if result not in (0,1):raise VoteError(503,'Your preference was not confirmed. Refresh before trying again.')
-  return self.status(cookie,ip)[0]
+  return self.status(cookie,ip)[0],cookie
+
 def configured_directions():
  import public_runtime
  namespace='directions-production-v1' if os.environ.get('VERCEL_ENV')=='production' else 'directions-preview-'+os.environ.get('VERCEL_URL','local').split('.')[0]

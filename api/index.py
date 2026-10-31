@@ -35,7 +35,7 @@ class handler(BaseHTTPRequestHandler):
                 return self.send(200,{'store':result,'x_poll':x_poll.sync(self.headers.get('Authorization',''))})
             if route=='directions':
                 service=voting.configured_directions();body,cookie=service.status(self.vote_cookie('sw_direction'),self.vote_ip())
-                return self.send(200,body,extra={'Set-Cookie':'sw_direction='+cookie+'; Path=/; Max-Age=2592000; HttpOnly; Secure; SameSite=Strict'})
+                return self.send(200,body,extra={'Set-Cookie':'sw_direction='+cookie+'; Path=/; Max-Age=2592000; HttpOnly; Secure; SameSite=Strict'} if cookie else None)
             if route=='votes':
                 service=voting.configured();body,cookie=service.status(self.vote_cookie(),self.vote_ip())
                 import x_poll
@@ -63,7 +63,8 @@ class handler(BaseHTTPRequestHandler):
             except (ValueError,UnicodeDecodeError):raise voting.VoteError(400,'Invalid vote request.')
             if not isinstance(body,dict) or not isinstance(body.get('skill_id'),str):raise voting.VoteError(400,'Choose a published skill.')
             if route=='direction':
-                result=voting.configured_directions().cast(self.vote_cookie('sw_direction'),self.vote_ip(),body.get('skill_id'),body.get('csrf'),body.get('value'),True,body.get('website',''))
+                result,cookie=voting.configured_directions().cast(self.vote_cookie('sw_direction'),self.vote_ip(),body.get('skill_id'),body.get('csrf'),body.get('value'),True,body.get('website',''),body.get('request_key'))
+                return self.send(201,result,extra={'Set-Cookie':'sw_direction='+cookie+'; Path=/; Max-Age=2592000; HttpOnly; Secure; SameSite=Strict'} if cookie else None)
             else:result=voting.configured().cast(self.vote_cookie(),self.vote_ip(),body.get('skill_id'),body.get('csrf'),True,body.get('website',''))
             return self.send(201,result)
         except voting.VoteError as e:return self.send(e.status,{'error':str(e)})
