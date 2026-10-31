@@ -101,13 +101,13 @@
   },
   {
     "path": "api/index.py",
-    "sha256": "2e68ecfcc40fee37a7b46a08235c132f99294bf2b323b074ed18b497ef0bd07d",
-    "bytes": 5362
+    "sha256": "4807c0198d135b9a4e1bdde53f22b1685aea5997744cf7af066f05374106337d",
+    "bytes": 5400
   },
   {
     "path": "site/index.html",
-    "sha256": "a8917c85e6ede2e3f5774f6102f29e86292bf4f6f4d77dbdb38591c80064d479",
-    "bytes": 20581
+    "sha256": "c6d85c3d27a69ce0a640e443957ff84a36b82bed1da56da198a4827cb37cf132",
+    "bytes": 20758
   },
   {
     "path": "site/finder-base.css",
@@ -261,8 +261,8 @@
   },
   {
     "path": "migrations/20261031_direction_votes.sql",
-    "sha256": "6b83cd65790b28cd2edf6a3579cae2371d51f401fcbef4c1530edeb18095a439",
-    "bytes": 4469
+    "sha256": "8bf52ed35f63cb00c41df806f054580a90400803d3386852b67daa93026b36ad",
+    "bytes": 7363
   },
   {
     "path": "eval-example/demo-skill/SKILL.md",
@@ -271,8 +271,8 @@
   },
   {
     "path": "voting.py",
-    "sha256": "d919e82c3b79424488cd03d4632e5b8dc124ab5dd0846714c469eb66c96b25c7",
-    "bytes": 7638
+    "sha256": "b43b5005802d66d3d445c9f40ac331ec6d108de498d5bc16bcb4813728ad3b11",
+    "bytes": 8556
   },
   {
     "path": "x_poll.py",
@@ -281,8 +281,8 @@
   },
   {
     "path": "site/votes.js",
-    "sha256": "c885742c9bbabdac638779c7b2b9078be94854769c32404976d0914814318277",
-    "bytes": 5712
+    "sha256": "04eee72006f6535cd3ff1a3f8892ed7be0e16465da1597c47f23b1a8cdd9c504",
+    "bytes": 5727
   },
   {
     "path": "site/votes.css",
@@ -291,8 +291,8 @@
   },
   {
     "path": "docs/voting.md",
-    "sha256": "e9c94de3b8df535d82ade946a3da663a9670c627aa48b4ef120a13c6ff120602",
-    "bytes": 8311
+    "sha256": "f0219950f6f1166b3741d13523b8b585e9677da80dccec088ac28407e9b4d64a",
+    "bytes": 9208
   },
   {
     "path": "migrations/20261029_daily_votes.sql",

@@ -13,9 +13,9 @@ class handler(BaseHTTPRequestHandler):
         self.send_response(status);self.send_header('Content-Type',content);self.send_header('Content-Length',str(len(body)));self.send_header('X-Content-Type-Options','nosniff');self.send_header('Cache-Control','no-store')
         for k,v in (extra or {}).items():self.send_header(k,v)
         self.end_headers();self.wfile.write(body)
-    def vote_cookie(self):
+    def vote_cookie(self,name='sw_vote'):
         try:
-            cookie=SimpleCookie();cookie.load(self.headers.get('Cookie',''));return cookie['sw_vote'].value if 'sw_vote' in cookie else None
+            cookie=SimpleCookie();cookie.load(self.headers.get('Cookie',''));return cookie[name].value if name in cookie else None
         except Exception:return None
     def vote_ip(self):
         return self.headers.get('x-vercel-forwarded-for','').split(',')[0].strip() if os.environ.get('VERCEL') else self.client_address[0]
@@ -34,8 +34,8 @@ class handler(BaseHTTPRequestHandler):
                 import x_poll
                 return self.send(200,{'store':result,'x_poll':x_poll.sync(self.headers.get('Authorization',''))})
             if route=='directions':
-                service=voting.configured_directions();body,cookie=service.status(self.vote_cookie(),self.vote_ip())
-                return self.send(200,body,extra={'Set-Cookie':'sw_vote='+cookie+'; Path=/; Max-Age=2592000; HttpOnly; Secure; SameSite=Strict'})
+                service=voting.configured_directions();body,cookie=service.status(self.vote_cookie('sw_direction'),self.vote_ip())
+                return self.send(200,body,extra={'Set-Cookie':'sw_direction='+cookie+'; Path=/; Max-Age=2592000; HttpOnly; Secure; SameSite=Strict'})
             if route=='votes':
                 service=voting.configured();body,cookie=service.status(self.vote_cookie(),self.vote_ip())
                 import x_poll
@@ -63,7 +63,7 @@ class handler(BaseHTTPRequestHandler):
             except (ValueError,UnicodeDecodeError):raise voting.VoteError(400,'Invalid vote request.')
             if not isinstance(body,dict) or not isinstance(body.get('skill_id'),str):raise voting.VoteError(400,'Choose a published skill.')
             if route=='direction':
-                result=voting.configured_directions().cast(self.vote_cookie(),self.vote_ip(),body.get('skill_id'),body.get('csrf'),body.get('value'),True,body.get('website',''))
+                result=voting.configured_directions().cast(self.vote_cookie('sw_direction'),self.vote_ip(),body.get('skill_id'),body.get('csrf'),body.get('value'),True,body.get('website',''))
             else:result=voting.configured().cast(self.vote_cookie(),self.vote_ip(),body.get('skill_id'),body.get('csrf'),True,body.get('website',''))
             return self.send(201,result)
         except voting.VoteError as e:return self.send(e.status,{'error':str(e)})
