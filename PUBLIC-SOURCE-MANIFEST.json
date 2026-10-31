@@ -281,8 +281,8 @@
   },
   {
     "path": "site/votes.js",
-    "sha256": "fbc4cc9ea60e5295084bc27b2156b42c59264ece7c74bc318df99f4e08de647b",
-    "bytes": 6321
+    "sha256": "f53e091cfc1480116553678b270e6d1b5fb4f5a33248fc9a4578c3ff2a5ef2bb",
+    "bytes": 6416
   },
   {
     "path": "site/votes.css",
