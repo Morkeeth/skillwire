@@ -1,3 +1,17 @@
+# Anonymous up/down preferences
+
+The current candidate gives each anonymous browser one up or down preference per skill. Tapping the selected direction removes it; choosing the other direction replaces it. No login is needed. Counts are community preference, never task evaluation, verified usage or repository stars.
+
+The HttpOnly, Secure, SameSite=Strict signed cookie is refreshed for 30 days on visits. Its stable anonymous ID is HMAC-hashed before storage. Clearing cookies or switching browsers bypasses identity; this is not proof of one human. Raw IPs are not stored. Daily network identifiers are HMAC-hashed; IPv6 uses a /64 network. Additions/changes are limited to 60 per browser and 120 per network each UTC day, with undo always allowed. Explicit desired-state writes are idempotent. Browser origin, daily CSRF token, payload size, published skill and honeypot validation happen before a write.
+
+Deploy prerequisite: apply the additive `migrations/20261031_direction_votes.sql` through the approved database release path, then deploy the allowlisted source export. This creates two new RLS tables and service-role-only RPCs; it changes no historical daily vote or signed-in preview table. New up/down counts begin empty. The old daily vote API and disabled X poll job remain available separately. There are no public keys or secrets added to browser code and no Auth configuration needed.
+
+`GET /api/directions` supplies authoritative counts and the browser choices. `POST /api/direction` accepts an explicit value -1, 0 or 1. Errors disable controls until refresh and label old counts stale; a failed write is never shown as accepted. Production and per-deployment preview namespaces are isolated.
+
+Rollback: restore the preceding website deployment; leave additive tables in place. Do not remove tables or rewrite old vote data.
+
+## Earlier daily voting implementation
+
 # Daily community voting
 
 One vote across the catalog per signed anonymous browser identity per UTC day. The website cannot prove one human without login. A shared-network budget permits three identities each day (IPv4 address or IPv6 /64), making cookie resets inconvenient while allowing some household use. Shared networks can still hit this limit; proxies, new networks and devices can still game it. No-login preference is not measured usage or skill effectiveness. The harmless catalog Easter egg is not eligible to vote.

@@ -1,13 +1,13 @@
 [
   {
     "path": "lime_task_eval.py",
-    "sha256": "6a33c06f59dc2f59dbc47c6405dd3e0eb32608622092d04a6ef813c04b604fe9",
-    "bytes": 14173
+    "sha256": "38e9fafae913b9a037a99bcec3ac054b8c573cd72b242f367b08d1a91e49dca2",
+    "bytes": 14916
   },
   {
     "path": "lime_agent_eval.py",
-    "sha256": "c6b2e599c8332949ca1c5b8ed23951765bd67fadf5565963f35a0bca762f4f02",
-    "bytes": 19286
+    "sha256": "426c4a6d075cc70b50395b3f51f41372f228f7e02adc002acab2177c3bd6fc03",
+    "bytes": 19602
   },
   {
     "path": "lime_eval_setup.py",
@@ -21,8 +21,8 @@
   },
   {
     "path": "EVAL-TOOLS.txt",
-    "sha256": "dadcaea4b5b76275961a1b33eba54f95b21f494f6a498ef8b8d0cf7e436ddf3a",
-    "bytes": 4233
+    "sha256": "33a008dbbef728a4e4349e4d1f0d776578ac0eeb098d1d6ff1a8719f9a59656b",
+    "bytes": 5951
   },
   {
     "path": "site/eval-guide.html",
@@ -101,13 +101,13 @@
   },
   {
     "path": "api/index.py",
-    "sha256": "d80b95776e0e0105f52810da103577ee2590ac031f8e4d3baca448be03371ba3",
-    "bytes": 4826
+    "sha256": "2e68ecfcc40fee37a7b46a08235c132f99294bf2b323b074ed18b497ef0bd07d",
+    "bytes": 5362
   },
   {
     "path": "site/index.html",
-    "sha256": "9950c0d00b027a01e7703e0b8d863f653dac362f045d4c1b60e748723fe2de03",
-    "bytes": 19839
+    "sha256": "a8917c85e6ede2e3f5774f6102f29e86292bf4f6f4d77dbdb38591c80064d479",
+    "bytes": 20581
   },
   {
     "path": "site/finder-base.css",
@@ -121,8 +121,8 @@
   },
   {
     "path": "site/app.js",
-    "sha256": "947e89c7c82ce89124eca5a9986e2e2f6256e062780e090e3b0852691c6a042d",
-    "bytes": 33197
+    "sha256": "c43b3322f1c8bf3bad1d6c813fbee6d31ea2d95aae95e6f3e208096fd368a1dd",
+    "bytes": 33200
   },
   {
     "path": "site/paired-inspector.js",
@@ -146,8 +146,8 @@
   },
   {
     "path": "scripts/build_site.py",
-    "sha256": "23e7d345a05fc509bc6edc5723d34a731c4a69ac7bc2c254b897c679326a2106",
-    "bytes": 5535
+    "sha256": "e02a36cd7c030bdef3f4dbb7487316a7ec81b60e88dbb52a0306da4f5af00b69",
+    "bytes": 5570
   },
   {
     "path": "scripts/enrich_catalog.py",
@@ -260,9 +260,19 @@
     "bytes": 21011
   },
   {
+    "path": "migrations/20261031_direction_votes.sql",
+    "sha256": "6b83cd65790b28cd2edf6a3579cae2371d51f401fcbef4c1530edeb18095a439",
+    "bytes": 4469
+  },
+  {
+    "path": "eval-example/demo-skill/SKILL.md",
+    "sha256": "fb708d4caa343679620fad49c17d51cd628fc8c8a0e1bb4f0d6cc41e6dbb055a",
+    "bytes": 156
+  },
+  {
     "path": "voting.py",
-    "sha256": "21dc335decb2452c81516202652ecdc7bd9aff38ecf7411df1506dfb20e147ea",
-    "bytes": 5002
+    "sha256": "d919e82c3b79424488cd03d4632e5b8dc124ab5dd0846714c469eb66c96b25c7",
+    "bytes": 7638
   },
   {
     "path": "x_poll.py",
@@ -271,18 +281,18 @@
   },
   {
     "path": "site/votes.js",
-    "sha256": "87f887b86adcbab951657dc0c754e3316e01c61bcfa558f6928527ccd5d91346",
-    "bytes": 4563
+    "sha256": "c885742c9bbabdac638779c7b2b9078be94854769c32404976d0914814318277",
+    "bytes": 5712
   },
   {
     "path": "site/votes.css",
-    "sha256": "41263910e666dba027eb65563218627c1b556dedb111e7c921961ffab8854b53",
-    "bytes": 1174
+    "sha256": "b8502ea06a03dd41164311a85aedddf938135a0c6234d8a659feaec6b72cf7f9",
+    "bytes": 3876
   },
   {
     "path": "docs/voting.md",
-    "sha256": "4e6aead29babd0987f31476399a608b682d2351e3099ec4ec0dda314920a9fa7",
-    "bytes": 6425
+    "sha256": "e9c94de3b8df535d82ade946a3da663a9670c627aa48b4ef120a13c6ff120602",
+    "bytes": 8311
   },
   {
     "path": "migrations/20261029_daily_votes.sql",
