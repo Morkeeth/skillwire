@@ -2,7 +2,7 @@
 import json, shutil, re, sys, gzip, zipfile
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
-EVAL_KIT_FILES=('lime_task_eval.py','lime_agent_eval.py','lime_eval_setup.py','lime_human_review.py','EVAL-TOOLS.txt','LICENSE','eval-example/TASK.md','eval-example/grader.py','eval-example/bug/app.py','eval-example/good/app.py','eval-example/bad/app.py')
+EVAL_KIT_FILES=('lime_task_eval.py','lime_agent_eval.py','lime_eval_setup.py','lime_human_review.py','EVAL-TOOLS.txt','LICENSE','eval-example/TASK.md','eval-example/grader.py','eval-example/bug/app.py','eval-example/good/app.py','eval-example/bad/app.py','eval-example/demo-skill/SKILL.md')
 def build_eval_kit(root,out):
     # These controls are required by the documented clean-extraction example.
     # Never publish a kit that silently loses them at the hosting upload boundary.
