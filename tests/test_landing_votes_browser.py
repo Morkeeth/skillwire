@@ -98,7 +98,10 @@ def main():
                     assert page.evaluate('document.documentElement.scrollWidth <= innerWidth'), 'horizontal page overflow'
                     for button in page.locator('#landing-vote-ranking .direction-vote button').all():
                         rect = button.bounding_box()
-                        assert rect['width'] >= 44 and rect['height'] >= 44
+                        if width > 600:
+                            assert 22 <= rect['height'] <= 28 and rect['width'] <= 28, 'desktop arrows must match compact classic buttons'
+                        else:
+                            assert rect['width'] >= 44 and rect['height'] >= 44, 'phone targets remain usable'
                     page.screenshot(path=str(OUT / f'LANDING-{width}.png'))
                     sid = ids[0]
                     landing = page.locator(f'#landing-vote-ranking [data-direction-id="{sid}"]')
@@ -109,6 +112,11 @@ def main():
                     assert landing.locator('[data-value="1"]').get_attribute('aria-pressed') == 'true'
                     page.locator('#landing-vote-all').click()
                     assert full.locator('[data-value="1"]').get_attribute('aria-pressed') == 'true'
+                    if width > 600:
+                        reference = page.locator('#vote-browse').bounding_box()
+                        control = full.locator('button').first.bounding_box()
+                        assert control['height'] == reference['height'], 'vote button must match the existing classic button height'
+                        assert page.locator('#vote-ranking .community-file').evaluate_all('(rows)=>rows.every(row=>row.getBoundingClientRect().height<80)'), 'desktop rows are too tall'
                     page.screenshot(path=str(OUT / f'COMMUNITY-{width}.png'))
                     full.locator('[data-value="-1"]').click()
                     page.wait_for_function("document.querySelector('#vote-status').textContent.includes('Your vote is saved')")
@@ -129,7 +137,7 @@ def main():
                     page.locator('#landing-vote-details').click()
                     assert page.locator('#content-votes details').get_attribute('open') is not None
                     assert not errors, errors
-                    results.append({'width': width, 'pass': True, 'checks': ['landing visible', 'same top-four ranking', '44px targets', 'no overflow', 'vote sync both ways', 'undo', 'shared 503 error', 'refresh without POST', 'counting details'], 'posts': len(posts), 'page_errors': errors})
+                    results.append({'width': width, 'pass': True, 'checks': ['landing visible', 'same top-four ranking', 'compact desktop / usable mobile targets', 'no overflow', 'vote sync both ways', 'undo', 'shared 503 error', 'refresh without POST', 'counting details'], 'posts': len(posts), 'page_errors': errors})
                 finally:
                     context.close()
     finally:
