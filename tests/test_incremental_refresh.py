@@ -4,10 +4,10 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 import incremental_refresh as ir
 
 OLD,NEW='a'*40,'b'*40
-def blob(p,body):return {'path':p,'type':'blob','sha':hashlib.sha1(body).hexdigest(),'size':len(body)}
+def blob(p,body):return {'path':p,'type':'blob','sha':hashlib.sha1(b'blob '+str(len(body)).encode()+b'\0'+body).hexdigest(),'size':len(body)}
 OLD_FILES={'keep/SKILL.md':b'name: keep\n','mod/SKILL.md':b'name: mod\nv1','gone/SKILL.md':b'name: gone\n'}
 NEW_FILES={'keep/SKILL.md':b'name: keep\n','mod/SKILL.md':b'name: mod\nv2','new/SKILL.md':b'name: new\n','copy/of/keep/SKILL.md':b'name: keep\n'}
-def entry(key,p,body,rev=OLD):return dict(id=ir.entry_id(key,p),name=p.split('/')[0],repo=key,path=p,revision=rev,sha256=hashlib.sha256(body).hexdigest(),source='x',stars=1,eval={'status':'Measured','n':3})
+def entry(key,p,body,rev=OLD):return dict(id=ir.entry_id(key,p),name=p.split('/')[0],repo=key,path=p,revision=rev,sha256=hashlib.sha256(body).hexdigest(),source='x',stars=1,eval={'status':'Not tested','n':0})
 def catalog():
     return {'sources':[{'repo':'old/name','revision':OLD},{'repo':'same/repo','revision':'c'*40}],
             'skills':[entry('old/name',p,b) for p,b in OLD_FILES.items()]+[entry('same/repo','SKILL.md',b'name: s\n','c'*40)]}
@@ -41,7 +41,7 @@ class IncrementalRefresh(unittest.TestCase):
         self.assertNotIn(ir.entry_id('old/name','gone/SKILL.md'),ids);self.assertEqual(rc['removed_ids'],[ir.entry_id('old/name','gone/SKILL.md')])
         self.assertTrue(all(s['repo']=='old/name' for s in out['skills'] if s['path']!='SKILL.md'))
         self.assertFalse(any(c.endswith('keep/SKILL.md') and 'copy' not in c for c in calls),'unchanged body was downloaded')
-        mod=ids[ir.entry_id('old/name','mod/SKILL.md')];self.assertEqual(mod['revision'],NEW);self.assertEqual(mod['eval']['n'],3)
+        mod=ids[ir.entry_id('old/name','mod/SKILL.md')];self.assertEqual(mod['revision'],NEW);self.assertEqual(mod['eval']['n'],0)
         self.assertIn('github.com/new/name/blob/'+NEW,mod['source'])
         keep=ids[ir.entry_id('old/name','keep/SKILL.md')];self.assertEqual(keep['duplicate_paths'],['copy/of/keep/SKILL.md'])
         self.assertNotIn(ir.entry_id('old/name','copy/of/keep/SKILL.md'),ids,'a byte-identical new copy must not take a new id')
@@ -59,9 +59,29 @@ class IncrementalRefresh(unittest.TestCase):
     def test_id_guard_fails_on_lost_id(self):
         after={'skills':self.c['skills'][1:]}
         with self.assertRaises(SystemExit):ir.check_ids(self.c,after,self.rows,{'removed_ids':[]})
+    def test_measured_changed_and_deleted_entries_keep_exact_tested_objects(self):
+        for skill in self.c['skills']:
+            skill['eval'] = {'status':'Measured task outcomes', 'n':3, 'skill_sha256':skill['sha256']}
+        out,rc=ir.apply(self.c,self.rows,{'old/name'},10_000,60,0,get=get,write_cache=False)
+        ids={s['id']:s for s in out['skills']}
+        for path in ('mod/SKILL.md','gone/SKILL.md'):
+            before=next(s for s in self.c['skills'] if s['path']==path)
+            self.assertEqual(ids[before['id']],before)
+            self.assertIn(before['id'],rc['pinned_ids'])
+    def test_wrong_pinned_body_does_not_advance_source(self):
+        def corrupt(url): return b'wrong body'
+        out,rc=ir.apply(self.c,self.rows,{'old/name'},10_000,60,0,get=corrupt,write_cache=False)
+        self.assertEqual(out['sources'],self.c['sources'])
+        self.assertEqual(out['skills'],self.c['skills'])
+        self.assertTrue(rc['errors'])
+    def test_partial_refresh_keeps_original_global_fetch_date(self):
+        self.c['fetched_at']='2026-10-25'
+        out,rc=ir.apply(self.c,self.rows,{'old/name'},10_000,60,0,get=get,write_cache=False)
+        self.assertEqual(out['fetched_at'],'2026-10-25')
+        self.assertEqual(out['last_incremental_at'],rc['finished'])
     def test_fetch_needs_explicit_bounds(self):
         import tempfile
         from unittest import mock
-        with mock.patch.object(ir,'plan',lambda c,api=None:[]),self.assertRaises(SystemExit):
+        with self.assertRaises(SystemExit):
             ir.main(['--catalog',str(Path(__file__).resolve().parents[1]/'evidence/hosted-catalog.json'),'--plan-out',tempfile.mktemp(),'--fetch','--repos','x'])
 if __name__=='__main__':unittest.main()
