@@ -1,5 +1,5 @@
 """Reproducible offline static production export for Vercel."""
-import json, shutil, re, sys, gzip, zipfile
+import argparse, json, shutil, re, sys, gzip, zipfile
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 EVAL_KIT_FILES=('lime_task_eval.py','lime_agent_eval.py','lime_eval_setup.py','lime_human_review.py','EVAL-TOOLS.txt','LICENSE','eval-example/TASK.md','eval-example/grader.py','eval-example/bug/app.py','eval-example/good/app.py','eval-example/bad/app.py','eval-example/demo-skill/SKILL.md')
@@ -14,10 +14,25 @@ def build_eval_kit(root,out):
             info.compress_type=zipfile.ZIP_DEFLATED
             info.external_attr=0o100644<<16
             z.writestr(info,(root/name).read_bytes())
-def main():
+def main(argv=None):
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--catalog',type=Path,help='staged source catalog; requires an isolated --output')
+    parser.add_argument('--output',type=Path,help='new isolated output directory, including its runtime catalog')
+    args=parser.parse_args(argv)
+    if args.catalog and not args.output:
+        parser.error('--catalog requires an isolated --output')
+    out=args.output.resolve() if args.output else ROOT/'dist'
+    if args.output:
+        protected=[ROOT/'dist',ROOT/'evidence',ROOT/'site',ROOT/'assets']
+        if out.is_relative_to(ROOT.resolve()):
+            parser.error('--output must be outside the source worktree')
+        if any(out==p.resolve() or p.resolve().is_relative_to(out) for p in protected):
+            parser.error('--output overlaps source or production artifacts')
+        if out.exists():
+            parser.error('--output must be a new directory')
     sys.path.insert(0,str(ROOT))
     import published_catalog
-    catalog=published_catalog.load()
+    catalog=published_catalog.load(args.catalog)
     assert catalog['skills'], 'empty catalog'
     from enrich_catalog import EMAIL
     assert not EMAIL.search(json.dumps(catalog)), 'email in public catalog'
@@ -30,8 +45,9 @@ def main():
         assert (s['eval']['status']=='Not tested' and s['eval']['n']==0) or (s['eval']['status']=='Measured task outcomes' and s['eval']['skill_sha256']==s['sha256'])
     runtime_keys=['id','name','repo','path','source','revision','sha256','license','folder_files','local_bundle']
     runtime={'skills':[{k:s[k] for k in runtime_keys if k in s} for s in catalog['skills']],'sources':[{k:s[k] for k in ['repo','revision','archive_sha256'] if k in s} for s in catalog['sources']]}
-    (ROOT/'evidence/runtime-catalog.json.gz').write_bytes(gzip.compress(json.dumps(runtime,separators=(',',':')).encode(),mtime=0))
-    out=ROOT/'dist';out.mkdir(exist_ok=True)
+    out.mkdir(parents=True,exist_ok=not bool(args.output))
+    runtime_path=out/'runtime-catalog.json.gz' if args.output else ROOT/'evidence/runtime-catalog.json.gz'
+    runtime_path.write_bytes(gzip.compress(json.dumps(runtime,separators=(',',':')).encode(),mtime=0))
     from catalog_egg import files, FOLDER
     payload=out/'assets'/FOLDER;payload.mkdir(parents=True,exist_ok=True)
     for name,raw in files().items():(payload/name).write_bytes(raw)
@@ -55,5 +71,5 @@ def main():
     studies=[{'title':'Original exploratory function tasks','model':original['evaluations'][0]['model'],'completed_outputs':len(original['records']),'protocol':'Pinned reference inline; tool use disabled; post-run grader capability correction.','tasks':tasks,'evidence':'evaluations.json'},{'title':'Separately frozen harder follow-up','model':harder['model'],'completed_outputs':len(harder['runs']),'protocol':'Pinned reference inline; tool use disabled; frozen checks, corrected grader launch path.','tasks':[{'task':t['case'],'skill':next(v['name'] for v in harder['skills'] if v['id']==t['skill']),'n':t['n_per_arm'],'groups':t['outcome_groups'],'baseline_passes':t['all_groups_pass']['baseline'],'treatment_passes':t['all_groups_pass']['treatment']} for t in harder['summary']],'evidence':'harder-evaluations.json'}]
     (out/'eval-studies.json').write_text(json.dumps({'studies':studies},indent=2))
     build_eval_kit(ROOT,out)
-    print(json.dumps({'build':'static production export','skills':len(ids),'repos':len(catalog['sources']),'output':'dist','network':False}))
+    print(json.dumps({'build':'static production export','skills':len(ids),'repos':len(catalog['sources']),'output':str(out) if args.output else 'dist','runtime_output':str(runtime_path),'catalog_input':str(args.catalog or ROOT/'evidence/hosted-catalog.json'),'network':False}))
 if __name__=='__main__':main()

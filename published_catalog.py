@@ -2,8 +2,8 @@
 import copy,json,gzip
 from pathlib import Path
 ROOT=Path(__file__).resolve().parent
-def load():
-    c=json.loads((ROOT/'evidence/hosted-catalog.json').read_text())
+def load(catalog_path=None):
+    c=json.loads(Path(catalog_path or ROOT/'evidence/hosted-catalog.json').read_text())
     licence_path=ROOT/'evidence/public-source-licences.json'
     if licence_path.exists():
         licences=json.loads(licence_path.read_text())['sources'];known={(v['repo'],v['revision']) for v in licences if v.get('text') is not None}
