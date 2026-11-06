@@ -23,7 +23,20 @@
   const a=node('a',s.repo,'community-source');a.href=s.source;a.rel='noopener noreferrer';info.append(a,node('p',s.problem,'community-description'));
   row.append(info,group(s.id,s.name));return row;
  }
+ // A/B/C poll over the same direction votes: an up vote is a poll choice, so counts are never separate or seeded.
+ let poll=[];
+ async function loadPoll(){try{const r=await fetch('research-picks.json');if(!r.ok)return;const d=await r.json();poll=(d.picks||[]).map(p=>p.catalog_id).filter(id=>byId.get(id)&&!byId.get(id).local_bundle).slice(0,3);render();}catch{}}
+ async function pollVote(id){if(!state||busy||!available)return;if(state.mine[id]===1){await cast(id,0);return;}for(const other of poll)if(other!==id&&state.mine[other]===1)await cast(other,0);await cast(id,1);}
+ function renderPoll(){
+  const box=document.querySelector('#landing-poll'),list=document.querySelector('#landing-poll-options');if(!box||!list)return;
+  box.hidden=poll.length<3;if(box.hidden)return;
+  list.replaceChildren(...poll.map((id,i)=>{const s=byId.get(id),row=node('article','','community-file poll-option'),info=node('div','','community-info'),letter='ABC'[i];
+   const name=node('button',letter+' · '+s.name,'community-name');name.type='button';name.onclick=()=>inspect(id);info.append(name,node('p',s.repo,'community-description'));
+   const up=state?.counts[id]?.up||0,mine=state?.mine[id]===1,b=node('button',mine?'Your pick ✓':'Vote '+letter,'classic-button poll-vote');b.type='button';b.setAttribute('aria-pressed',String(mine));b.disabled=!available||busy;b.onclick=()=>pollVote(id);
+   const out=node('output',state?up+(up===1?' vote':' votes'):'—','poll-count');row.append(info,out,b);return row;}));
+ }
  function render(){
+  renderPoll();
   if(!catalog?.skills)return;
   const query=document.querySelector('#community-query').value.toLowerCase().trim(),skills=rankedSkills(query);
   ranking.replaceChildren();document.querySelector('#community-count').textContent=skills.length+' skills';
@@ -40,5 +53,6 @@
  document.querySelector('#landing-vote-details').onclick=()=>{showTab('votes');const details=document.querySelector('#content-votes details');details.open=true;details.scrollIntoView({block:'start'});};
  document.querySelector('#vote-browse').onclick=()=>{showTab('search');document.querySelector('#query').focus();};document.querySelector('#vote-refresh').onclick=refresh;document.querySelector('#community-query').oninput=render;document.querySelector('#community-search').onsubmit=e=>{e.preventDefault();render();};
  new MutationObserver(()=>{decorate();render();}).observe(document.querySelector('#results'),{childList:true});decorate();refresh();
+ new MutationObserver(()=>{if(!poll.length&&byId.size)loadPoll();}).observe(document.querySelector('#skill-count'),{childList:true,characterData:true,subtree:true});if(byId.size)loadPoll();
  setInterval(()=>{if(!document.hidden&&(!document.querySelector('#content-votes').hidden||!document.querySelector('#content-search').hidden)&&!busy)refresh();},30000);
 })();
