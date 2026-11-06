@@ -3,7 +3,7 @@
 Identity rule: an entry id is sha256(stored repo + path)[:16]. A renamed GitHub repository keeps its
 stored repo string as the catalog key, so ids and their votes survive. The new name is used only to fetch.
 Unchanged sources are skipped. Only added or modified SKILL.md bodies are downloaded (raw files, never a
-zipball). Output goes to evidence/hosted-catalog.next.json; the live catalog file is never overwritten.
+zipball). Each batch requires new staged output paths; prior catalog and receipt files are never overwritten.
 """
 import argparse, copy, datetime, hashlib, json, shutil, subprocess, sys, time
 from pathlib import Path
@@ -126,6 +126,12 @@ def apply(catalog, rows, repos, max_bytes, max_seconds, disk_floor_gb, get=raw_g
     by_key = {s['repo']: s for s in out['sources']}
     receipt = dict(started=datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds'), repos=[], fetched_bytes=0, removed_ids=[], added_ids=[], modified_ids=[], pinned_ids=[], errors=[])
     stamp = receipt['started']
+    receipt['checked_repos'] = []
+    for row in rows:
+        if row['key'] in repos:
+            if not row['changed']:
+                by_key[row['key']]['last_checked_at'] = stamp
+            receipt['checked_repos'].append(dict(key=row['key'], revision=row['new_revision'], changed=row['changed']))
     for r in chosen:
         if time.monotonic() - start > max_seconds:
             receipt['errors'].append({'repo': r['key'], 'error': 'time limit reached; repo left at old revision'})
@@ -202,7 +208,7 @@ def apply(catalog, rows, repos, max_bytes, max_seconds, disk_floor_gb, get=raw_g
             kept.append(e)
         out['skills'] = kept
         by_key[key].pop('archive_sha256', None)
-        by_key[key].update(revision=rev, stars=r['stars'], license=r['license'], fetched_at=stamp, skills=sum(1 for s in kept if s['repo'] == key),
+        by_key[key].update(revision=rev, last_checked_at=stamp, stars=r['stars'], license=r['license'], fetched_at=stamp, skills=sum(1 for s in kept if s['repo'] == key),
                            canonical=canonical, fetch_mode='incremental: pinned tree + changed raw SKILL.md only')
         receipt['repos'].append(dict(key=key, canonical=canonical, revision=rev, fetched=len(bodies), dropped=len(drop)))
     if write_cache:
@@ -262,6 +268,8 @@ def main(argv=None):
     a.add_argument('--catalog', type=Path, default=ROOT / 'evidence/hosted-catalog.json')
     a.add_argument('--plan-out', type=Path, required=True)
     a.add_argument('--fetch', action='store_true')
+    a.add_argument('--next-out', type=Path, help='new staged catalog path; required with --fetch')
+    a.add_argument('--receipt-out', type=Path, help='new receipt path; required with --fetch')
     a.add_argument('--repos', required=True, help='comma-separated stored keys; only these get metadata requests')
     a.add_argument('--max-repos', type=int, required=True)
     a.add_argument('--max-bytes', type=int, required=True, help='metadata plus raw body bytes')
@@ -274,21 +282,32 @@ def main(argv=None):
         raise SystemExit('bounds: 1..9 unique repos, 1..2000000 bytes, 1..300 seconds, disk floor >=6 GiB')
     if shutil.disk_usage(ROOT).free < x.disk_floor_gb * 1024 ** 3:
         raise SystemExit('disk below requested GiB floor; no network request')
+    if x.fetch and (not x.next_out or not x.receipt_out):
+        raise SystemExit('--fetch requires new --next-out and --receipt-out paths')
+    outputs = [x.plan_out] + ([x.next_out, x.receipt_out] if x.fetch else [])
+    resolved = [p.resolve() for p in outputs]
+    if (x.catalog.resolve() in resolved or len(set(resolved)) != len(resolved)
+            or any(p.exists() for p in outputs)):
+        raise SystemExit('plan, staged catalog, and receipt must be new unique paths distinct from the input')
     catalog = json.loads(x.catalog.read_text())
     sources = {s['repo']: s for s in catalog['sources']}
     if set(repos) - sources.keys():
         raise SystemExit('unknown stored repo keys')
     budget = Budget(x.max_bytes, x.max_seconds)
     rows = plan({'sources': [sources[r] for r in repos]}, api=budget.api)
-    x.plan_out.write_text(json.dumps(dict(planned_at=datetime.datetime.now(datetime.timezone.utc).isoformat(), sources=rows), indent=1))
+    x.plan_out.parent.mkdir(parents=True, exist_ok=True)
+    with x.plan_out.open('x') as f:
+        json.dump(dict(planned_at=datetime.datetime.now(datetime.timezone.utc).isoformat(), sources=rows), f, indent=1)
     if not x.fetch:
         print(json.dumps({'selected': len(rows), 'metadata_bytes': budget.used, 'body_bytes_planned': sum(r.get('fetch_bytes', 0) for r in rows)}))
         return 0
     out, receipt = apply(catalog, rows, set(repos), x.max_bytes - budget.used, budget.remaining(), x.disk_floor_gb,
                          get=budget.get, protected_ids=protected_measurements())
     receipt.update(network_bytes=budget.used, max_bytes=x.max_bytes, max_seconds=x.max_seconds, max_repos=x.max_repos, threads=1)
-    (ROOT / 'evidence/hosted-catalog.next.json').write_text(json.dumps(out, indent=2))
-    (ROOT / 'evidence/incremental-refresh-receipt.json').write_text(json.dumps(receipt, indent=1))
+    x.next_out.parent.mkdir(parents=True, exist_ok=True)
+    x.receipt_out.parent.mkdir(parents=True, exist_ok=True)
+    with x.next_out.open('x') as f: json.dump(out, f, indent=2)
+    with x.receipt_out.open('x') as f: json.dump(receipt, f, indent=1)
     print(json.dumps(receipt))
     return 0
 

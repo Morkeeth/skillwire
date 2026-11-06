@@ -79,6 +79,15 @@ class IncrementalRefresh(unittest.TestCase):
         out,rc=ir.apply(self.c,self.rows,{'old/name'},10_000,60,0,get=get,write_cache=False)
         self.assertEqual(out['fetched_at'],'2026-10-25')
         self.assertEqual(out['last_incremental_at'],rc['finished'])
+    def test_all_output_collisions_refuse_before_network_and_preserve_input(self):
+        import tempfile,json
+        from unittest import mock
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory);source=root/'input.json';source.write_text(json.dumps(self.c));before=source.read_bytes()
+            for plan,nxt,receipt in [(source,root/'next',root/'receipt'),(root/'plan',root/'next',source),(root/'plan',root/'same',root/'same')]:
+                with mock.patch.object(ir,'Budget',side_effect=AssertionError('network must not start')),self.assertRaises(SystemExit):
+                    ir.main(['--catalog',str(source),'--plan-out',str(plan),'--next-out',str(nxt),'--receipt-out',str(receipt),'--fetch','--repos','old/name','--max-repos','1','--max-bytes','1000','--max-seconds','60'])
+                self.assertEqual(source.read_bytes(),before)
     def test_fetch_needs_explicit_bounds(self):
         import tempfile
         from unittest import mock
