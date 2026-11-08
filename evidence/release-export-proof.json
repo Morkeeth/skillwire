@@ -1,5 +1,5 @@
 {
-  "source_directory": "data/release-source/20261106T214603Z",
+  "source_directory": "data/release-source/20261108T191435Z",
   "files": [
     {
       "path": "lime_task_eval.py",
@@ -8,8 +8,8 @@
     },
     {
       "path": "lime_agent_eval.py",
-      "sha256": "426c4a6d075cc70b50395b3f51f41372f228f7e02adc002acab2177c3bd6fc03",
-      "bytes": 19602
+      "sha256": "1b34516dd8c9b5f6a72c8fb5d4a559e110d58f0eb81ed020ecb9807e8166bcb9",
+      "bytes": 21760
     },
     {
       "path": "lime_eval_setup.py",
@@ -78,8 +78,8 @@
     },
     {
       "path": "README.md",
-      "sha256": "8faf59b4065c24ce01e0fc79ce8e5dcdf233500d6792e76631ff0196955577a2",
-      "bytes": 8694
+      "sha256": "b76a72df9fcd76b13efaf278cb6625630090e45de1b82d852c6f6d6cacaf8577",
+      "bytes": 9161
     },
     {
       "path": "vercel.json",
@@ -108,8 +108,8 @@
     },
     {
       "path": "site/index.html",
-      "sha256": "136d841012d421fb44a278e9db58156af61b1584d989bc6ecc7d542e48b861f5",
-      "bytes": 22037
+      "sha256": "b45f5220fb02c002247a3348310a18dc9cf1056f7ee1772b668874829eca07de",
+      "bytes": 23344
     },
     {
       "path": "site/finder-base.css",
@@ -118,13 +118,13 @@
     },
     {
       "path": "site/finder.css",
-      "sha256": "e4fc7c1bc4541a7574ff0389f3f9cb20894e6ebfc21024d30aefe4221d0dec52",
-      "bytes": 32472
+      "sha256": "9b99fd6a9639c1a441be2c62e02721f3b9a0806f2dd41b4ec5f2fef0ef5d7531",
+      "bytes": 35118
     },
     {
       "path": "site/app.js",
-      "sha256": "7e1ef40df94a4f073484e018aa91604902ed7048a240a5942a81417463c9f89b",
-      "bytes": 37908
+      "sha256": "59770d5c472d521bb20c65a6ccdbf94572e36ad4f4c4f612ed3335cbe4c3e9aa",
+      "bytes": 39107
     },
     {
       "path": "site/paired-inspector.js",
@@ -148,8 +148,8 @@
     },
     {
       "path": "scripts/build_site.py",
-      "sha256": "7b43c3c6c8b5f11495d92c83f18870174471bcce63a88c74f47ff9bbe703b827",
-      "bytes": 7164
+      "sha256": "4d0e16255fe9e0b4ea8d2fb47386f1132427f1588ee0b6381e45a69a4cfc6ca2",
+      "bytes": 7173
     },
     {
       "path": "scripts/enrich_catalog.py",
@@ -168,8 +168,8 @@
     },
     {
       "path": "scripts/native_tdd_cases_v2.py",
-      "sha256": "08744b560e9b4d55c183cea38261a14a8b8dbbfdccf84075b54eaa6579e73ded",
-      "bytes": 12588
+      "sha256": "494285d410604ac2969ed4e129a33964f22baf879205b093a2458eb1fb3f2744",
+      "bytes": 12801
     },
     {
       "path": ".python-version",
@@ -278,8 +278,8 @@
     },
     {
       "path": "site/oscar-picks.json",
-      "sha256": "87fa3ad2921ebb3eaf1e36b464d5fc6e102093f4ae70e1a6d97506547d25a46b",
-      "bytes": 7531
+      "sha256": "73ada99e3ad6fc56f8bf4b5be256dbfc8107ae4e5b90c8dddaa7f3c313db60da",
+      "bytes": 9381
     },
     {
       "path": "voting.py",
@@ -293,8 +293,8 @@
     },
     {
       "path": "site/votes.js",
-      "sha256": "90eda65074f90fe98dd616de921c2ab84d75aae1114d8456aae5f3d33250f962",
-      "bytes": 9784
+      "sha256": "3900b5a48a3f0fd1fe6253ce4767b6ca97205eceef21cbb348baf5817638ba24",
+      "bytes": 9777
     },
     {
       "path": "site/votes.css",
@@ -310,6 +310,11 @@
       "path": "migrations/20261029_daily_votes.sql",
       "sha256": "554d5062c043ed500de32e94da859745d31f5d788b33b7ad9185a7d712ef751d",
       "bytes": 5724
+    },
+    {
+      "path": "site/v3.css",
+      "sha256": "369388dd04dd308c3e51c71ceaff48b364b5a78f1c9157424c1160a79d7783bb",
+      "bytes": 13305
     }
   ],
   "privacy": "Exact allowlist. No data, credentials, private skills, historical article kit, git history, operator handovers, original raw auth/runtime files or environment values."
