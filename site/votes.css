@@ -57,3 +57,6 @@
  .landing-vote-intro{align-items:flex-start;flex-direction:column;padding:8px}
  .landing-vote-footer{padding:8px}.landing-vote-footer p{flex-basis:100%}
 }
+.landing-poll .poll-count{font:11px Tahoma,sans-serif;color:#1d3541;white-space:nowrap;min-width:52px;text-align:right}
+.landing-poll .poll-vote{min-width:78px}
+.landing-poll .poll-vote[aria-pressed="true"]{font-weight:700}
