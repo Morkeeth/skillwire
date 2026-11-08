@@ -1,0 +1,113 @@
+{
+ "counted_at": "2026-11-08",
+ "window": "2026-10-09 to 2026-11-08",
+ "method": "Agent Skill tool calls in the owner's Claude Code transcripts modified in the last 30 days (7,235 files). Raw call counts; a session can call a skill more than once. Typed slash commands and distinct-session counts to follow. Names limited to the owner's accepted public working set plus public catalog skills he used.",
+ "stars_as_of": "2026-11-08",
+ "stars_source": "api.github.com/repos/<repo> stargazers_count, fetched 2026-11-08",
+ "stars": {
+  "emilkowalski/skills": 54724,
+  "anthropics/skills": 189406
+ },
+ "skills": [
+  {
+   "skill": "design-taste",
+   "calls": 155,
+   "public_repo": null
+  },
+  {
+   "skill": "writing",
+   "calls": 118,
+   "public_repo": null
+  },
+  {
+   "skill": "hack-scan",
+   "calls": 23,
+   "public_repo": null
+  },
+  {
+   "skill": "animate",
+   "calls": 21,
+   "public_repo": "emilkowalski/skills"
+  },
+  {
+   "skill": "frame",
+   "calls": 20,
+   "public_repo": null
+  },
+  {
+   "skill": "plan",
+   "calls": 19,
+   "public_repo": null
+  },
+  {
+   "skill": "stranger",
+   "calls": 17,
+   "public_repo": null
+  },
+  {
+   "skill": "emil-design-eng",
+   "calls": 16,
+   "public_repo": "emilkowalski/skills"
+  },
+  {
+   "skill": "ambitious-plan",
+   "calls": 14,
+   "public_repo": null
+  },
+  {
+   "skill": "zup",
+   "calls": 12,
+   "public_repo": null
+  },
+  {
+   "skill": "eyes",
+   "calls": 11,
+   "public_repo": null
+  },
+  {
+   "skill": "workshop",
+   "calls": 9,
+   "public_repo": null
+  },
+  {
+   "skill": "claude-api",
+   "calls": 8,
+   "public_repo": "anthropics/skills"
+  },
+  {
+   "skill": "agent-science-websearch",
+   "calls": 5,
+   "public_repo": null
+  },
+  {
+   "skill": "apple-design",
+   "calls": 4,
+   "public_repo": "emilkowalski/skills"
+  },
+  {
+   "skill": "grilling",
+   "calls": 3,
+   "public_repo": null
+  },
+  {
+   "skill": "writing-for-agents",
+   "calls": 3,
+   "public_repo": null
+  },
+  {
+   "skill": "helicon",
+   "calls": 2,
+   "public_repo": null
+  },
+  {
+   "skill": "skill-creator",
+   "calls": 1,
+   "public_repo": "anthropics/skills"
+  },
+  {
+   "skill": "review-animations",
+   "calls": 0,
+   "public_repo": "emilkowalski/skills"
+  }
+ ]
+}
