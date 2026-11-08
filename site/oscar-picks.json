@@ -109,7 +109,7 @@
   },
   {
    "name": "claude-api",
-   "reason": "Reference for the Claude API / Anthropic SDK — model ids, pricing, params, streaming, tool use, MCP, agents, caching, token counting, model migration.",
+   "reason": "Check model names, prices and API details before writing code.",
    "basis": "Used in 8 of our Claude Code sessions, 9 Oct to 8 Nov 2026.",
    "catalog_id": "5dac4dbf9d4a88d1",
    "catalog_relation": "Public version in this catalogue.",
@@ -239,7 +239,7 @@
   },
   {
    "name": "skill-creator",
-   "reason": "Create new skills, modify and improve existing skills, and measure skill performance.",
+   "reason": "Turn a repeated instruction into a skill you can test.",
    "basis": "Used in 1 of our Claude Code session, 9 Oct to 8 Nov 2026.",
    "catalog_id": "b51c2b13d57294e2",
    "catalog_relation": "Public version in this catalogue.",

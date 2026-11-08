@@ -9,6 +9,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 EVIDENCE = ROOT / 'evidence/our-skill-usage-2026-11-08.json'
 OUT = ROOT / 'site/oscar-picks.json'
+NEW_REASONS = {
+    'claude-api': 'Check model names, prices and API details before writing code.',
+    'skill-creator': 'Turn a repeated instruction into a skill you can test.',
+}
 
 
 def build():
@@ -33,7 +37,7 @@ def build():
         relation = prev.get('catalog_relation') or ('Public version in this catalogue.' if catalog_id else 'Local skill; no verified equivalent in this catalogue.')
         working.append({
             'name': row['skill'],
-            'reason': prev.get('reason') or (catalog[catalog_id]['problem'] if catalog_id in catalog else ''),
+            'reason': NEW_REASONS.get(row['skill']) or prev.get('reason') or '',
             'basis': window.format(n=row['sessions'], s='' if row['sessions'] == 1 else 's'),
             'catalog_id': catalog_id,
             'catalog_relation': relation,
