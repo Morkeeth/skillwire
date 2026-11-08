@@ -1,166 +1,276 @@
 {
-  "checked_at": "2026-11-06",
-  "usage_scope": "Working set supplied by Oscar and checked locally. Invocation counts are not yet measured.",
-  "picks": [
-    {
-      "name": "agent-science-websearch",
-      "reason": "Check sources before turning a claim into advice.",
-      "basis": "Oscar named this skill; local version checked 6 Nov. Usage frequency not measured.",
-      "catalog_id": null,
-      "catalog_relation": "Local skill; no verified equivalent in this catalogue.",
-      "kind": "working-set"
-    },
-    {
-      "name": "ambitious-plan",
-      "reason": "Test the idea before spending a day building it.",
-      "basis": "Oscar named this skill; local version checked 6 Nov. Usage frequency not measured.",
-      "catalog_id": null,
-      "catalog_relation": "Local skill; no verified equivalent in this catalogue.",
-      "kind": "working-set"
-    },
-    {
-      "name": "animate",
-      "reason": "Build motion with a purpose, including when to leave it still.",
-      "basis": "Oscar named this skill; local version checked 6 Nov. Usage frequency not measured.",
-      "catalog_id": "4ce3ea8ad15789a4",
-      "catalog_relation": "Same-name public version; different bytes from Oscar’s local copy.",
-      "kind": "working-set"
-    },
-    {
-      "name": "apple-design",
-      "reason": "Make gestures and transitions respond to the person using them.",
-      "basis": "Oscar named this skill; local version checked 6 Nov. Usage frequency not measured.",
-      "catalog_id": "f1fc5f670f65d971",
-      "catalog_relation": "Same-name public version; different bytes from Oscar’s local copy.",
-      "kind": "working-set"
-    },
-    {
-      "name": "design-taste",
-      "reason": "Give each interface its own clear visual idea.",
-      "basis": "Oscar named this skill; local version checked 6 Nov. Usage frequency not measured.",
-      "catalog_id": null,
-      "catalog_relation": "Local skill; no verified equivalent in this catalogue.",
-      "kind": "working-set"
-    },
-    {
-      "name": "emil-design-eng",
-      "reason": "Polish the small interactions that make an interface feel right.",
-      "basis": "Oscar named this skill; local version checked 6 Nov. Usage frequency not measured.",
-      "catalog_id": "87a829fb71f8b084",
-      "catalog_relation": "Same-name public version; different bytes from Oscar’s local copy.",
-      "kind": "working-set"
-    },
-    {
-      "name": "eyes",
-      "reason": "Get independent objections before committing to a plan.",
-      "basis": "Oscar named this skill; local version checked 6 Nov. Usage frequency not measured.",
-      "catalog_id": null,
-      "catalog_relation": "Local skill; no verified equivalent in this catalogue.",
-      "kind": "working-set"
-    },
-    {
-      "name": "frame",
-      "reason": "Turn a loose request into a task an agent can verify.",
-      "basis": "Oscar named this skill; local version checked 6 Nov. Usage frequency not measured.",
-      "catalog_id": null,
-      "catalog_relation": "Local skill; no verified equivalent in this catalogue.",
-      "kind": "working-set"
-    },
-    {
-      "name": "grilling",
-      "reason": "Find the weak assumption in a plan before building it.",
-      "basis": "Oscar named this skill; local version checked 6 Nov. Usage frequency not measured.",
-      "catalog_id": "cc17eb6237d6b7d4",
-      "catalog_relation": "Same-name public version; different bytes from Oscar’s local copy.",
-      "kind": "working-set"
-    },
-    {
-      "name": "hack-scan",
-      "reason": "Find remote competitions that fit the work already underway.",
-      "basis": "Oscar named this skill; local version checked 6 Nov. Usage frequency not measured.",
-      "catalog_id": null,
-      "catalog_relation": "Local skill; no verified equivalent in this catalogue.",
-      "kind": "working-set"
-    },
-    {
-      "name": "helicon",
-      "reason": "Check recorded decisions against what the project actually does.",
-      "basis": "Oscar named this skill; local version checked 6 Nov. Usage frequency not measured.",
-      "catalog_id": null,
-      "catalog_relation": "Local skill; no verified equivalent in this catalogue.",
-      "kind": "working-set"
-    },
-    {
-      "name": "plan",
-      "reason": "Break a build into small steps with a clear check for each.",
-      "basis": "Oscar named this skill; local version checked 6 Nov. Usage frequency not measured.",
-      "catalog_id": null,
-      "catalog_relation": "Local skill; no verified equivalent in this catalogue.",
-      "kind": "working-set"
-    },
-    {
-      "name": "stranger",
-      "reason": "Try the project without the author’s setup or insider knowledge.",
-      "basis": "Oscar named this skill; local version checked 6 Nov. Usage frequency not measured.",
-      "catalog_id": null,
-      "catalog_relation": "Local skill; no verified equivalent in this catalogue.",
-      "kind": "working-set"
-    },
-    {
-      "name": "workshop",
-      "reason": "Resolve one stuck decision at a time.",
-      "basis": "Oscar named this skill; local version checked 6 Nov. Usage frequency not measured.",
-      "catalog_id": null,
-      "catalog_relation": "Local skill; no verified equivalent in this catalogue.",
-      "kind": "working-set"
-    },
-    {
-      "name": "writing",
-      "reason": "Rewrite a draft in plain language.",
-      "basis": "Oscar named this skill; local version checked 6 Nov. Usage frequency not measured.",
-      "catalog_id": null,
-      "catalog_relation": "Local skill; no verified equivalent in this catalogue.",
-      "kind": "working-set"
-    },
-    {
-      "name": "writing-for-agents",
-      "reason": "Write instructions another agent can follow and check.",
-      "basis": "Oscar named this skill; local version checked 6 Nov. Usage frequency not measured.",
-      "catalog_id": "f7da049e2899088f",
-      "catalog_relation": "Same-name public version; different bytes from Oscar’s local copy.",
-      "kind": "working-set"
-    },
-    {
-      "name": "zup",
-      "reason": "Recover the working context before continuing.",
-      "basis": "Oscar named this skill; local version checked 6 Nov. Usage frequency not measured.",
-      "catalog_id": null,
-      "catalog_relation": "Local skill; no verified equivalent in this catalogue.",
-      "kind": "working-set"
-    },
-    {
-      "name": "review-animations",
-      "reason": "Check existing motion for purpose, timing and interruption.",
-      "basis": "Oscar named this skill; local version checked 6 Nov. Usage frequency not measured.",
-      "catalog_id": "d498c8f47931e990",
-      "catalog_relation": "Same-name public version; different bytes from Oscar’s local copy.",
-      "kind": "working-set"
-    },
-    {
-      "name": "systematic-debugging",
-      "reason": "Try this when a bug keeps returning: establish the cause before patching it.",
-      "basis": "Editorial suggestion based on the pinned public skill description; no observed Oscar usage or measured benefit claimed.",
-      "catalog_id": "67b1408b4733c4e8",
-      "catalog_relation": "Pinned public catalogue entry.",
-      "kind": "try-next"
-    },
-    {
-      "name": "test-driven-development",
-      "reason": "Try this for a small behavior change: make the check fail before implementing it.",
-      "basis": "Editorial suggestion based on the pinned public skill description; no observed Oscar usage or measured benefit claimed.",
-      "catalog_id": "30ad3fa126fa26d8",
-      "catalog_relation": "Pinned public catalogue entry.",
-      "kind": "try-next"
-    }
-  ]
+ "counted_at": "2026-11-08",
+ "stars_as_of": "2026-11-08",
+ "usage_scope": "Distinct Claude Code sessions in which the skill ran, from the owner's transcripts modified in the 30 days to 8 Nov 2026 (7,235 files). A session counts once whether the agent called the skill or the owner typed it. Names are limited to the owner's accepted public working set plus public catalogue skills he used. Private skills are shown by name only.",
+ "picks": [
+  {
+   "name": "design-taste",
+   "reason": "Give each interface its own clear visual idea.",
+   "basis": "Used in 112 of our Claude Code sessions, 9 Oct to 8 Nov 2026.",
+   "catalog_id": null,
+   "catalog_relation": "Local skill; no verified equivalent in this catalogue.",
+   "kind": "working-set",
+   "uses": 112,
+   "stars": null,
+   "stars_repo": null,
+   "stars_as_of": null,
+   "rank": 1
+  },
+  {
+   "name": "writing",
+   "reason": "Rewrite a draft in plain language.",
+   "basis": "Used in 86 of our Claude Code sessions, 9 Oct to 8 Nov 2026.",
+   "catalog_id": null,
+   "catalog_relation": "Local skill; no verified equivalent in this catalogue.",
+   "kind": "working-set",
+   "uses": 86,
+   "stars": null,
+   "stars_repo": null,
+   "stars_as_of": null,
+   "rank": 2
+  },
+  {
+   "name": "frame",
+   "reason": "Turn a loose request into a task an agent can verify.",
+   "basis": "Used in 23 of our Claude Code sessions, 9 Oct to 8 Nov 2026.",
+   "catalog_id": null,
+   "catalog_relation": "Local skill; no verified equivalent in this catalogue.",
+   "kind": "working-set",
+   "uses": 23,
+   "stars": null,
+   "stars_repo": null,
+   "stars_as_of": null,
+   "rank": 3
+  },
+  {
+   "name": "plan",
+   "reason": "Break a build into small steps with a clear check for each.",
+   "basis": "Used in 17 of our Claude Code sessions, 9 Oct to 8 Nov 2026.",
+   "catalog_id": null,
+   "catalog_relation": "Local skill; no verified equivalent in this catalogue.",
+   "kind": "working-set",
+   "uses": 17,
+   "stars": null,
+   "stars_repo": null,
+   "stars_as_of": null,
+   "rank": 4
+  },
+  {
+   "name": "hack-scan",
+   "reason": "Find remote competitions that fit the work already underway.",
+   "basis": "Used in 16 of our Claude Code sessions, 9 Oct to 8 Nov 2026.",
+   "catalog_id": null,
+   "catalog_relation": "Local skill; no verified equivalent in this catalogue.",
+   "kind": "working-set",
+   "uses": 16,
+   "stars": null,
+   "stars_repo": null,
+   "stars_as_of": null,
+   "rank": 5
+  },
+  {
+   "name": "stranger",
+   "reason": "Try the project without the author’s setup or insider knowledge.",
+   "basis": "Used in 13 of our Claude Code sessions, 9 Oct to 8 Nov 2026.",
+   "catalog_id": null,
+   "catalog_relation": "Local skill; no verified equivalent in this catalogue.",
+   "kind": "working-set",
+   "uses": 13,
+   "stars": null,
+   "stars_repo": null,
+   "stars_as_of": null,
+   "rank": 6
+  },
+  {
+   "name": "zup",
+   "reason": "Recover the working context before continuing.",
+   "basis": "Used in 12 of our Claude Code sessions, 9 Oct to 8 Nov 2026.",
+   "catalog_id": null,
+   "catalog_relation": "Local skill; no verified equivalent in this catalogue.",
+   "kind": "working-set",
+   "uses": 12,
+   "stars": null,
+   "stars_repo": null,
+   "stars_as_of": null,
+   "rank": 7
+  },
+  {
+   "name": "animate",
+   "reason": "Build motion with a purpose, including when to leave it still.",
+   "basis": "Used in 11 of our Claude Code sessions, 9 Oct to 8 Nov 2026.",
+   "catalog_id": "4ce3ea8ad15789a4",
+   "catalog_relation": "Same-name public version; different bytes from Oscar’s local copy.",
+   "kind": "working-set",
+   "uses": 11,
+   "stars": 54724,
+   "stars_repo": "emilkowalski/skills",
+   "stars_as_of": "2026-11-08",
+   "rank": 8
+  },
+  {
+   "name": "claude-api",
+   "reason": "Reference for the Claude API / Anthropic SDK — model ids, pricing, params, streaming, tool use, MCP, agents, caching, token counting, model migration.",
+   "basis": "Used in 8 of our Claude Code sessions, 9 Oct to 8 Nov 2026.",
+   "catalog_id": "5dac4dbf9d4a88d1",
+   "catalog_relation": "Public version in this catalogue.",
+   "kind": "working-set",
+   "uses": 8,
+   "stars": 189406,
+   "stars_repo": "anthropics/skills",
+   "stars_as_of": "2026-11-08",
+   "rank": 9
+  },
+  {
+   "name": "emil-design-eng",
+   "reason": "Polish the small interactions that make an interface feel right.",
+   "basis": "Used in 8 of our Claude Code sessions, 9 Oct to 8 Nov 2026.",
+   "catalog_id": "87a829fb71f8b084",
+   "catalog_relation": "Same-name public version; different bytes from Oscar’s local copy.",
+   "kind": "working-set",
+   "uses": 8,
+   "stars": 54724,
+   "stars_repo": "emilkowalski/skills",
+   "stars_as_of": "2026-11-08",
+   "rank": 10
+  },
+  {
+   "name": "ambitious-plan",
+   "reason": "Test the idea before spending a day building it.",
+   "basis": "Used in 7 of our Claude Code sessions, 9 Oct to 8 Nov 2026.",
+   "catalog_id": null,
+   "catalog_relation": "Local skill; no verified equivalent in this catalogue.",
+   "kind": "working-set",
+   "uses": 7,
+   "stars": null,
+   "stars_repo": null,
+   "stars_as_of": null,
+   "rank": 11
+  },
+  {
+   "name": "eyes",
+   "reason": "Get independent objections before committing to a plan.",
+   "basis": "Used in 7 of our Claude Code sessions, 9 Oct to 8 Nov 2026.",
+   "catalog_id": null,
+   "catalog_relation": "Local skill; no verified equivalent in this catalogue.",
+   "kind": "working-set",
+   "uses": 7,
+   "stars": null,
+   "stars_repo": null,
+   "stars_as_of": null,
+   "rank": 12
+  },
+  {
+   "name": "workshop",
+   "reason": "Resolve one stuck decision at a time.",
+   "basis": "Used in 6 of our Claude Code sessions, 9 Oct to 8 Nov 2026.",
+   "catalog_id": null,
+   "catalog_relation": "Local skill; no verified equivalent in this catalogue.",
+   "kind": "working-set",
+   "uses": 6,
+   "stars": null,
+   "stars_repo": null,
+   "stars_as_of": null,
+   "rank": 13
+  },
+  {
+   "name": "grilling",
+   "reason": "Find the weak assumption in a plan before building it.",
+   "basis": "Used in 4 of our Claude Code sessions, 9 Oct to 8 Nov 2026.",
+   "catalog_id": "cc17eb6237d6b7d4",
+   "catalog_relation": "Same-name public version; different bytes from Oscar’s local copy.",
+   "kind": "working-set",
+   "uses": 4,
+   "stars": 318375,
+   "stars_repo": "mattpocock/skills",
+   "stars_as_of": "2026-11-08",
+   "rank": 14
+  },
+  {
+   "name": "agent-science-websearch",
+   "reason": "Check sources before turning a claim into advice.",
+   "basis": "Used in 3 of our Claude Code sessions, 9 Oct to 8 Nov 2026.",
+   "catalog_id": null,
+   "catalog_relation": "Local skill; no verified equivalent in this catalogue.",
+   "kind": "working-set",
+   "uses": 3,
+   "stars": null,
+   "stars_repo": null,
+   "stars_as_of": null,
+   "rank": 15
+  },
+  {
+   "name": "writing-for-agents",
+   "reason": "Write instructions another agent can follow and check.",
+   "basis": "Used in 3 of our Claude Code sessions, 9 Oct to 8 Nov 2026.",
+   "catalog_id": "f7da049e2899088f",
+   "catalog_relation": "Same-name public version; different bytes from Oscar’s local copy.",
+   "kind": "working-set",
+   "uses": 3,
+   "stars": 318375,
+   "stars_repo": "mattpocock/skills",
+   "stars_as_of": "2026-11-08",
+   "rank": 16
+  },
+  {
+   "name": "helicon",
+   "reason": "Check recorded decisions against what the project actually does.",
+   "basis": "Used in 2 of our Claude Code sessions, 9 Oct to 8 Nov 2026.",
+   "catalog_id": null,
+   "catalog_relation": "Local skill; no verified equivalent in this catalogue.",
+   "kind": "working-set",
+   "uses": 2,
+   "stars": null,
+   "stars_repo": null,
+   "stars_as_of": null,
+   "rank": 17
+  },
+  {
+   "name": "apple-design",
+   "reason": "Make gestures and transitions respond to the person using them.",
+   "basis": "Used in 1 of our Claude Code session, 9 Oct to 8 Nov 2026.",
+   "catalog_id": "f1fc5f670f65d971",
+   "catalog_relation": "Same-name public version; different bytes from Oscar’s local copy.",
+   "kind": "working-set",
+   "uses": 1,
+   "stars": 54724,
+   "stars_repo": "emilkowalski/skills",
+   "stars_as_of": "2026-11-08",
+   "rank": 18
+  },
+  {
+   "name": "skill-creator",
+   "reason": "Create new skills, modify and improve existing skills, and measure skill performance.",
+   "basis": "Used in 1 of our Claude Code session, 9 Oct to 8 Nov 2026.",
+   "catalog_id": "b51c2b13d57294e2",
+   "catalog_relation": "Public version in this catalogue.",
+   "kind": "working-set",
+   "uses": 1,
+   "stars": 189406,
+   "stars_repo": "anthropics/skills",
+   "stars_as_of": "2026-11-08",
+   "rank": 19
+  },
+  {
+   "name": "systematic-debugging",
+   "reason": "Try this when a bug keeps returning: establish the cause before patching it.",
+   "basis": "Editorial suggestion based on the pinned public skill description; no observed Oscar usage or measured benefit claimed.",
+   "catalog_id": "67b1408b4733c4e8",
+   "catalog_relation": "Pinned public catalogue entry.",
+   "kind": "try-next",
+   "stars": 314492,
+   "stars_repo": "obra/superpowers",
+   "stars_as_of": "2026-11-08"
+  },
+  {
+   "name": "test-driven-development",
+   "reason": "Try this for a small behavior change: make the check fail before implementing it.",
+   "basis": "Editorial suggestion based on the pinned public skill description; no observed Oscar usage or measured benefit claimed.",
+   "catalog_id": "30ad3fa126fa26d8",
+   "catalog_relation": "Pinned public catalogue entry.",
+   "kind": "try-next",
+   "stars": 314492,
+   "stars_repo": "obra/superpowers",
+   "stars_as_of": "2026-11-08"
+  }
+ ]
 }
