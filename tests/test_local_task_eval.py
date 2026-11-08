@@ -54,6 +54,16 @@ class LocalEvaluationTests(unittest.TestCase):
   result=effect(0,0,10,10)
   self.assertEqual(result['difference'],0);self.assertLess(result['ci95'][0],0);self.assertGreater(result['ci95'][1],0)
   missing=effect(0,0,0,10);self.assertIsNone(missing['difference']);self.assertEqual(missing['missing_pair_bound'],[-1.,1.])
+ def test_native_helper_failure_stops_even_when_python_boundary_passes(self):
+  work=self.root/'workspace';hidden=self.root/'hidden';hidden.mkdir()
+  replies=[argparse.Namespace(returncode=0,stdout='WORKSPACE_WRITE_ALLOWED\nHIDDEN_READ_DENIED\n',stderr=''),argparse.Namespace(returncode=71,stdout='',stderr='exec denied')]
+  with patch.object(a.subprocess,'run',side_effect=replies) as process:
+   with self.assertRaisesRegex(ValueError,'Native isolation probe failed'):a.native_boundary(work,hidden,hidden/'boundary.json')
+   self.assertEqual(process.call_count,2)
+   helper=process.call_args.args[0]
+   self.assertIn('--codex-run-as-apply-patch',helper)
+   self.assertEqual(helper[0],str(Path(shutil.which('codex')).resolve()))
+  self.assertFalse(json.loads((hidden/'boundary.json').read_text())['passed'])
  def test_selected_local_folder_preserves_resources_without_public_claim(self):
   (self.skill.parent/'reference.txt').write_text('A local resource, never executed')
   args=argparse.Namespace(fixture=ROOT/'eval-example/bug',reference=ROOT/'eval-example/good',negative=ROOT/'eval-example/bad',task=ROOT/'eval-example/TASK.md',grader=ROOT/'eval-example/grader.py',stack=None,skill=None,skill_folder=self.skill.parent,out=self.root/'full-folder',trust_grader=True)

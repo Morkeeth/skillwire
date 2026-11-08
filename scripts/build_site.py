@@ -53,9 +53,16 @@ def main(argv=None):
     for name,raw in files().items():(payload/name).write_bytes(raw)
     old_style=out/'style.css'
     if old_style.exists():old_style.unlink()
-    for n in ('index.html','analytics.js','finder-base.css','finder.css','app.js','paired-inspector.js','installed-skills.js','adjacent.json','human-review.html','human-review.js','research-picks.js','research-picks.json','votes.js','votes.css'):shutil.copyfile(ROOT/'site'/n,out/n)
+    for n in ('index.html','analytics.js','finder-base.css','finder.css','app.js','paired-inspector.js','installed-skills.js','adjacent.json','human-review.html','human-review.js','research-picks.js','research-picks.json','oscar-picks.json','votes.js','votes.css','v3.css'):shutil.copyfile(ROOT/'site'/n,out/n)
     shutil.copyfile(ROOT/'web/favicon.svg',out/'favicon.svg')
     (out/'catalog.json').write_text(json.dumps(catalog,separators=(',',':')))
+    from catalog_views import project
+    views=project(catalog)
+    for name,raw in views['files'].items():
+        target=out/name;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(raw)
+    html=(out/'index.html').read_text()
+    html=html.replace('<html ', '<html data-catalog-index="'+views['index_url']+'" ',1)
+    (out/'index.html').write_text(html)
     if (ROOT/'evidence/public-evaluation-results.json').exists():
         shutil.copyfile(ROOT/'evidence/public-evaluation-results.json',out/'evaluations.json')
         correction=json.loads((ROOT/'evidence/judge-correction.json').read_text());correction.pop('corrected_grades',None)

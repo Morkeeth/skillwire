@@ -13,6 +13,16 @@ Open http://127.0.0.1:18828. The product serves only the generated public `dist`
 
 The Vercel deployment consists of the static directory plus a Python function in `api/index.py`. `vercel.json` declares the build and public API routes. The hosting source is an allowlisted export with a public file/hash manifest. Try the public product at [skillwire.net](https://skillwire.net). The custom domain serves the product without a login.
 
+## Preview a prepared release
+
+For an already-built catalog, use one command:
+
+```sh
+python3 scripts/preview_release.py
+```
+
+Open the printed loopback address. This preview never builds, refreshes, installs or deploys anything. Votes and source-download API calls are unavailable here, and writes are refused. Use `--site /path/to/prepared/site` to preview an existing export without rebuilding it. The deployed app retains its normal voting and download endpoints.
+
 ## What a stack contains
 
 Download up to ten selected public skill folders. Each comes from the exact catalog revision, with a verified SKILL.md hash. The ZIP includes `SKILL-SOURCES.json`, per-file hashes, repository licence metadata, warning lines and install cautions. Skill-specific licences may differ from repository metadata; inspect the source terms. Original public files keep their bytes. The UI removes email addresses only from displayed text.

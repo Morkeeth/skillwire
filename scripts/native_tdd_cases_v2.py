@@ -36,7 +36,7 @@ GOOD = {
 from urllib.parse import urlsplit
 
 def allowed(url):
-    if not isinstance(url, str) or not url or any(ord(c) < 33 or ord(c) == 127 for c in url):
+    if not isinstance(url, str) or not url or any(c.isspace() or ord(c) < 33 or ord(c) == 127 for c in url):
         return False
     if '\\\\' in url or re.search(r'%(?![0-9A-Fa-f]{2})', url):
         return False
@@ -79,7 +79,10 @@ EXTRA_PUBLIC = {
     'url-origin': [([42], False), (['https://example.com:/app'], False),
                    ([' https://example.com/app'], False),
                    (['https://example.com/app/%ZZ'], False),
-                   (['HTTPS://EXAMPLE.COM:443/app'], True)],
+                   (['HTTPS://EXAMPLE.COM:443/app'], True),
+                   (['https://example.com/app?q=\u00a0'], False),
+                   (['https://example.com/app?q=\u2003'], False),
+                   (['https://example.com/app?q=\u2028'], False)],
     'windows-alias': [(['file\x7f'], False), (['CON .txt'], False)],
 }
 

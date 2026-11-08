@@ -16,6 +16,7 @@ from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = Path(os.environ['SKILLWIRE_QA_OUT'])
+SITE = Path(os.environ.get('SKILLWIRE_TEST_SITE', ROOT / 'dist')).resolve()
 
 
 class QuietHandler(SimpleHTTPRequestHandler):
@@ -24,11 +25,11 @@ class QuietHandler(SimpleHTTPRequestHandler):
 
 
 def main():
-    catalog = json.loads((ROOT / 'dist/catalog.json').read_text())
+    catalog = json.loads((SITE / 'catalog.json').read_text())
     public = {s['id']: s for s in catalog['skills'] if not s.get('local_bundle')}
     ids = [sid for sid in catalog['popular_ids'] if sid in public][:4]
     assert len(ids) == 4
-    server = ThreadingHTTPServer(('127.0.0.1', 0), partial(QuietHandler, directory=str(ROOT / 'dist')))
+    server = ThreadingHTTPServer(('127.0.0.1', 0), partial(QuietHandler, directory=str(SITE)))
     thread = Thread(target=server.serve_forever, daemon=True)
     thread.start()
     base = 'http://127.0.0.1:' + str(server.server_port)
@@ -85,12 +86,20 @@ def main():
                     page.route('**/*', lambda route: api(route) if route.request.url.startswith(base + '/api/')
                                else route.continue_() if route.request.url.startswith(base + '/') else route.abort())
                     page.goto(base, wait_until='networkidle')
-                    page.locator('#landing-vote-ranking .community-file').nth(3).wait_for()
+                    page.locator('#landing-vote-ranking .community-file').nth(3).wait_for(state='attached')
+                    assert page.locator('#oscar-picks').is_visible()
+                    assert page.locator('#results tr').count() == 150
+                    assert page.locator('#full-view').get_attribute('aria-pressed') == 'true'
+                    assert page.locator('#landing-community').is_hidden()
+                    assert page.get_by_role('button', name='Refresh counts', exact=True).count() == 0
+                    page.locator('#oscar-picks-preview .oscar-pick').nth(2).wait_for()
+                    page.screenshot(path=str(OUT / f'FULL-LIST-{width}.png'))
+                    page.locator('.secondary-community > summary').click()
                     assert page.locator('#landing-community').is_visible()
                     assert page.locator('#content-votes').is_hidden()
                     assert page.locator('#landing-vote-ranking .community-file').count() == 4
                     board = page.locator('#landing-community').bounding_box()
-                    assert board['height'] > 300, 'landing board is clipped by the existing search grid'
+                    assert board['height'] > 0, 'disclosed community board must be visible'
                     for row in page.locator('#landing-vote-ranking .community-file').all():
                         box = row.bounding_box()
                         assert box['y'] >= board['y'] and box['y'] + box['height'] <= board['y'] + board['height'] + 1, 'vote row falls outside landing board'
@@ -131,13 +140,14 @@ def main():
                     assert landing.locator('[data-value="1"]').is_disabled()
                     assert page.locator('#vote-status').inner_text() == page.locator('#landing-vote-status').inner_text()
                     fail[0] = False
-                    page.locator('#landing-vote-refresh').click()
+                    page.wait_for_timeout(5100)
+                    page.evaluate("document.dispatchEvent(new Event('visibilitychange'))")
                     page.wait_for_function("!document.querySelector('#landing-vote-ranking button[data-value=" + '"1"' + "]').disabled")
-                    assert len(posts) == 4, 'refresh must not cast a vote'
+                    assert len(posts) == 4, 'automatic refresh must not cast a vote'
                     page.locator('#landing-vote-details').click()
                     assert page.locator('#content-votes details').get_attribute('open') is not None
                     assert not errors, errors
-                    results.append({'width': width, 'pass': True, 'checks': ['landing visible', 'same top-four ranking', 'compact desktop / usable mobile targets', 'no overflow', 'vote sync both ways', 'undo', 'shared 503 error', 'refresh without POST', 'counting details'], 'posts': len(posts), 'page_errors': errors})
+                    results.append({'width': width, 'pass': True, 'checks': ['landing visible', 'same top-four ranking', 'compact desktop / usable mobile targets', 'no overflow', 'vote sync both ways', 'undo', 'shared 503 error', 'automatic refresh without POST', 'counting details'], 'posts': len(posts), 'page_errors': errors})
                 finally:
                     context.close()
     finally:

@@ -96,6 +96,13 @@ def run(a):
   result['inference']=True;result['model_execution']='Local CLI completion and raw structured output observed by runner; native skill invocation not tested.';result['runner_records_sha256']=task.sha((dest/'records.json').read_bytes());path.write_text(json.dumps(result,indent=2)+'\n')
  else:print('Infrastructure errors retained. No artifact task scores assigned to incomplete model runs.')
 
+def native_executable():
+ launcher=shutil.which('codex')
+ if not launcher:raise ValueError('Native Codex executable not found')
+ executable=Path(launcher).resolve(strict=True)
+ if not executable.is_file():raise ValueError('Native Codex executable is not a file')
+ return str(executable)
+
 def native_config(workspace):
  """Restricted-read policy applies to tools; provider auth stays in the native parent."""
  python_runtime=Path(sys.base_prefix).resolve()
@@ -103,6 +110,10 @@ def native_config(workspace):
  rules={'default_permissions':'lime_trial','approval_policy':'never','project_doc_max_bytes':0,'features.apps':False,'features.shell_snapshot':False,'mcp_servers':{},'web_search':'disabled','permissions.lime_trial.extends':':workspace','permissions.lime_trial.filesystem':{':root':'deny',':minimal':'read',':workspace_roots':'write',':tmpdir':'write',':slash_tmp':'deny','/opt/homebrew':'read'},'permissions.lime_trial.network.enabled':False,'shell_environment_policy.inherit':'none','shell_environment_policy.set':{'PATH':os.environ.get('PATH','/usr/bin:/bin'),'TMPDIR':str(workspace/'.tmp')}}
  rules['permissions.lime_trial.filesystem'][str(python_runtime)]='read'
  rules['permissions.lime_trial.filesystem'][str(Path(sys.executable).resolve())]='read'
+ # apply_patch re-executes the native CLI inside the tool sandbox. Permit
+ # only its resolved executable, never CODEX_HOME or auth data. Launch it by
+ # that same path so its helper does not traverse denied launcher symlinks.
+ rules['permissions.lime_trial.filesystem'][native_executable()]='read'
  disabled=[]
  for base in [Path.home()/'.codex/skills',Path.home()/'.agents/skills',Path.home()/'.claude/skills']:
   if base.exists():disabled.extend({'path':str(p.parent),'enabled':False} for p in base.rglob('SKILL.md'))
@@ -121,12 +132,31 @@ def native_boundary(workspace,hidden,output):
  workspace.mkdir(parents=True,exist_ok=True);(workspace/'.tmp').mkdir(exist_ok=True)
  canary=hidden/'BOUNDARY-CANARY.txt';canary.write_text('EVALUATOR MUST NOT BE READ BY MODEL TOOLS')
  probe="from pathlib import Path;import sys;p=Path(sys.argv[1]);q=Path('boundary-write.txt');q.write_text('ok');assert q.read_text()=='ok';print('WORKSPACE_WRITE_ALLOWED');\ntry:p.read_bytes()\nexcept PermissionError:print('HIDDEN_READ_DENIED');sys.exit(0)\nraise SystemExit('HIDDEN_READ_WAS_ALLOWED')"
- cmd=['codex']+native_config(workspace)+['sandbox','--permission-profile','lime_trial','-C',str(workspace),'--',sys.executable,'-I','-c',probe,str(canary)]
+ cmd=[native_executable()]+native_config(workspace)+['sandbox','--permission-profile','lime_trial','-C',str(workspace),'--',sys.executable,'-I','-c',probe,str(canary)]
  p=subprocess.run(cmd,cwd=workspace,env=clean_env(),capture_output=True,text=True,timeout=30)
  receipt={'argv':cmd,'returncode':p.returncode,'stdout':p.stdout,'stderr':p.stderr,'passed':p.returncode==0 and 'HIDDEN_READ_DENIED' in p.stdout and 'WORKSPACE_WRITE_ALLOWED' in p.stdout}
+ if not receipt['passed']:
+  output.write_text(json.dumps(receipt,indent=2)+'\n')
+  raise ValueError('Native isolation probe failed. No model call permitted; retained '+str(output))
+ helper_patch='*** Begin Patch\n*** Add File: boundary-helper-write.txt\n+native helper ok\n*** End Patch'
+ helper_cmd=[native_executable()]+native_config(workspace)+['sandbox','--permission-profile','lime_trial','-C',str(workspace),'--',native_executable(),'--codex-run-as-apply-patch',helper_patch]
+ helper=subprocess.run(helper_cmd,cwd=workspace,env=clean_env(),capture_output=True,text=True,timeout=30)
+ helper_file=workspace/'boundary-helper-write.txt'
+ helper_ok=helper.returncode==0 and helper_file.is_file() and helper_file.read_text()=='native helper ok\n'
+ receipt['native_helper']={'argv':helper_cmd,'returncode':helper.returncode,'stdout':helper.stdout,'stderr':helper.stderr,'workspace_patch_verified':helper_ok}
+ receipt['passed']=receipt['passed'] and helper_ok
  output.write_text(json.dumps(receipt,indent=2)+'\n')
  if not receipt['passed']:raise ValueError('Native isolation probe failed. No model call permitted; retained '+str(output))
  return receipt
+
+def native_execution_arms(protocol):
+ # Existing paired seals retain their original order. An explicit presealed
+ # headroom probe can execute the baseline only, never a treatment-only trial.
+ arms=protocol.get('execution_arms')
+ if arms is None:return protocol['arm_order']
+ if arms!=['without'] or protocol.get('trial_scope')!='baseline-headroom-probe':
+  raise ValueError('Only an explicitly sealed baseline headroom subset is allowed')
+ return arms
 
 def run_native(a):
  if not a.use_subscription or a.agent!='codex':raise ValueError('Native adapter currently requires explicit existing Codex subscription')
@@ -140,11 +170,11 @@ def run_native(a):
  assert protocol['budget']['max_cli_trials']==2 and 1<=protocol['budget']['timeout_seconds']<=360
  if not subscription('codex'):raise ValueError('Existing ChatGPT subscription not verified, no API fallback')
  dest=root/'model-runs';dest.mkdir(exist_ok=False)
- cli_version=subprocess.run(['codex','--version'],capture_output=True,text=True,env=clean_env(),timeout=10).stdout.strip()
+ cli_version=subprocess.run([native_executable(),'--version'],capture_output=True,text=True,env=clean_env(),timeout=10).stdout.strip()
  # Model workspaces are outside the hidden evaluator tree and cannot read it.
  workbase=a.workspaces.resolve();assert not workbase.is_relative_to(root) and not root.is_relative_to(workbase),'Separate evaluator and workspace roots required'
  manifest=json.loads((root/'SKILL-SOURCES.json').read_text());records=[]
- for arm in protocol['arm_order']:
+ for arm in native_execution_arms(protocol):
   workspace=workbase/(root.name+'-'+arm);shutil.copytree(root/arm,workspace);(workspace/'TASK.md').write_bytes((root/'TASK.md').read_bytes());(workspace/'.tmp').mkdir()
   for f in plan['initial_fixture']:assert task.sha((workspace/f['path']).read_bytes())==f['sha256'],'Starting fixture changed'
   if arm=='with':
@@ -152,7 +182,7 @@ def run_native(a):
     for f in s['files']:assert task.sha((workspace/'.agents/skills'/s['folder']/f['path']).read_bytes())==f['sha256'],'Pinned source changed'
   folder=dest/arm;folder.mkdir();native_boundary(workspace,root,folder/'boundary.json')
   prompt='Complete the user request in TASK.md. Work only in this disposable project. Save the requested deliverables here. There is no interactive user; follow the agreed public interface in TASK.md. Do not use external services, install packages, or modify global configuration. Local project resources are available normally. Report what you actually completed.'
-  cmd=['codex','exec','--ignore-user-config','--ignore-rules','--ephemeral','--skip-git-repo-check','--json','--model',protocol['model'],'-c','model_reasoning_effort='+json.dumps(protocol['reasoning'])]+native_config(workspace)+['-o',str(folder/'final.txt'),'-C',str(workspace),'-']
+  cmd=[native_executable(),'exec','--ignore-user-config','--ignore-rules','--ephemeral','--skip-git-repo-check','--json','--model',protocol['model'],'-c','model_reasoning_effort='+json.dumps(protocol['reasoning'])]+native_config(workspace)+['-o',str(folder/'final.txt'),'-C',str(workspace),'-']
   (folder/'argv.json').write_text(json.dumps(cmd,indent=2));(folder/'prompt.txt').write_text(prompt);start=time.monotonic();error=None
   env=clean_env();env['TMPDIR']=str(workspace/'.tmp')
   with (folder/'stdout.jsonl').open('w') as out,(folder/'stderr.txt').open('w') as err:
@@ -175,9 +205,9 @@ def run_native(a):
   record={'mode':'native_installed','adapter_sha256':task.sha(Path(__file__).read_bytes()),'cli_version':cli_version,'finished_at_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'subscription_auth':'verified ChatGPT login, native profile in place','arm':arm,'status':status,'returncode':rc,'error':error,'seconds':round(time.monotonic()-start,3),'usage':completed[-1].get('usage') if completed else None,'model_requested':protocol['model'],'skill_installed':arm=='with','skill_listed_observed':None,'explicit_invocation_observed':None,'full_resource_outputs_observed':resource_reads,'skill_offered_basis':'Pinned project .agents/skills folder; normal native CLI discovery, not forced read.' if arm=='with' else 'Selected folder absent','read':task.read_evidence(folder/'stdout.jsonl',plan['skills']) if arm=='with' else {'status':'not_supplied'},'workspace':str(workspace)}
   if status=='completed':
    if any(p.is_symlink() for p in workspace.rglob('*')):record['grade']={'status':'graded','passed':False,'checks':[{'name':'artifact-contains-no-unsafe-symlinks','passed':False}]}
-   else:record['grade']=task.judge(root/'grader.py',workspace,folder/'outcome',sandbox_launcher=['codex']+native_config(workspace)+['sandbox','--permission-profile','lime_trial'])
+   else:record['grade']=task.judge(root/'grader.py',workspace,folder/'outcome',sandbox_launcher=[native_executable()]+native_config(workspace)+['sandbox','--permission-profile','lime_trial'])
   (folder/'record.json').write_text(json.dumps(record,indent=2)+'\n');records.append(record);(dest/'records.json').write_text(json.dumps(records,indent=2)+'\n');print(arm,status,flush=True)
- result={'mode':'native_installed','inference':any(r['status']=='completed' for r in records),'model_execution':'Native CLI completed events and raw tool traces retained; model internal influence remains unknown.','arms':{r['arm']:{'status':r['status'],'grade':r.get('grade',{'status':'infrastructure_error','passed':None,'checks':[]}),'read':r['read']} for r in records},'plan_sha256':task.sha((root/'plan.json').read_bytes()),'protocol_sha256':seal['protocol_sha256']}
+ result={'execution_arms':native_execution_arms(protocol),'trial_scope':protocol.get('trial_scope','paired'),'mode':'native_installed','inference':any(r['status']=='completed' for r in records),'model_execution':'Native CLI completed events and raw tool traces retained; model internal influence remains unknown.','arms':{r['arm']:{'status':r['status'],'grade':r.get('grade',{'status':'infrastructure_error','passed':None,'checks':[]}),'read':r['read']} for r in records},'plan_sha256':task.sha((root/'plan.json').read_bytes()),'protocol_sha256':seal['protocol_sha256']}
  (root/'artifact-results.json').write_text(json.dumps(result,indent=2)+'\n')
  print(json.dumps({'mode':'native_installed','records':records,'limit':'Skill installed/offered is not evidence of reading or internal influence. Every failure retained.'},indent=2))
 

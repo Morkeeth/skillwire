@@ -1,0 +1,316 @@
+{
+  "source_directory": "data/release-source/20261106T214603Z",
+  "files": [
+    {
+      "path": "lime_task_eval.py",
+      "sha256": "38e9fafae913b9a037a99bcec3ac054b8c573cd72b242f367b08d1a91e49dca2",
+      "bytes": 14916
+    },
+    {
+      "path": "lime_agent_eval.py",
+      "sha256": "426c4a6d075cc70b50395b3f51f41372f228f7e02adc002acab2177c3bd6fc03",
+      "bytes": 19602
+    },
+    {
+      "path": "lime_eval_setup.py",
+      "sha256": "b8dc68aa8311c6de66013e91ed958100123da1ded2fff89284b2e481d98a23a6",
+      "bytes": 2353
+    },
+    {
+      "path": "lime_human_review.py",
+      "sha256": "d19d15f28c609d4e9c45e2c99b076b5eb5054b26255ca29b10ba3d26940cee20",
+      "bytes": 7221
+    },
+    {
+      "path": "EVAL-TOOLS.txt",
+      "sha256": "33a008dbbef728a4e4349e4d1f0d776578ac0eeb098d1d6ff1a8719f9a59656b",
+      "bytes": 5951
+    },
+    {
+      "path": "site/eval-guide.html",
+      "sha256": "ec426af58dd3a7e2d0440307503bd9b900f353ccad8c72d475060b9572af6b28",
+      "bytes": 5846
+    },
+    {
+      "path": "site/human-review.html",
+      "sha256": "9964ebb72851368bf0504e3aa2bf2fb2ba91b39fc4493967616cb87b4400887d",
+      "bytes": 2387
+    },
+    {
+      "path": "site/human-review.js",
+      "sha256": "a161bbf802369191e9461780847e73d1543e8275a13333ce37e21330137208cd",
+      "bytes": 3435
+    },
+    {
+      "path": "eval-example/TASK.md",
+      "sha256": "996923c44d500e197c2421d8040ae04ea46c61d4a2e8fc01172922622179d2b4",
+      "bytes": 383
+    },
+    {
+      "path": "eval-example/grader.py",
+      "sha256": "02bd5d75435e5682e48fd00f12a0758424e5423df3884a68c2c1da0c3ac2ca14",
+      "bytes": 880
+    },
+    {
+      "path": "eval-example/bug/app.py",
+      "sha256": "46f4bc2dff5d1ecf26b3d0188f1b5c49dff9ec1cad3026e5a60d1d3f5e16d008",
+      "bytes": 70
+    },
+    {
+      "path": "eval-example/good/app.py",
+      "sha256": "f4e1e1bc0c4f99cbe6b01e6152145dffdd39a448d0db923811f6bfc36c15c581",
+      "bytes": 209
+    },
+    {
+      "path": "eval-example/bad/app.py",
+      "sha256": "96b6fdf23e57b5e3c8251666a3c39baa84e7cefdc9fd60a552677ac50ab29978",
+      "bytes": 32
+    },
+    {
+      "path": ".vercelignore",
+      "sha256": "01b41c2faff00b7a82c1210d446718a39cb686666ac9a34f9f1990dca8ee3cfd",
+      "bytes": 233
+    },
+    {
+      "path": "LICENSE",
+      "sha256": "eb6d3e052b5c791e4d2cac05ab1486824f5fd8cf3d519cc5ce9b5c26131c560f",
+      "bytes": 1081
+    },
+    {
+      "path": "README.md",
+      "sha256": "8faf59b4065c24ce01e0fc79ce8e5dcdf233500d6792e76631ff0196955577a2",
+      "bytes": 8694
+    },
+    {
+      "path": "vercel.json",
+      "sha256": "fdf28539f7cf49ad5d9287d10e6c783a4c1b63127117346657c0b6aac7c3bdb9",
+      "bytes": 1552
+    },
+    {
+      "path": "public_runtime.py",
+      "sha256": "fa9a7d1f87fd9039f4c75d8e490d952ab9667e74ea9e1d67da32148c85b75821",
+      "bytes": 11149
+    },
+    {
+      "path": "published_catalog.py",
+      "sha256": "1a73e060976d877a9c3de2f74a42ae2364e5fd35313431ea06f763106189982d",
+      "bytes": 2072
+    },
+    {
+      "path": "public_skill_finder.py",
+      "sha256": "98fa94964dbc96afdce834d67fe75fdd78c127a9e272db10ae1808cadb33e5e2",
+      "bytes": 26196
+    },
+    {
+      "path": "api/index.py",
+      "sha256": "6b3cf792eafc59926154f611c1b952ab71046faa16d3290d50f0f4b4be56f527",
+      "bytes": 5623
+    },
+    {
+      "path": "site/index.html",
+      "sha256": "136d841012d421fb44a278e9db58156af61b1584d989bc6ecc7d542e48b861f5",
+      "bytes": 22037
+    },
+    {
+      "path": "site/finder-base.css",
+      "sha256": "49486019c6774fb49735bb279bb03b446b1ca3c5a9e47c1e39c075376b168805",
+      "bytes": 16619
+    },
+    {
+      "path": "site/finder.css",
+      "sha256": "e4fc7c1bc4541a7574ff0389f3f9cb20894e6ebfc21024d30aefe4221d0dec52",
+      "bytes": 32472
+    },
+    {
+      "path": "site/app.js",
+      "sha256": "7e1ef40df94a4f073484e018aa91604902ed7048a240a5942a81417463c9f89b",
+      "bytes": 37908
+    },
+    {
+      "path": "site/paired-inspector.js",
+      "sha256": "a7718a930e1fb8772552740f9dd3c7ce4e66126622de56709b7e7fcfab1539dd",
+      "bytes": 15595
+    },
+    {
+      "path": "site/installed-skills.js",
+      "sha256": "5eedd9f3c11ecf53ca51950bed2879857cf82c79d81a0aaf41734b14c0cf4259",
+      "bytes": 2826
+    },
+    {
+      "path": "site/adjacent.json",
+      "sha256": "d77189605c9ab3cfca415fbaa4219b240a93d105ecc8854798aac17cbdff48c5",
+      "bytes": 2113
+    },
+    {
+      "path": "web/favicon.svg",
+      "sha256": "029db6ec5039162d3e3a4a030fe27d0765e5dc2f0539f3532693af047390f226",
+      "bytes": 825
+    },
+    {
+      "path": "scripts/build_site.py",
+      "sha256": "7b43c3c6c8b5f11495d92c83f18870174471bcce63a88c74f47ff9bbe703b827",
+      "bytes": 7164
+    },
+    {
+      "path": "scripts/enrich_catalog.py",
+      "sha256": "4964668b0a300e838c21616bae4cf17f9f1fc9db00942557f8279bb6e688e6b2",
+      "bytes": 3562
+    },
+    {
+      "path": "scripts/serve_product.py",
+      "sha256": "f7d2fe98f7bb6955c99b72a5f61e4540b03eb970a5a5c7723631f5b8579c6ea2",
+      "bytes": 1274
+    },
+    {
+      "path": "scripts/native_tdd_cases.py",
+      "sha256": "b07db63bca7832e0418d2e5a15593d5187b2dbf53083f9fb24cf48ac09c7b3dc",
+      "bytes": 16046
+    },
+    {
+      "path": "scripts/native_tdd_cases_v2.py",
+      "sha256": "08744b560e9b4d55c183cea38261a14a8b8dbbfdccf84075b54eaa6579e73ded",
+      "bytes": 12588
+    },
+    {
+      "path": ".python-version",
+      "sha256": "7b55f8e67b5623c4bef3fa691288da9437d79d3aba156de48d481db32ac7d16d",
+      "bytes": 5
+    },
+    {
+      "path": "evidence/hosted-catalog.json",
+      "sha256": "aadf78c9cb297a7a1ace7465e4be4cf19793a495b24ee3ca177db2e87f474037",
+      "bytes": 26319881
+    },
+    {
+      "path": "evidence/public-evaluation-results.json",
+      "sha256": "600278894bab3c1d29d8f368eed6adc38166f16ab3c85ccfca5529fb21d4487c",
+      "bytes": 102599
+    },
+    {
+      "path": "evidence/judge-correction.json",
+      "sha256": "138a3ae5ac0acf224a0bb94ffc19095d3ec5e07af8fdd2d92f42cd683fca07ac",
+      "bytes": 752
+    },
+    {
+      "path": "evidence/public-harder-results.json",
+      "sha256": "3d9070c12c9bc6ec8aa7d4eb1834fa4bc6b9ec25ab61ea4227673995a1245400",
+      "bytes": 71585
+    },
+    {
+      "path": "evidence/public-source-licences.json",
+      "sha256": "fedba1c4ef73ad473b07a7439761597364601b14831b4ca223fd22079725dc58",
+      "bytes": 177204
+    },
+    {
+      "path": "evidence/runtime-catalog.json.gz",
+      "sha256": "d52e61c00c57a721175c8ee947d780437a4fee93248719c58faef0713f798fe3",
+      "bytes": 1501514
+    },
+    {
+      "path": "evidence/public-native-evaluation.json",
+      "sha256": "605c3ae3e4f975bf5c31f3ab0cff0705dcf0463557a20b656d07aee773fe943f",
+      "bytes": 14117
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "sha256": "5110dcf672f82494f552384f9a6a1245a01b3b824d8a5bf91946666c24509d7a",
+      "bytes": 3968
+    },
+    {
+      "path": "docs/source-contributions.md",
+      "sha256": "77a04fa2743cafc9ce932360e2e20cc8916c46ea9d3cd82e7eb6cddf0b460350",
+      "bytes": 4065
+    },
+    {
+      "path": "docs/eval-reproduction.md",
+      "sha256": "56899297da6d566a6b991aa296817f75d062a820098996ae1ceed9adb34ca06b",
+      "bytes": 6206
+    },
+    {
+      "path": "docs/usage-evidence.md",
+      "sha256": "5bccb62b86b48d67171fc249deaa3bcb113953bd86a7681f49982b4458e36843",
+      "bytes": 4092
+    },
+    {
+      "path": ".github/PULL_REQUEST_TEMPLATE.md",
+      "sha256": "3def2629f793db9250602e36775fcdaea8e3f16ffe531c899176ebcd9247ed56",
+      "bytes": 729
+    },
+    {
+      "path": "site/analytics.js",
+      "sha256": "d837be00ced3c6624605e9d95030032791c60dc18d4eb010179bc447107f8339",
+      "bytes": 1239
+    },
+    {
+      "path": "site/research-picks.js",
+      "sha256": "aa65d8e8a6e9c4bd1bb962a905a90774aad6b04125a5b8d909832deeca777be0",
+      "bytes": 2151
+    },
+    {
+      "path": "site/research-picks.json",
+      "sha256": "240bb70369a37e2d752bab8efd2f7d5fd2ad64446ee45e0a21798dfcc991d4c1",
+      "bytes": 10928
+    },
+    {
+      "path": "catalog_egg.py",
+      "sha256": "8b318718223fd2c7ee583b5bac6c0b67408a1f3a5d10343f141bb124065b6f13",
+      "bytes": 2150
+    },
+    {
+      "path": "assets/frontend-design-1/rickroll.jpg",
+      "sha256": "2fc77b4a0620f5dca2d3cae6d917af3acdeb3b2e5558ba1727f8d651351fc692",
+      "bytes": 21011
+    },
+    {
+      "path": "migrations/20261031_direction_votes.sql",
+      "sha256": "4de78fb4bd77a85e81084ee4e06574080cfae3a40830b2c035527b76c21ec50e",
+      "bytes": 8094
+    },
+    {
+      "path": "eval-example/demo-skill/SKILL.md",
+      "sha256": "fb708d4caa343679620fad49c17d51cd628fc8c8a0e1bb4f0d6cc41e6dbb055a",
+      "bytes": 156
+    },
+    {
+      "path": "catalog_views.py",
+      "sha256": "8bd33456709e0a24ab2fdc30d8f48dd613b300c4da83fc229d741c5ef675935b",
+      "bytes": 1899
+    },
+    {
+      "path": "site/oscar-picks.json",
+      "sha256": "87fa3ad2921ebb3eaf1e36b464d5fc6e102093f4ae70e1a6d97506547d25a46b",
+      "bytes": 7531
+    },
+    {
+      "path": "voting.py",
+      "sha256": "2c32dfac24d895a1c601546531d986db326af1715fb2111d1bf43b714a9be1f4",
+      "bytes": 9794
+    },
+    {
+      "path": "x_poll.py",
+      "sha256": "8787d29560bfe1e715216231eb800fcf0ed379916ad1ee5a0cfd0b648a0c6c7d",
+      "bytes": 2565
+    },
+    {
+      "path": "site/votes.js",
+      "sha256": "90eda65074f90fe98dd616de921c2ab84d75aae1114d8456aae5f3d33250f962",
+      "bytes": 9784
+    },
+    {
+      "path": "site/votes.css",
+      "sha256": "65e5cf863876aeed9b414094252cd1297d3f316b4c784dd79adc8aa7945fefcc",
+      "bytes": 5618
+    },
+    {
+      "path": "docs/voting.md",
+      "sha256": "d32efe9ea65302aeabb785b6d170df9e73c199e686753dd85795a60fcf943ba5",
+      "bytes": 9658
+    },
+    {
+      "path": "migrations/20261029_daily_votes.sql",
+      "sha256": "554d5062c043ed500de32e94da859745d31f5d788b33b7ad9185a7d712ef751d",
+      "bytes": 5724
+    }
+  ],
+  "privacy": "Exact allowlist. No data, credentials, private skills, historical article kit, git history, operator handovers, original raw auth/runtime files or environment values."
+}

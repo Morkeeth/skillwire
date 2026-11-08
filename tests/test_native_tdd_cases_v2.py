@@ -24,7 +24,9 @@ class ContractV2Tests(unittest.TestCase):
 
     def test_url_empty_port_and_nonstring_are_rejected(self):
         code = repaired.GOOD['url-origin']
-        for value in ['https://example.com:/app', 42, 'https://example.com/app/%ZZ']:
+        for value in ['https://example.com:/app', 42, 'https://example.com/app/%ZZ',
+                      'https://example.com/app?q=\u00a0', 'https://example.com/app?q=\u2003',
+                      'https://example.com/app?q=\u2028']:
             with self.subTest(value=value):
                 self.assertTrue(repaired.test_source('allowed', code, [value], False))
 
