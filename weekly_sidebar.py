@@ -126,7 +126,7 @@ def feature(catalog, picks, issue_date):
             'repo': skill['repo'], 'uses': count(pick['uses']), 'counted_at': counted.isoformat(),
             'count_window_days': 30, 'basis': pick['basis'],
             'catalog_relation': pick['catalog_relation'],
-            'method': 'Highest recorded host session count among catalog-linked working-set picks; ties use catalog ID. Counts cover 30 days, not one week. Not a public vote or quality score.'}
+            'method': 'Highest recorded host session count among catalog-linked working-set picks; ties use catalog ID. Counts cover 30 days, not one week. Counts must be no more than 14 days old on the declared issue date; future counts are excluded. Not a public vote or quality score.'}
 
 
 def build(catalog, picks, history, issue_date):
