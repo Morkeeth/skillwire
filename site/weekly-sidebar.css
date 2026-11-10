@@ -1,0 +1,16 @@
+/* Match the existing Browse sidebar; no new palette or navigation. */
+#weekly-sidebar{border-bottom:1px solid var(--chrome-lo,#c8c5b6);background:inherit;min-width:0}
+#weekly-sidebar .panel-heading{display:block;height:auto;min-height:0;padding:6px 8px;background:linear-gradient(#f3f1e6,#dedbcc);border-bottom:1px solid var(--chrome-lo,#c8c5b6)}
+#weekly-sidebar .panel-heading strong{display:block;font-size:11px;color:var(--ink,#202020)}
+#weekly-sidebar .panel-heading span{display:block;font-size:10px;color:var(--mute,#626255)}
+#weekly-sidebar .weekly-item{padding:7px 8px;border-bottom:1px dotted #d8d5c6;overflow-wrap:anywhere}
+#weekly-sidebar h3{font-size:11px;margin:0 0 5px}
+#weekly-sidebar p{font-size:10px;line-height:1.45;margin:4px 0}
+#weekly-sidebar .weekly-note{color:var(--mute,#626255)}
+#weekly-sidebar .weekly-unavailable{font-weight:bold}
+#weekly-sidebar .weekly-skill{border:0;padding:0;background:transparent;color:var(--lime-deep,#42621d);font:inherit;font-size:11px;font-weight:bold;text-align:left;text-decoration:underline;cursor:pointer}
+#weekly-sidebar .weekly-skill:focus-visible{outline:2px solid var(--lime-deep,#42621d);outline-offset:3px}
+#weekly-sidebar details{font-size:10px;line-height:1.45;margin-top:5px}
+#weekly-sidebar summary{cursor:pointer;text-decoration:underline}
+#weekly-sidebar>[role=status]:empty{display:none}
+@media(max-width:740px){#weekly-sidebar .weekly-skill{min-height:30px}#weekly-sidebar .weekly-item{padding:8px}}

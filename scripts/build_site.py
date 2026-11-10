@@ -68,10 +68,12 @@ def main():
     for name,raw in files().items():(payload/name).write_bytes(raw)
     old_style=out/'style.css'
     if old_style.exists():old_style.unlink()
-    for n in ('index.html','analytics.js','finder-base.css','finder.css','app.js','company-groups.css','company-groups.js','paired-inspector.js','installed-skills.js','adjacent.json','human-review.html','human-review.js','research-picks.js','research-picks.json','votes.js','votes.css','v3.css','oscar-picks.json'):shutil.copyfile(ROOT/'site'/n,out/n)
+    for n in ('index.html','analytics.js','finder-base.css','finder.css','app.js','company-groups.css','company-groups.js','paired-inspector.js','installed-skills.js','adjacent.json','human-review.html','human-review.js','research-picks.js','research-picks.json','votes.js','votes.css','v3.css','oscar-picks.json','weekly-sidebar.js','weekly-sidebar.css'):shutil.copyfile(ROOT/'site'/n,out/n)
     shutil.copyfile(ROOT/'web/favicon.svg',out/'favicon.svg')
     (out/'catalog.json').write_text(json.dumps(catalog,separators=(',',':')))
     build_catalog_assets(catalog,out)
+    from weekly_sidebar import build_for_site
+    build_for_site(ROOT,catalog,out)
     if (ROOT/'evidence/public-evaluation-results.json').exists():
         shutil.copyfile(ROOT/'evidence/public-evaluation-results.json',out/'evaluations.json')
         correction=json.loads((ROOT/'evidence/judge-correction.json').read_text());correction.pop('corrected_grades',None)
