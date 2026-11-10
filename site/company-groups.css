@@ -1,0 +1,19 @@
+/* One Browse spot per product family; the nested rows remain individual skills. */
+.results-table tr.company-group > td{white-space:normal;overflow:visible}
+.company-group summary{cursor:pointer;font-weight:600;padding:6px}
+.company-group details > p{margin:4px 6px 8px;color:var(--mute)}
+.company-members{width:100%;table-layout:fixed;border-collapse:collapse}
+.company-members td:nth-child(1){width:26px}
+.company-members td:nth-child(2){width:120px}
+.company-members td:nth-child(3){width:24%}
+.company-members td:nth-child(6){width:15%}
+.company-members td:nth-child(7){width:96px}
+/* A checked member must not colour every sibling through the outer :has rule. */
+#results > tr.company-group > td,#results .company-members tr > td{background:#fff!important}
+#results .company-members tr.selected > td,#results .company-members tr:has(input:checked) > td{background:var(--sel)!important}
+@media(max-width:700px){
+ .results-table tr.company-group{display:block!important}
+ .results-table tr.company-group > td{display:block!important;width:auto;grid-area:auto}
+ .company-members{display:block}
+ .company-members td{width:auto!important}
+}
