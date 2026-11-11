@@ -2,6 +2,7 @@
 'use strict';
 (async()=>{
   const host=document.querySelector('#research-picks');
+  if(!host)return;
   try {
     const response=await fetch('research-picks.json');
     if(!response.ok)throw Error('Source review unavailable');

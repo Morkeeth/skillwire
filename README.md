@@ -1,6 +1,6 @@
 # SkillWire
 
-Find public agent skills by the problem they solve, category, harness and named model. A typed query searches the full pinned catalog; Popular is a separate 50-entry browse view you can choose explicitly. Inspect pinned instructions, build a stack in your browser and download the selected public folders with file hashes and source warnings.
+Find public agent skills by the problem they solve, category, harness and named model. A typed query searches the full pinned catalog. GitHub stars are shown on each row. Company skills share one spot; general skills such as Find Skills stay separate. Host uses, fastest growing and skill of the week stay empty unless a host-use or two-date install record is in the snapshot. Inspect pinned instructions, build a stack in your browser and download the selected public folders with file hashes and source warnings.
 
 ## Run the product locally
 
