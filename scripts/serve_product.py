@@ -11,6 +11,9 @@ class Handler(SimpleHTTPRequestHandler):
         # Only dist is served. A request can never browse the repository or local data.
         return super().do_GET()
     send=PublicHandler.send
+    vote_cookie=PublicHandler.vote_cookie
+    vote_ip=PublicHandler.vote_ip
+    vote_origin=PublicHandler.vote_origin
     def do_POST(self):return PublicHandler.do_POST(self)
     def log_message(self,*args):pass
 if __name__=='__main__':

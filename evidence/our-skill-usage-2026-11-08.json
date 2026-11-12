@@ -1,0 +1,155 @@
+{
+ "counted_at": "2026-11-08",
+ "window": "2026-10-09 to 2026-11-08",
+ "method": "Distinct Claude Code sessions in which the skill ran, from the owner's transcripts modified in the 30 days to 8 Nov 2026 (7,235 files). A session counts once whether the agent called the skill or the owner typed it. Names are limited to the owner's accepted public working set plus public catalogue skills he used. Private skills are shown by name only.",
+ "stars_as_of": "2026-11-08",
+ "stars_source": "api.github.com/repos/<repo> stargazers_count, fetched 2026-11-08",
+ "stars": {
+  "emilkowalski/skills": 54724,
+  "anthropics/skills": 189406,
+  "mattpocock/skills": 318375,
+  "obra/superpowers": 314492
+ },
+ "skills": [
+  {
+   "skill": "design-taste",
+   "calls": 155,
+   "public_repo": null,
+   "sessions": 112,
+   "typed": 3
+  },
+  {
+   "skill": "writing",
+   "calls": 118,
+   "public_repo": null,
+   "sessions": 86,
+   "typed": 0
+  },
+  {
+   "skill": "frame",
+   "calls": 20,
+   "public_repo": null,
+   "sessions": 23,
+   "typed": 5
+  },
+  {
+   "skill": "plan",
+   "calls": 19,
+   "public_repo": null,
+   "sessions": 17,
+   "typed": 0
+  },
+  {
+   "skill": "hack-scan",
+   "calls": 23,
+   "public_repo": null,
+   "sessions": 16,
+   "typed": 0
+  },
+  {
+   "skill": "stranger",
+   "calls": 17,
+   "public_repo": null,
+   "sessions": 13,
+   "typed": 0
+  },
+  {
+   "skill": "zup",
+   "calls": 12,
+   "public_repo": null,
+   "sessions": 12,
+   "typed": 0
+  },
+  {
+   "skill": "animate",
+   "calls": 21,
+   "public_repo": "emilkowalski/skills",
+   "sessions": 11,
+   "typed": 0
+  },
+  {
+   "skill": "claude-api",
+   "calls": 8,
+   "public_repo": "anthropics/skills",
+   "sessions": 8,
+   "typed": 0
+  },
+  {
+   "skill": "emil-design-eng",
+   "calls": 16,
+   "public_repo": "emilkowalski/skills",
+   "sessions": 8,
+   "typed": 0
+  },
+  {
+   "skill": "ambitious-plan",
+   "calls": 14,
+   "public_repo": null,
+   "sessions": 7,
+   "typed": 0
+  },
+  {
+   "skill": "eyes",
+   "calls": 11,
+   "public_repo": null,
+   "sessions": 7,
+   "typed": 0
+  },
+  {
+   "skill": "workshop",
+   "calls": 9,
+   "public_repo": null,
+   "sessions": 6,
+   "typed": 0
+  },
+  {
+   "skill": "grilling",
+   "calls": 3,
+   "public_repo": null,
+   "sessions": 4,
+   "typed": 2
+  },
+  {
+   "skill": "agent-science-websearch",
+   "calls": 5,
+   "public_repo": null,
+   "sessions": 3,
+   "typed": 0
+  },
+  {
+   "skill": "writing-for-agents",
+   "calls": 3,
+   "public_repo": null,
+   "sessions": 3,
+   "typed": 0
+  },
+  {
+   "skill": "helicon",
+   "calls": 2,
+   "public_repo": null,
+   "sessions": 2,
+   "typed": 0
+  },
+  {
+   "skill": "apple-design",
+   "calls": 4,
+   "public_repo": "emilkowalski/skills",
+   "sessions": 1,
+   "typed": 0
+  },
+  {
+   "skill": "skill-creator",
+   "calls": 1,
+   "public_repo": "anthropics/skills",
+   "sessions": 1,
+   "typed": 0
+  },
+  {
+   "skill": "review-animations",
+   "calls": 0,
+   "public_repo": "emilkowalski/skills",
+   "sessions": 0,
+   "typed": 0
+  }
+ ]
+}

@@ -6,7 +6,11 @@ FILES=['lime_task_eval.py','lime_agent_eval.py','lime_eval_setup.py','lime_human
 if (ROOT/'evidence/public-native-evaluation.json').exists():FILES.append('evidence/public-native-evaluation.json')
 FILES += ['CONTRIBUTING.md','docs/source-contributions.md','docs/eval-reproduction.md',
           'docs/usage-evidence.md','.github/PULL_REQUEST_TEMPLATE.md']
-FILES += ['site/research-picks.js','site/research-picks.json']
+FILES += ['site/company-groups.js','site/company-groups.css']
+FILES += ['weekly_sidebar.py','site/weekly-policy.json','evidence/weekly-install-observations.json','site/weekly-sidebar.js','site/weekly-sidebar.css']
+FILES += ['site/analytics.js','site/research-picks.js','site/research-picks.json','site/v3.css','site/oscar-picks.json','catalog_egg.py','assets/frontend-design-1/rickroll.jpg']
+FILES += ['migrations/20261031_direction_votes.sql','eval-example/demo-skill/SKILL.md']
+FILES += ['voting.py','x_poll.py','site/votes.js','site/votes.css','docs/voting.md','migrations/20261029_daily_votes.sql']
 def main():
     destination=ROOT/'data/release-source'/datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%SZ');destination.mkdir(parents=True,exist_ok=False)
     manifest=[]

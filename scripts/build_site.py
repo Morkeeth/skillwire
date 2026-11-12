@@ -2,7 +2,38 @@
 import json, shutil, re, sys, gzip, zipfile
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
-EVAL_KIT_FILES=('lime_task_eval.py','lime_agent_eval.py','lime_eval_setup.py','lime_human_review.py','EVAL-TOOLS.txt','LICENSE','eval-example/TASK.md','eval-example/grader.py','eval-example/bug/app.py','eval-example/good/app.py','eval-example/bad/app.py')
+EVAL_KIT_FILES=('lime_task_eval.py','lime_agent_eval.py','lime_eval_setup.py','lime_human_review.py','EVAL-TOOLS.txt','LICENSE','eval-example/TASK.md','eval-example/grader.py','eval-example/bug/app.py','eval-example/good/app.py','eval-example/bad/app.py','eval-example/demo-skill/SKILL.md')
+def build_catalog_assets(catalog, out):
+    """Produce every immutable detail asset referenced by the shipped document."""
+    import hashlib, re
+    cache=out/'catalog-cache';cache.mkdir(exist_ok=True)
+    def asset(kind, value):
+        raw=json.dumps(value,separators=(',',':'),ensure_ascii=False).encode()
+        name=kind+'-'+hashlib.sha256(raw).hexdigest()[:16]+'.json'
+        (cache/name).write_bytes(raw)
+        return 'catalog-cache/'+name
+    groups={}
+    for skill in catalog['skills']:groups.setdefault(skill['id'][0],[]).append(skill)
+    detail_shards={key:asset('detail',{'skills':rows}) for key,rows in groups.items()}
+    source_details={key:value for key,value in catalog.items() if key!='skills'}
+    index=dict(source_details)
+    index['sources']=[{key:source[key] for key in ('repo','revision') if key in source} for source in catalog['sources']]
+    index['source_count']=len(catalog['sources'])
+    index['source_details_url']=asset('sources',source_details)
+    index['detail_shards']=detail_shards
+    keys=('id','name','problem','category','models','repo','path','revision','sha256','source','stars','installs','installs_display','eval','native_eval','local_bundle','marketplace_rank','root_licence_text_available','license')
+    index['skills']=[]
+    for skill in catalog['skills']:
+        summary={key:skill[key] for key in keys if key in skill}
+        summary['target_models']={'families':skill.get('target_models',{}).get('families',[])}
+        summary['detail_bucket']=skill['id'][0]
+        index['skills'].append(summary)
+    entry=asset('index',index)
+    page=(out/'index.html').read_text()
+    page=re.sub(r'\sdata-catalog-index="[^"]*"','',page)
+    page=page.replace('<html','<html data-catalog-index="'+entry+'"',1)
+    (out/'index.html').write_text(page)
+
 def build_eval_kit(root,out):
     # These controls are required by the documented clean-extraction example.
     # Never publish a kit that silently loses them at the hosting upload boundary.
@@ -26,17 +57,23 @@ def main():
     for s in catalog['skills']:
         assert s['id'] not in ids;ids.add(s['id'])
         assert s['category'] in catalog['taxonomy'] and s['problem'] and s['models']
-        assert s['source'].startswith('https://github.com/') and len(s['revision'])==40
+        assert (s['source'].startswith('https://github.com/') or s.get('local_bundle')) and len(s['revision'])==40
         assert (s['eval']['status']=='Not tested' and s['eval']['n']==0) or (s['eval']['status']=='Measured task outcomes' and s['eval']['skill_sha256']==s['sha256'])
-    runtime_keys=['id','name','repo','path','source','revision','sha256','license','folder_files']
+    runtime_keys=['id','name','repo','path','source','revision','sha256','license','folder_files','local_bundle']
     runtime={'skills':[{k:s[k] for k in runtime_keys if k in s} for s in catalog['skills']],'sources':[{k:s[k] for k in ['repo','revision','archive_sha256'] if k in s} for s in catalog['sources']]}
     (ROOT/'evidence/runtime-catalog.json.gz').write_bytes(gzip.compress(json.dumps(runtime,separators=(',',':')).encode(),mtime=0))
     out=ROOT/'dist';out.mkdir(exist_ok=True)
+    from catalog_egg import files, FOLDER
+    payload=out/'assets'/FOLDER;payload.mkdir(parents=True,exist_ok=True)
+    for name,raw in files().items():(payload/name).write_bytes(raw)
     old_style=out/'style.css'
     if old_style.exists():old_style.unlink()
-    for n in ('index.html','finder-base.css','finder.css','app.js','paired-inspector.js','installed-skills.js','adjacent.json','human-review.html','human-review.js','research-picks.js','research-picks.json'):shutil.copyfile(ROOT/'site'/n,out/n)
+    for n in ('index.html','analytics.js','finder-base.css','finder.css','app.js','company-groups.css','company-groups.js','paired-inspector.js','installed-skills.js','adjacent.json','human-review.html','human-review.js','research-picks.js','research-picks.json','votes.js','votes.css','v3.css','oscar-picks.json','weekly-sidebar.js','weekly-sidebar.css'):shutil.copyfile(ROOT/'site'/n,out/n)
     shutil.copyfile(ROOT/'web/favicon.svg',out/'favicon.svg')
     (out/'catalog.json').write_text(json.dumps(catalog,separators=(',',':')))
+    build_catalog_assets(catalog,out)
+    from weekly_sidebar import build_for_site
+    build_for_site(ROOT,catalog,out)
     if (ROOT/'evidence/public-evaluation-results.json').exists():
         shutil.copyfile(ROOT/'evidence/public-evaluation-results.json',out/'evaluations.json')
         correction=json.loads((ROOT/'evidence/judge-correction.json').read_text());correction.pop('corrected_grades',None)

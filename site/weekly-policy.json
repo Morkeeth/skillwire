@@ -1,0 +1,5 @@
+{
+  "issue_date": "2026-11-10",
+  "growth_rule": "Same provider, metric and skill identity; observations seven days apart; latest no more than seven days old. Never infer dates from build folders.",
+  "feature_rule": "Highest dated 30-day host session count among catalog-linked working-set picks, catalog ID tie-break. Retain local/public version relation. Counts must be at most 14 days old on the issue date; exclude future counts. No vote or model preference."
+}
