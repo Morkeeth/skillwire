@@ -12,7 +12,14 @@ from pathlib import Path
 import tempfile
 from threading import Thread
 
-from playwright.sync_api import sync_playwright
+import unittest
+
+try:
+    from playwright.sync_api import sync_playwright
+except ImportError:  # CI has no browser; this is a local QA check.
+    raise unittest.SkipTest('Python Playwright is not installed')
+if 'SKILLWIRE_QA_OUT' not in os.environ:
+    raise unittest.SkipTest('SKILLWIRE_QA_OUT is not set')
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = Path(os.environ['SKILLWIRE_QA_OUT'])
