@@ -40,7 +40,9 @@ a:focus-visible{outline:2px solid var(--lime-deep);outline-offset:1px}
   .tabs a{flex:1;padding:10px 3px;text-align:center;font-size:12px}
   main{padding:14px 10px 8px}
   h1{font-size:25px}
-  .chart li{grid-template-columns:22px minmax(0,1fr) 92px;gap:7px}
-  .chart li .spark{display:none}
+  .chart li{grid-template-columns:22px minmax(0,1fr) 58px 64px;gap:6px}
+  .chart li .spark{width:58px;height:24px}
+  .num b{font-size:15px}
+  .who a,.who strong{overflow-wrap:anywhere;white-space:normal}
   .chart li.pick{grid-template-columns:22px minmax(0,1fr) 62px}
 }

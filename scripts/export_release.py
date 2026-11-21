@@ -8,7 +8,7 @@ FILES += ['CONTRIBUTING.md','docs/source-contributions.md','docs/eval-reproducti
           'docs/usage-evidence.md','.github/PULL_REQUEST_TEMPLATE.md']
 FILES += ['site/company-groups.js','site/company-groups.css']
 FILES += ['weekly_sidebar.py','site/weekly-policy.json','evidence/weekly-install-observations.json','site/weekly-sidebar.js','site/weekly-sidebar.css']
-FILES += ['skill_charts.py','scripts/snapshot_skills.py','evidence/skills-sh-latest.json','site/curated-notes.json','site/charts.css','site/search-link.js']
+FILES += ['skill_charts.py','scripts/snapshot_skills.py','evidence/skills-sh-latest.json','site/curated-notes.json','site/charts.css']
 FILES += ['site/analytics.js','site/research-picks.js','site/research-picks.json','site/v3.css','site/oscar-picks.json','catalog_egg.py','assets/frontend-design-1/rickroll.jpg']
 FILES += ['migrations/20261031_direction_votes.sql','eval-example/demo-skill/SKILL.md']
 FILES += ['voting.py','x_poll.py','site/votes.js','site/votes.css','docs/voting.md','migrations/20261029_daily_votes.sql']

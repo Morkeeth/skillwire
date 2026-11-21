@@ -155,7 +155,7 @@ def _listing(row):
 def _hot_rows(rows):
     items = []
     for rank, row in enumerate(rows, 1):
-        change = 'new this week' if row['is_new'] else f'+{row["pct"]}% on last week'
+        change = 'new' if row['is_new'] else f'+{row["pct"]}%'
         items.append(
             f'<li><span class="rank">{rank}</span><span class="who"><a href="{_listing(row)}">{escape(row["name"])}</a>'
             f'<small>{escape(row["source"])}</small></span>{_spark(row["weeks"])}'
@@ -175,7 +175,7 @@ def _curated_rows(rows):
     items = []
     for rank, row in enumerate(rows, 1):
         name = escape(row['name'])
-        title = f'<a href="/search?q={escape(row["name"], True)}">{name}</a>' if row.get('catalog_id') else f'<strong>{name}</strong>'
+        title = f'<a href="/search#{escape(row["catalog_id"], True)}">{name}</a>' if row.get('catalog_id') else f'<strong>{name}</strong>'
         items.append(
             f'<li class="pick"><span class="rank">{rank}</span><span class="who">{title}<small>{escape(row["why"])}</small></span>'
             f'<span class="num"><b>{row["uses"]}</b><small>sessions</small></span></li>')
@@ -188,7 +188,7 @@ def render(page, data):
     copies = f' {hidden} copied listings are hidden.' if hidden else ''
     if page == 'hot':
         heading, intro, items = 'Hot this week', (
-            f'Most new installs in the latest week on skills.sh, read {as_of}. '
+            f'Most new installs in the latest week on skills.sh, compared with the week before, read {as_of}. '
             f'Each repo gets three places at most.{copies}'), _hot_rows(data['hot'])
         empty = 'No weekly numbers right now. The last reading could not be used.'
     elif page == 'all-time':
@@ -198,7 +198,7 @@ def render(page, data):
         empty = 'No install totals right now. The last reading could not be used.'
     else:
         heading, intro, items = 'Curated', (
-            'The skills Oscar keeps coming back to, ordered by how often he ran them in the 30 days to 8 Nov 2026.'
+            'The skills Oscar keeps coming back to, ordered by sessions in the 30 days to 8 Nov 2026.'
         ), _curated_rows(data['curated'])
         empty = 'No picks yet.'
     tabs = ''.join(

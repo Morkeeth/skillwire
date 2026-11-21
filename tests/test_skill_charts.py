@@ -144,6 +144,14 @@ class Render(unittest.TestCase):
         html = charts.render('hot', {**self.DATA, 'hot': charts.hot([bad])})
         self.assertNotIn('<img src=x>', html)
 
+    def test_curated_link_opens_the_exact_catalog_skill(self):
+        self.assertIn('href="/search#abc"', charts.render('curated', self.DATA))
+
+    def test_growth_label_is_short_enough_for_a_phone_row(self):
+        html = charts.render('hot', self.DATA)
+        self.assertIn('<small>+200%</small>', html)
+        self.assertIn('<small>new</small>', html)
+
     def test_page_shows_source_and_date(self):
         html = charts.render('hot', self.DATA)
         self.assertIn('skills.sh', html)
