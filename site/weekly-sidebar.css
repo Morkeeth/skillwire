@@ -14,3 +14,4 @@
 #weekly-sidebar summary{cursor:pointer;text-decoration:underline}
 #weekly-sidebar>[role=status]:empty{display:none}
 @media(max-width:740px){#weekly-sidebar .weekly-skill{min-height:30px}#weekly-sidebar .weekly-item{padding:8px}}
+#weekly-sidebar .weekly-item>a{color:var(--lime-deep);font-weight:bold}

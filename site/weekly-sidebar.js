@@ -48,7 +48,9 @@
         if (!g.rows.length) growth.append(node('p', 'No positive change among matched entries.'));
         growth.append(node('p', g.reason + ' ' + g.matched_entries + ' matched entries; ' + g.decreased_counters_excluded + ' decreased counters excluded.', 'weekly-note'));
       } else {
-        growth.append(node('p', 'Unavailable', 'weekly-unavailable'), node('p', g.reason, 'weekly-note'));
+        const hot = node('a', 'See Hot this week');
+        hot.href = '/hot';
+        growth.append(hot);
       }
       const feature = node('section', undefined, 'weekly-item');
       feature.append(node('h3', 'Skill of the week'));

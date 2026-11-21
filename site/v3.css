@@ -139,3 +139,4 @@ footer{display:flex!important;justify-content:space-between;padding:3px 8px!impo
 
 .oscar-pick .pick-facts{grid-column:1/-1;color:var(--ink,#1d2a36);font-size:10px;font-variant-numeric:tabular-nums}
 .pick-asof{display:block;padding:4px 8px;color:var(--mute);font-size:10px}
+@media(max-width:640px){.top-tabs{flex-wrap:wrap!important;overflow:visible!important}}

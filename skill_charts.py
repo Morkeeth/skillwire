@@ -159,7 +159,8 @@ def _hot_rows(rows):
         items.append(
             f'<li><span class="rank">{rank}</span><span class="who"><a href="{_listing(row)}">{escape(row["name"])}</a>'
             f'<small>{escape(row["source"])}</small></span>{_spark(row["weeks"])}'
-            f'<span class="num"><b>+{_count(row["gain"])}</b><small>{change}</small></span></li>')
+            f'<span class="num"><b>+{_count(row["gain"])}</b><small>{_count(row["latest"])} this week</small>'
+            f'<small class="pct">{change}</small></span></li>')
     return items
 
 
@@ -188,7 +189,7 @@ def render(page, data):
     copies = f' {hidden} copied listings are hidden.' if hidden else ''
     if page == 'hot':
         heading, intro, items = 'Hot this week', (
-            f'Most new installs in the latest week on skills.sh, compared with the week before, read {as_of}. '
+            f'Biggest jump in weekly installs on skills.sh, latest week against the week before, read {as_of}. '
             f'Each repo gets three places at most.{copies}'), _hot_rows(data['hot'])
         empty = 'No weekly numbers right now. The last reading could not be used.'
     elif page == 'all-time':
@@ -207,7 +208,7 @@ def render(page, data):
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{heading} · SkillWire</title><meta name="referrer" content="strict-origin">
-<link rel="icon" href="/favicon.svg"><link rel="stylesheet" href="/charts.css"><script defer src="/analytics.js"></script></head>
+<link rel="icon" href="/favicon.svg"><link rel="stylesheet" href="/charts.css"><script defer src="/analytics.js"></script><script src="/skill-link.js"></script></head>
 <body><div class="window"><header class="bar"><img src="/favicon.svg" alt=""><strong>SkillWire</strong><a class="find" href="/search">Search all skills</a></header>
 <nav class="tabs" aria-label="Charts">{tabs}</nav>
 <main><h1>{heading}</h1><p class="intro">{intro}</p>{body}</main>

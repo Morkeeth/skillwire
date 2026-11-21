@@ -147,10 +147,16 @@ class Render(unittest.TestCase):
     def test_curated_link_opens_the_exact_catalog_skill(self):
         self.assertIn('href="/search#abc"', charts.render('curated', self.DATA))
 
-    def test_growth_label_is_short_enough_for_a_phone_row(self):
+    def test_hot_row_separates_the_jump_from_the_weeks_installs(self):
         html = charts.render('hot', self.DATA)
-        self.assertIn('<small>+200%</small>', html)
-        self.assertIn('<small>new</small>', html)
+        self.assertIn('<b>+2K</b><small>3K this week</small><small class="pct">+200%</small>', html)
+        self.assertIn('<b>+900</b><small>900 this week</small><small class="pct">new</small>', html)
+        self.assertIn('Biggest jump in weekly installs', html)
+        self.assertNotIn('Most new installs', html)
+
+    def test_chart_pages_forward_old_skill_links(self):
+        for page in ('hot', 'all-time', 'curated'):
+            self.assertIn('src="/skill-link.js"', charts.render(page, self.DATA))
 
     def test_page_shows_source_and_date(self):
         html = charts.render('hot', self.DATA)
