@@ -1,0 +1,46 @@
+/* Chart pages in the SkillWire v3 language: chrome, lime title bar, one dense list. */
+:root{--chrome:#e4e2d8;--chrome-hi:#f6f5ef;--chrome-lo:#b9b6a8;--ink:#1d1f1a;--mute:#62645a;--lime:#4fa82a;--lime-deep:#2c6e14;--row-alt:#f3f6ee}
+*{box-sizing:border-box}
+html,body{margin:0;background:#c9c6b8;color:var(--ink);font:13px/1.4 Tahoma,Verdana,sans-serif}
+body{padding:14px}
+.window{max-width:980px;margin:0 auto;background:var(--chrome);border:1px solid #77756a;box-shadow:1px 1px 0 #fff inset}
+.bar{display:flex;align-items:center;gap:8px;padding:6px 10px;background:linear-gradient(#5db534,#3d8c1d);color:#fff}
+.bar img{width:16px;height:16px}
+.bar .find{margin-left:auto;color:#fff;font-size:12px}
+.tabs{display:flex;gap:2px;padding:6px 8px 0;border-bottom:1px solid var(--chrome-lo)}
+.tabs a{padding:7px 14px;color:var(--ink);text-decoration:none;border:1px solid transparent;border-bottom:0}
+.tabs a:hover{background:var(--chrome-hi)}
+.tabs a[aria-current=page]{margin-bottom:-1px;background:#fff;border-color:var(--chrome-lo);font-weight:bold}
+main{padding:18px 16px 12px;background:#fff}
+h1{margin:0;font-size:30px;line-height:1.1;letter-spacing:-.5px}
+.intro{max-width:64ch;margin:6px 0 14px;color:var(--mute)}
+.chart{margin:0;padding:0;list-style:none;border-top:1px solid var(--chrome-lo)}
+.chart li{display:grid;grid-template-columns:30px minmax(0,1fr) 92px 118px;align-items:center;gap:10px;min-height:48px;padding:6px;border-bottom:1px solid #e8e6dc}
+.chart li:nth-child(even){background:var(--row-alt)}
+.chart li.pick{grid-template-columns:30px minmax(0,1fr) 84px}
+.rank{color:var(--mute);text-align:right;font-variant-numeric:tabular-nums}
+.who{min-width:0}
+.who a,.who strong{display:block;overflow:hidden;color:var(--ink);font-size:14px;font-weight:bold;text-overflow:ellipsis;white-space:nowrap}
+.who a:hover{color:var(--lime-deep)}
+small{display:block;color:var(--mute);font-size:11px}
+.who small{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pick .who small{font-size:12px;white-space:normal}
+.spark{width:88px;height:28px}
+.spark polyline{fill:none;stroke:var(--lime);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.num{text-align:right;font-variant-numeric:tabular-nums}
+.num b{display:block;color:var(--lime-deep);font-size:17px}
+.empty{padding:24px 6px;color:var(--mute)}
+footer{padding:10px 16px;color:var(--mute);font-size:11px}
+footer a{color:inherit}
+a:focus-visible{outline:2px solid var(--lime-deep);outline-offset:1px}
+@media (max-width:640px){
+  body{padding:0}
+  .window{border:0}
+  .tabs{padding:6px 4px 0}
+  .tabs a{flex:1;padding:10px 3px;text-align:center;font-size:12px}
+  main{padding:14px 10px 8px}
+  h1{font-size:25px}
+  .chart li{grid-template-columns:22px minmax(0,1fr) 92px;gap:7px}
+  .chart li .spark{display:none}
+  .chart li.pick{grid-template-columns:22px minmax(0,1fr) 62px}
+}

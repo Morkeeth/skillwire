@@ -1,0 +1,15 @@
+{
+  "status": "draft notes for Oscar to edit",
+  "notes": {
+    "design-taste": "Stops every app from landing in the same default look.",
+    "writing": "Takes the machine voice out before anyone reads it.",
+    "frame": "Turns my messy one-liner into a task an agent can check.",
+    "plan": "Cuts a big build into steps I can verify.",
+    "stranger": "Shows me what breaks for someone without my setup.",
+    "animate": "Asks if a thing should move before it moves.",
+    "emil-design-eng": "The small details that make an interface feel right.",
+    "eyes": "Gets other models to disagree with me before I commit.",
+    "workshop": "One stuck decision at a time, until it is decided.",
+    "grilling": "Finds the weak assumption before I build on it."
+  }
+}

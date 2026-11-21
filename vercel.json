@@ -30,6 +30,22 @@
   },
   "rewrites": [
     {
+      "source": "/hot",
+      "destination": "/hot.html"
+    },
+    {
+      "source": "/all-time",
+      "destination": "/all-time.html"
+    },
+    {
+      "source": "/curated",
+      "destination": "/curated.html"
+    },
+    {
+      "source": "/search",
+      "destination": "/index.html"
+    },
+    {
       "source": "/api/:path*",
       "destination": "/api/index.py?route=:path*"
     }
@@ -38,6 +54,13 @@
     {
       "path": "/api/vote-maintenance",
       "schedule": "17 6 * * *"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/hot",
+      "permanent": false
     }
   ]
 }
