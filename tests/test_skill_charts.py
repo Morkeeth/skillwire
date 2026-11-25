@@ -164,10 +164,6 @@ class Render(unittest.TestCase):
         self.assertIn('21 Nov 2026', html)
 
 
-if __name__ == '__main__':
-    unittest.main()
-
-
 class EvidenceRowTests(unittest.TestCase):
     ROW = {'name': 'rise', 'source': 'Acme/Kit', 'skill_id': 'rise', 'installs': 9000,
            'weeks': [1, 2, 3, 4, 5, 1417, 18397, 25083], 'gain': 6686, 'latest': 25083, 'is_new': False, 'pct': 36}
@@ -198,3 +194,21 @@ class EvidenceRowTests(unittest.TestCase):
         evidence = {'acme/kit/rise': {'eval': self.EVIDENCE['acme/kit/rise']['eval']}}
         html = charts.render('hot', {'as_of': '2026-11-25', 'hot': [self.ROW], 'evidence': evidence})
         self.assertIn('Adoption signal</b> None recorded.', html)
+
+
+class Listing(unittest.TestCase):
+    """skills.sh serves skills published from a website (not a GitHub repo) under /site/.
+    Seen live 25 Nov 2026: https://skills.sh/proseify.xyz/anti-prose-slop returned 404,
+    https://skills.sh/site/proseify.xyz/anti-prose-slop returned 200."""
+
+    def test_github_source_links_to_owner_repo_skill(self):
+        self.assertEqual(charts._listing({'source': 'alice/tools', 'skill_id': 'rise'}),
+                         'https://skills.sh/alice/tools/rise')
+
+    def test_website_source_links_under_site(self):
+        self.assertEqual(charts._listing({'source': 'proseify.xyz', 'skill_id': 'anti-prose-slop'}),
+                         'https://skills.sh/site/proseify.xyz/anti-prose-slop')
+
+
+if __name__ == '__main__':
+    unittest.main()

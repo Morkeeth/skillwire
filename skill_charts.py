@@ -150,7 +150,9 @@ def _spark(weeks):
 
 
 def _listing(row):
-    return f'https://skills.sh/{escape(row["source"], True)}/{escape(row["skill_id"], True)}'
+    # skills.sh lists website-published skills (source is a domain, no owner/repo) under /site/.
+    site = '' if '/' in row['source'] else 'site/'
+    return f'https://skills.sh/{site}{escape(row["source"], True)}/{escape(row["skill_id"], True)}'
 
 
 def _evidence(row, evidence):
