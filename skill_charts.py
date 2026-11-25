@@ -166,14 +166,15 @@ def _evidence(row, evidence):
              f'{escape(test["difference"])} Limits: {escape(test["limits"])} '
              f'<a href="{escape(test["evidence"], True)}">Evidence</a></p>']
     if seen:
-        stars = ', '.join(f'{_day(day)} {count:,}' for day, count in sorted(seen.get('repo_stars', {}).items()))
         parts.append(f'<p><b>Adoption signal, {escape(seen["source"])}, read {_day(seen["read_on"])}</b> '
-                     f'{escape(seen["summary"])} {escape(seen["detail"])}'
-                     f'{f" Repo stars on GitHub: {stars}." if stars else ""} '
+                     f'{escape(seen["summary"])} {escape(seen["detail"])} '
                      f'<a href="{escape(seen["source_url"], True)}">Pinned source</a></p>')
     else:
         parts.append('<p><b>Adoption signal</b> None recorded.</p>')
-    return (f'<details class="ev"><summary>Tested: {escape(test["status"])}</summary>{"".join(parts)}</details>')
+    stars = ', '.join(f'{_day(day)} {count:,}' for day, count in sorted(entry.get('repo_stars', {}).items()))
+    if stars:
+        parts.append(f'<p><b>Repo stars, GitHub, from SkillWire daily readings</b> {stars}.</p>')
+    return (f'<details class="ev"><summary>{escape(test["label"])}</summary>{"".join(parts)}</details>')
 
 
 def _hot_rows(rows, evidence=None):

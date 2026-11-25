@@ -172,11 +172,12 @@ class EvidenceRowTests(unittest.TestCase):
     ROW = {'name': 'rise', 'source': 'Acme/Kit', 'skill_id': 'rise', 'installs': 9000,
            'weeks': [1, 2, 3, 4, 5, 1417, 18397, 25083], 'gain': 6686, 'latest': 25083, 'is_new': False, 'pct': 36}
     EVIDENCE = {'acme/kit/rise': {
-        'eval': {'status': 'tie', 'run_on': '2026-11-22', 'summary': 'Tie on one task.', 'what_was_tested': 'Guidance text.',
+        'eval': {'status': 'tie', 'label': 'Skill not tested. Guidance text: tie', 'run_on': '2026-11-22', 'summary': 'Tie on one task.', 'what_was_tested': 'Guidance text.',
                  'task': 'A dialog.', 'method': 'Blind A and B.', 'difference': 'Different code.', 'limits': 'One task.',
                  'evidence': 'https://example.com/e'},
         'adoption': {'source': 'MAGNET watch', 'read_on': '2026-11-25', 'summary': 'Pinned.', 'detail': 'Stale feed.',
-                     'source_url': 'https://example.com/s', 'repo_stars': {'2026-11-21': 10, '2026-11-25': 12}}}}
+                     'source_url': 'https://example.com/s'},
+        'repo_stars': {'2026-11-21': 10, '2026-11-25': 12}}}
 
     def test_row_without_evidence_reads_not_tested(self):
         html = charts.render('hot', {'as_of': '2026-11-25', 'hot': [self.ROW], 'evidence': {}})
@@ -188,7 +189,8 @@ class EvidenceRowTests(unittest.TestCase):
         effect, adoption = html.index('Measured effect, run 22 Nov 2026'), html.index('Adoption signal, MAGNET watch, read 25 Nov 2026')
         self.assertLess(effect, adoption)
         self.assertIn('Weekly installs 1,417 to 18,397 to 25,083.', html)
-        self.assertIn('Tested: tie', html)
+        self.assertIn('Skill not tested. Guidance text: tie', html)
+        self.assertLess(adoption, html.index('Repo stars, GitHub, from SkillWire daily readings'))
         self.assertNotIn('<script>', html)
         self.assertNotIn('style=', html)
 

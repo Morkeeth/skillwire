@@ -33,6 +33,10 @@ def newest_snapshot(history):
     raise ValueError(f'no snapshot with at least {MIN_ROWS} rows in {history}')
 
 
+def week_curves(rows):
+    return sorted((row['source'], row['skillId'], tuple(row['weeklyInstalls'])) for row in rows)
+
+
 def page_hashes(out):
     skill_charts.build_for_site(ROOT, out)
     return {key: hashlib.sha256((out / f'{key}.html').read_bytes()).hexdigest() for key, _ in skill_charts.PAGES}
@@ -55,7 +59,15 @@ def main():
     args = parser.parse_args()
     receipt = {'at': datetime.now(timezone.utc).isoformat(timespec='seconds'), 'ok': False}
     try:
+        fresh = subprocess.run([sys.executable, 'scripts/snapshot_skills.py', '--history', str(args.history)],
+                               cwd=ROOT, capture_output=True, text=True, timeout=300)
+        receipt['fresh_reading_ok'] = fresh.returncode == 0
         path, data = newest_snapshot(args.history)
+        previous_path = ROOT / skill_charts.SNAPSHOT
+        if previous_path.exists():
+            previous = json.loads(previous_path.read_text())
+            receipt['previous_read'] = previous['fetched_at'][:10]
+            receipt['week_rolled'] = week_curves(previous['rows']) != week_curves(data['rows'])
         latest = {'schema': data.get('schema', 1), 'source': data['source'], 'fetched_at': data['fetched_at'], 'rows': data['rows']}
         (ROOT / skill_charts.SNAPSHOT).write_text(json.dumps(latest, separators=(',', ':'), ensure_ascii=False))
         receipt.update(snapshot=path.name, local_read=data['fetched_at'][:10], rows=len(data['rows']))
@@ -92,7 +104,8 @@ def main():
     with args.receipts.open('a') as log:
         log.write(json.dumps(receipt) + '\n')
     print(json.dumps(receipt))
-    return 0 if receipt['ok'] and not receipt.get('live_stale') else 1
+    red = not receipt['ok'] or receipt.get('live_stale') or receipt.get('week_rolled') is False
+    return 1 if red else 0
 
 
 if __name__ == '__main__':

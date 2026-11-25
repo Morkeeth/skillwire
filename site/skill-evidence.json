@@ -10,17 +10,21 @@
         "what_was_tested": "Chrome's own dialog and light-dismiss guidance, given as text. The skill itself runs a command-line search and was not run.",
         "task": "Build a draft preview dialog that closes on Escape, a backdrop click or a Back button, and keeps the draft.",
         "method": "One answer without guidance, one with it, same model and settings. Answers were relabelled A and B before grading. Neither answer mentions the guidance.",
-        "difference": "The guided answer used native backdrop dismissal with a feature check. The plain answer wrote its own pointer listeners. Both behaved the same in the checks.",
+        "difference": "Both passed the same 8 checks. Two things differed: the guided answer put first focus on its Submission details region and the plain one on the Back button, and the guided answer used native backdrop dismissal with a feature check while the plain one wrote its own pointer listeners.",
         "limits": "One task, desktop Chrome only. The task text already listed the tricky cases, which favours a tie.",
-        "evidence": "https://github.com/Morkeeth/skillwire/tree/main/evidence/evals/modern-web-guidance-2026-11-22"
+        "evidence": "https://github.com/Morkeeth/skillwire/tree/main/evidence/evals/modern-web-guidance-2026-11-22",
+        "label": "Skill not tested. Guidance text: tie"
       },
       "adoption": {
         "source": "MAGNET watch",
         "read_on": "2026-11-25",
         "summary": "MAGNET pinned the skill at commit 2b4aa13 on 25 Nov. Its fit check against our own setup found no signal.",
         "detail": "Skill body opened in a real task: unknown, no task traces. The wider MAGNET feed was last refreshed 19 Oct and is stale.",
-        "source_url": "https://github.com/GoogleChrome/modern-web-guidance/blob/2b4aa13a72dd47cd135b06ce5abfccd92e19b24f/skills/modern-web-guidance/SKILL.md",
-        "repo_stars": {"2026-11-21": 24498, "2026-11-25": 25943}
+        "source_url": "https://github.com/GoogleChrome/modern-web-guidance/blob/2b4aa13a72dd47cd135b06ce5abfccd92e19b24f/skills/modern-web-guidance/SKILL.md"
+      },
+      "repo_stars": {
+        "2026-11-21": 24498,
+        "2026-11-25": 25943
       }
     }
   }
