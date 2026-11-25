@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head><script>delete HTMLDialogElement.prototype.closedBy;</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<title>Submit a project</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #f5f4ef;
+    --surface: #fff;
+    --text: #1d1f21;
+    --muted: #565b61;
+    --line: #767b82;
+    --soft-line: #d9d8d0;
+    --accent: #174ea6;
+    --accent-hover: #123d82;
+    --on-accent: #fff;
+    --focus: #b3261e;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b;
+      --surface: #212429;
+      --text: #f0f1f2;
+      --muted: #b6bbc2;
+      --line: #8b9199;
+      --soft-line: #3b4047;
+      --accent: #a8c7fa;
+      --accent-hover: #c5dafc;
+      --on-accent: #10223f;
+      --focus: #ffb4ab;
+    }
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scrollbar-gutter: stable; }
+  html:has(dialog[open]) { overflow: hidden; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 1rem/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  main {
+    width: min(100%, 40rem);
+    margin-inline: auto;
+    padding: clamp(1.25rem, 5vw, 3.5rem) clamp(1rem, 4vw, 2rem);
+  }
+  h1 {
+    margin: 0 0 .375rem;
+    font-size: clamp(1.625rem, 6vw, 2.25rem);
+    line-height: 1.15;
+  }
+  .lede { margin: 0 0 1.75rem; color: var(--muted); }
+  form { display: flex; flex-direction: column; gap: 1.25rem; }
+  .field { display: flex; flex-direction: column; gap: .375rem; min-width: 0; }
+  label { font-weight: 600; }
+  input, textarea {
+    width: 100%;
+    min-width: 0;
+    padding: .625rem .75rem;
+    border: 1px solid var(--line);
+    border-radius: .375rem;
+    background: var(--surface);
+    color: var(--text);
+    font: inherit;
+  }
+  input { min-height: 2.75rem; }
+  textarea { min-height: 9rem; resize: vertical; }
+  button {
+    min-height: 2.75rem;
+    padding: .5rem 1.125rem;
+    border: 1px solid var(--accent);
+    border-radius: .375rem;
+    background: var(--accent);
+    color: var(--on-accent);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  button:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+  :focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+  .actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: .75rem; }
+  .actions button { flex: 0 1 auto; }
+
+  dialog {
+    width: min(36rem, calc(100vw - 2rem));
+    max-width: none;
+    max-height: calc(100vh - 2rem);
+    max-height: calc(100dvh - 2rem);
+    margin: auto;
+    padding: 0;
+    overflow: auto;
+    border: 1px solid var(--soft-line);
+    border-radius: .625rem;
+    background: var(--surface);
+    color: var(--text);
+    box-shadow: 0 1rem 3rem rgb(0 0 0 / .35);
+  }
+  dialog[open] { display: flex; }
+  dialog::backdrop { background: rgb(15 17 20 / .6); }
+  .sheet {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 1rem;
+    min-width: 0;
+    padding: clamp(1rem, 4vw, 1.75rem);
+  }
+  .sheet:focus { outline: none; }
+  .sheet h2 { margin: 0; font-size: 1.375rem; line-height: 1.2; }
+  .note { margin: .25rem 0 0; color: var(--muted); font-size: .9375rem; }
+  .details {
+    flex: 1 1 auto;
+    min-height: 4rem;
+    overflow: auto;
+    overscroll-behavior: contain;
+    padding-block: 1rem;
+    border-block: 1px solid var(--soft-line);
+  }
+  dl { margin: 0; display: flex; flex-direction: column; gap: 1rem; }
+  dt { color: var(--muted); font-size: .875rem; font-weight: 600; }
+  dd { margin: .125rem 0 0; overflow-wrap: anywhere; white-space: pre-wrap; }
+  dd.empty { color: var(--muted); font-style: italic; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Submit a project</h1>
+  <p class="lede">Draft your submission, then preview how it reads.</p>
+
+  <form id="draft" novalidate autocomplete="off">
+    <div class="field">
+      <label for="project-url">Project URL</label>
+      <input id="project-url" name="project-url" type="url" inputmode="url" autocomplete="off" autocapitalize="off" spellcheck="false">
+    </div>
+    <div class="field">
+      <label for="why">Why it matters</label>
+      <textarea id="why" name="why" rows="6" autocomplete="off"></textarea>
+    </div>
+    <div class="actions">
+      <button id="preview" type="submit">Preview submission</button>
+    </div>
+  </form>
+</main>
+
+<dialog id="preview-dialog" aria-labelledby="preview-title">
+  <div class="sheet" tabindex="-1">
+    <header>
+      <h2 id="preview-title">Submission preview</h2>
+      <p class="note">Nothing has been submitted.</p>
+    </header>
+    <div id="preview-details" class="details" role="region" aria-labelledby="preview-title">
+      <dl>
+        <div>
+          <dt>Project URL</dt>
+          <dd id="preview-url"></dd>
+        </div>
+        <div>
+          <dt>Why it matters</dt>
+          <dd id="preview-why"></dd>
+        </div>
+      </dl>
+    </div>
+    <div class="actions">
+      <button id="back" type="button">Back to draft</button>
+    </div>
+  </div>
+</dialog>
+
+<script>
+(function () {
+  'use strict';
+
+  var form = document.getElementById('draft');
+  var urlField = document.getElementById('project-url');
+  var whyField = document.getElementById('why');
+  var previewButton = document.getElementById('preview');
+  var dialog = document.getElementById('preview-dialog');
+  var details = document.getElementById('preview-details');
+  var previewUrl = document.getElementById('preview-url');
+  var previewWhy = document.getElementById('preview-why');
+  var backButton = document.getElementById('back');
+
+  var backdropPointerId = null;
+  var backdropPressCompleted = false;
+
+  function showValue(element, value) {
+    var hasValue = value.trim() !== '';
+    element.textContent = hasValue ? value : 'Not provided';
+    element.classList.toggle('empty', !hasValue);
+  }
+
+  function syncDetailsTabStop() {
+    if (details.scrollHeight > details.clientHeight) {
+      details.setAttribute('tabindex', '0');
+    } else {
+      details.removeAttribute('tabindex');
+      if (document.activeElement === details) backButton.focus();
+    }
+  }
+
+  function openPreview() {
+    if (dialog.open) return;
+    showValue(previewUrl, urlField.value);
+    showValue(previewWhy, whyField.value);
+    // The browser restores focus to whatever held it when showModal ran.
+    previewButton.focus({ preventScroll: true });
+    dialog.showModal();
+    details.scrollTop = 0;
+    syncDetailsTabStop();
+    backButton.focus();
+  }
+
+  function isOutsideDialog(event) {
+    var box = dialog.getBoundingClientRect();
+    return event.clientX < box.left || event.clientX >= box.right ||
+           event.clientY < box.top || event.clientY >= box.bottom;
+  }
+
+  function isOnBackdrop(event) {
+    return event.target === dialog && isOutsideDialog(event);
+  }
+
+  function resetBackdropPress() {
+    backdropPointerId = null;
+    backdropPressCompleted = false;
+  }
+
+  function trapTab(event) {
+    var stops = [details, backButton].filter(function (element) {
+      return element === backButton || element.hasAttribute('tabindex');
+    });
+    var index = stops.indexOf(document.activeElement);
+    var next;
+    event.preventDefault();
+    if (event.shiftKey) {
+      next = index <= 0 ? stops.length - 1 : index - 1;
+    } else {
+      next = index === -1 || index === stops.length - 1 ? 0 : index + 1;
+    }
+    stops[next].focus();
+  }
+
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    openPreview();
+  });
+
+  backButton.addEventListener('click', function () {
+    dialog.close();
+  });
+
+  dialog.addEventListener('close', function () {
+    resetBackdropPress();
+    if (!dialog.open) previewButton.focus();
+  });
+
+  document.addEventListener('keydown', function (event) {
+    if (!dialog.open) {
+      // A held Enter must not reopen the preview, but still adds textarea lines.
+      if (event.key === 'Enter' && event.repeat &&
+          form.contains(event.target) && event.target !== whyField) {
+        event.preventDefault();
+      }
+      return;
+    }
+    if (event.repeat && (event.key === 'Enter' || event.key === ' ')) {
+      event.preventDefault();
+      return;
+    }
+    if (event.key === 'Tab') trapTab(event);
+  }, true);
+
+  // Backdrop dismissal is handled here so it does not rely on native support.
+  window.addEventListener('pointerdown', function (event) {
+    resetBackdropPress();
+    if (dialog.open && event.isPrimary && event.button === 0 && !event.ctrlKey && isOnBackdrop(event)) {
+      backdropPointerId = event.pointerId;
+    }
+  }, true);
+
+  window.addEventListener('pointermove', function (event) {
+    if (event.pointerId === backdropPointerId && !isOutsideDialog(event)) {
+      backdropPointerId = null;
+    }
+  }, true);
+
+  window.addEventListener('pointerup', function (event) {
+    if (event.pointerId !== backdropPointerId) return;
+    backdropPointerId = null;
+    backdropPressCompleted = isOnBackdrop(event);
+  }, true);
+
+  window.addEventListener('pointercancel', resetBackdropPress, true);
+
+  // Keeps focus inside the dialog when the press lands on the backdrop.
+  dialog.addEventListener('mousedown', function (event) {
+    if (event.target === dialog) event.preventDefault();
+  });
+
+  dialog.addEventListener('click', function (event) {
+    var shouldClose = backdropPressCompleted && isOnBackdrop(event);
+    backdropPressCompleted = false;
+    if (shouldClose) dialog.close();
+  });
+
+  window.addEventListener('resize', function () {
+    if (dialog.open) syncDetailsTabStop();
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+{
+  "A": {
+    "draft_displayed": true,
+    "initial_focus": "Back to draft",
+    "first_tab": "Back to draft",
+    "escape_returns_to_editor": true,
+    "padding_keeps_modal_open": true,
+    "inside_to_outside_drag_keeps_modal_open": true,
+    "backdrop_dismisses": true,
+    "retains_both_fields": true,
+    "restores_focus": true,
+    "same_pointer_results_without_native_light_dismiss": true
+  },
+  "B": {
+    "draft_displayed": true,
+    "initial_focus": "Submission details",
+    "first_tab": "Back to draft",
+    "escape_returns_to_editor": true,
+    "padding_keeps_modal_open": true,
+    "inside_to_outside_drag_keeps_modal_open": true,
+    "backdrop_dismisses": true,
+    "retains_both_fields": true,
+    "restores_focus": true,
+    "back_button_returns_to_editor": true,
+    "same_pointer_results_without_native_light_dismiss": true
+  }
+}

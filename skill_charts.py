@@ -21,6 +21,7 @@ NEVER_CURATED = {'job-hunt'}
 SNAPSHOT = 'evidence/skills-sh-latest.json'
 NOTES = 'site/curated-notes.json'
 PICKS = 'site/oscar-picks.json'
+EVIDENCE = 'site/skill-evidence.json'
 PAGES = (('hot', 'Hot this week'), ('all-time', 'All-time high'), ('curated', 'Curated'))
 
 
@@ -152,13 +153,37 @@ def _listing(row):
     return f'https://skills.sh/{escape(row["source"], True)}/{escape(row["skill_id"], True)}'
 
 
-def _hot_rows(rows):
+def _evidence(row, evidence):
+    """Measured effect and adoption signal, shown apart. No entry reads Not tested."""
+    entry = evidence.get(f'{row["source"]}/{row["skill_id"]}'.casefold()) or {}
+    test, seen = entry.get('eval'), entry.get('adoption')
+    if not test:
+        return '<small class="ev none">Not tested</small>'
+    weeks = ' to '.join(f'{value:,}' for value in row['weeks'][-3:])
+    parts = [f'<p><b>Why it rose</b> Weekly installs {weeks}.</p>',
+             f'<p><b>Measured effect, run {_day(test["run_on"])}</b> {escape(test["summary"])} '
+             f'{escape(test["what_was_tested"])} Task: {escape(test["task"])} {escape(test["method"])} '
+             f'{escape(test["difference"])} Limits: {escape(test["limits"])} '
+             f'<a href="{escape(test["evidence"], True)}">Evidence</a></p>']
+    if seen:
+        stars = ', '.join(f'{_day(day)} {count:,}' for day, count in sorted(seen.get('repo_stars', {}).items()))
+        parts.append(f'<p><b>Adoption signal, {escape(seen["source"])}, read {_day(seen["read_on"])}</b> '
+                     f'{escape(seen["summary"])} {escape(seen["detail"])}'
+                     f'{f" Repo stars on GitHub: {stars}." if stars else ""} '
+                     f'<a href="{escape(seen["source_url"], True)}">Pinned source</a></p>')
+    else:
+        parts.append('<p><b>Adoption signal</b> None recorded.</p>')
+    return (f'<details class="ev"><summary>Tested: {escape(test["status"])}</summary>{"".join(parts)}</details>')
+
+
+def _hot_rows(rows, evidence=None):
     items = []
+    evidence = {key.casefold(): value for key, value in (evidence or {}).items()}
     for rank, row in enumerate(rows, 1):
         change = 'new' if row['is_new'] else f'+{row["pct"]}%'
         items.append(
             f'<li><span class="rank">{rank}</span><span class="who"><a href="{_listing(row)}">{escape(row["name"])}</a>'
-            f'<small>{escape(row["source"])}</small></span>{_spark(row["weeks"])}'
+            f'<small>{escape(row["source"])}</small>{_evidence(row, evidence)}</span>{_spark(row["weeks"])}'
             f'<span class="num"><b>+{_count(row["gain"])}</b><small>{_count(row["latest"])} this week</small>'
             f'<small class="pct">{change}</small></span></li>')
     return items
@@ -190,7 +215,7 @@ def render(page, data):
     if page == 'hot':
         heading, intro, items = 'Hot this week', (
             f'Biggest jump in weekly installs on skills.sh, latest week against the week before, read {as_of}. '
-            f'Each repo gets three places at most.{copies}'), _hot_rows(data['hot'])
+            f'Each repo gets three places at most.{copies}'), _hot_rows(data['hot'], data.get('evidence'))
         empty = 'No weekly numbers right now. The last reading could not be used.'
     elif page == 'all-time':
         heading, intro, items = 'All-time high', (
@@ -212,7 +237,7 @@ def render(page, data):
 <body><div class="window"><header class="bar"><img src="/favicon.svg" alt=""><strong>SkillWire</strong><a class="find" href="/search">Search all skills</a></header>
 <nav class="tabs" aria-label="Charts">{tabs}</nav>
 <main><h1>{heading}</h1><p class="intro">{intro}</p>{body}</main>
-<footer>Installs are reported by <a href="https://skills.sh/">skills.sh</a>. They show what people download, and they do not show whether a skill helps.</footer>
+<footer>Installs are reported by <a href="https://skills.sh/">skills.sh</a>. They show what people download, and they do not show whether a skill helps. Tested rows link their evidence; every other row is untested.</footer>
 </div></body></html>
 '''
 
@@ -224,7 +249,8 @@ def build_for_site(root, out):
     rows = snapshot['rows']
     data = {'as_of': snapshot['fetched_at'], 'hidden_mirrors': len(mirrors(rows)), 'hot': hot(rows),
             'all_time': all_time(rows),
-            'curated': curated(json.loads((root / PICKS).read_text()), json.loads((root / NOTES).read_text())['notes'])}
+            'curated': curated(json.loads((root / PICKS).read_text()), json.loads((root / NOTES).read_text())['notes']),
+            'evidence': json.loads((root / EVIDENCE).read_text())['skills'] if (root / EVIDENCE).exists() else {}}
     for key, _ in PAGES:
         (out / f'{key}.html').write_text(render(key, data))
     return {key: len(data[name]) for key, name in (('hot', 'hot'), ('all-time', 'all_time'), ('curated', 'curated'))}

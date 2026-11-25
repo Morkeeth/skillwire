@@ -47,3 +47,9 @@ a:focus-visible{outline:2px solid var(--lime-deep);outline-offset:1px}
   .who a,.who strong{overflow-wrap:anywhere;white-space:normal}
   .chart li.pick{grid-template-columns:22px minmax(0,1fr) 62px}
 }
+.ev{display:block;margin-top:3px;font-size:11px;color:var(--mute)}
+.ev.none{font-style:normal}
+details.ev summary{cursor:pointer;color:var(--lime-deep);font-weight:600}
+details.ev p{margin:6px 0 0;line-height:1.45;white-space:normal}
+details.ev b{color:inherit;font-size:inherit;display:inline}
+.chart details.ev a{display:inline;font-size:inherit;font-weight:600}

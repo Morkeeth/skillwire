@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head><script>delete HTMLDialogElement.prototype.closedBy;</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Submit a project</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #f5f6f8;
+    --surface: #ffffff;
+    --text: #1a1d23;
+    --muted: #555c68;
+    --border: #767d8a;
+    --accent: #1f4fd1;
+    --on-accent: #ffffff;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.5;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14161a;
+      --surface: #1f2228;
+      --text: #eceef2;
+      --muted: #adb3bf;
+      --border: #878e9b;
+      --accent: #9db8ff;
+      --on-accent: #10131a;
+    }
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    padding: clamp(1rem, 5vw, 3rem) clamp(0.75rem, 4vw, 2rem);
+    background: var(--bg);
+    color: var(--text);
+  }
+  main {
+    width: 100%;
+    max-width: 40rem;
+    margin: 0 auto;
+    padding: clamp(1rem, 4vw, 2rem);
+    background: var(--surface);
+    border-radius: 0.75rem;
+  }
+  h1, h2 { margin: 0; line-height: 1.2; }
+  h1 { font-size: clamp(1.5rem, 5vw, 2rem); }
+  h2 { font-size: 1.375rem; }
+  .intro { margin: 0.5rem 0 1.5rem; color: var(--muted); }
+  form { display: flex; flex-direction: column; gap: 1.25rem; }
+  .field { display: flex; flex-direction: column; gap: 0.375rem; min-width: 0; }
+  label { font-weight: 600; }
+  input, textarea {
+    width: 100%;
+    min-width: 0;
+    padding: 0.625rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+  }
+  textarea { min-height: 9rem; resize: vertical; }
+  button {
+    min-height: 2.75rem;
+    padding: 0.5rem 1.125rem;
+    border: 1px solid var(--accent);
+    border-radius: 0.5rem;
+    background: var(--accent);
+    color: var(--on-accent);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .actions { display: flex; flex-wrap: wrap; justify-content: flex-end; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+  dialog {
+    width: min(34rem, calc(100vw - 1.5rem));
+    max-width: none;
+    max-height: calc(100vh - 1.5rem);
+    max-height: calc(100dvh - 1.5rem);
+    margin: auto;
+    padding: clamp(1rem, 4vw, 1.5rem);
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    background: var(--surface);
+    color: var(--text);
+  }
+  dialog[open] {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    overflow: auto;
+  }
+  dialog::backdrop { background: rgba(10, 12, 18, 0.6); }
+  .details {
+    flex: 1 1 auto;
+    min-height: 5rem;
+    overflow: auto;
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+  }
+  dl { margin: 0; display: flex; flex-direction: column; gap: 1rem; }
+  dt { font-size: 0.875rem; font-weight: 600; color: var(--muted); }
+  dd { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+  dd.empty { color: var(--muted); font-style: italic; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Submit a project</h1>
+  <p class="intro">Draft your submission, then preview how it will read.</p>
+
+  <form id="draft" novalidate autocomplete="off">
+    <div class="field">
+      <label for="project-url">Project URL</label>
+      <input id="project-url" name="project-url" type="url" inputmode="url"
+             spellcheck="false" autocapitalize="off">
+    </div>
+    <div class="field">
+      <label for="why">Why it matters</label>
+      <textarea id="why" name="why" rows="6"></textarea>
+    </div>
+    <div class="actions">
+      <button id="preview" type="submit">Preview submission</button>
+    </div>
+  </form>
+</main>
+
+<dialog id="preview-dialog" aria-labelledby="preview-title">
+  <h2 id="preview-title">Submission preview</h2>
+  <div id="preview-details" class="details" role="region" aria-label="Submission details" tabindex="0">
+    <dl>
+      <div>
+        <dt>Project URL</dt>
+        <dd id="preview-url"></dd>
+      </div>
+      <div>
+        <dt>Why it matters</dt>
+        <dd id="preview-why"></dd>
+      </div>
+    </dl>
+  </div>
+  <div class="actions">
+    <button id="back" type="button">Back to draft</button>
+  </div>
+</dialog>
+
+<script>
+{
+  const form = document.getElementById("draft");
+  const urlField = document.getElementById("project-url");
+  const whyField = document.getElementById("why");
+  const previewButton = document.getElementById("preview");
+  const dialog = document.getElementById("preview-dialog");
+  const details = document.getElementById("preview-details");
+  const backButton = document.getElementById("back");
+  const previewUrl = document.getElementById("preview-url");
+  const previewWhy = document.getElementById("preview-why");
+
+  const showValue = (target, value) => {
+    const isEmpty = value.trim() === "";
+    target.textContent = isEmpty ? "Not provided" : value;
+    target.classList.toggle("empty", isEmpty);
+  };
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (dialog.open) return;
+    showValue(previewUrl, urlField.value);
+    showValue(previewWhy, whyField.value);
+    dialog.showModal();
+    details.scrollTop = 0;
+    details.focus({ preventScroll: true });
+  });
+
+  backButton.addEventListener("click", () => dialog.close());
+
+  // Safari does not focus buttons on click, so restore focus explicitly.
+  dialog.addEventListener("close", () => previewButton.focus());
+
+  // Native modals can let Tab reach browser UI, so wrap it between the dialog's stops.
+  document.addEventListener("keydown", (event) => {
+    if (!dialog.open || event.key !== "Tab") return;
+    if (event.ctrlKey || event.altKey || event.metaKey) return;
+    event.preventDefault();
+    const stops = [details, backButton];
+    const current = stops.indexOf(document.activeElement);
+    const step = event.shiftKey ? -1 : 1;
+    const next = current === -1
+      ? (event.shiftKey ? stops.length - 1 : 0)
+      : (current + step + stops.length) % stops.length;
+    stops[next].focus();
+  });
+
+  if (!("closedBy" in HTMLDialogElement.prototype)) {
+    let pressId = null;
+    let dismissArmed = false;
+
+    const isOutside = ({ clientX: x, clientY: y }) => {
+      const box = dialog.getBoundingClientRect();
+      return x < box.left || x > box.right || y < box.top || y > box.bottom;
+    };
+    const reset = () => {
+      pressId = null;
+      dismissArmed = false;
+    };
+
+    dialog.addEventListener("pointerdown", (event) => {
+      dismissArmed = false;
+      if (!event.isPrimary) return;
+      pressId = event.button === 0 && isOutside(event) ? event.pointerId : null;
+    });
+    dialog.addEventListener("pointerup", (event) => {
+      if (!event.isPrimary) return;
+      dismissArmed = pressId === event.pointerId && isOutside(event);
+      pressId = null;
+    });
+    dialog.addEventListener("pointercancel", reset);
+    dialog.addEventListener("close", reset);
+
+    // Close on click, not pointerup, so a tap's click cannot land on the page beneath.
+    dialog.addEventListener("click", (event) => {
+      const shouldClose = dismissArmed && event.target === dialog && isOutside(event);
+      dismissArmed = false;
+      if (shouldClose) dialog.close();
+    });
+  }
+}
+</script>
+</body>
+</html>
